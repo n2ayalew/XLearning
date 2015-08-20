@@ -16,6 +16,13 @@
 // });
 
 Route::get('/', 'RegistarController@index');
-Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@index'); // class Page
+
+Route::controllers([
+	'auth' => 'Auth\AuthContoller',
+	'password' => 'Auth\PasswordContoller',
+
+]);
+
 
 
