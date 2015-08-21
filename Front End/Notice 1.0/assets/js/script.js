@@ -1,3 +1,36 @@
+//=====================SETTING VARIABLES/DOM ELEMENTS ==============================//
+var submitButton = $('#submitButton');
+var wall = $('#wall');
+var submitButton = $('#submitButton');
+var text;
+var counter = 0;
+
+
+//=====================POST CLASS==============================//
+function postClass() {
+  this.ID;
+  this.dateCreated = (new Date()).toDateString();
+  this.message = "Nothing";
+}
+
+//======================GENERATE ID============================//
+function generateID() {
+  return parseInt(counter++);
+}
+
+//======================ADD POST============================//
+function addPost(post) {
+  var message = post.message;
+  var date = post.dateCreated;
+  var Id = post.ID;
+  wall.append('<div id="'+ Id +'" class="post"><button class="deleteButton" onClick = "deletePost(' + Id + ')"></button><div class="date">'+ date +'</div><div id="message">' + message + '</div></div>');
+  $('#messageBox').val(''); // reset text area.
+}
+
+//======================DELETE POST============================//
+function deletePost(id) {
+  $('#'+id).slideUp();
+}
 //======================BUTTONHOVER============================//
 function buttonHover(element) {
   var button = $(element);
@@ -13,26 +46,24 @@ function buttonHover(element) {
     }
   );
 }
-//======================CREATE  POST============================//
-function  createPost(post, wall) {
-  var post = $(post);
-  var wall =$(wall);
-  wall.append(post);
-}
-//=====================SETTING VARIABLES/OBJECTS ==============================//
-var submitButton = $('#submitButton');
-var wall = $('#wall');
-var $post = $('#post');
-var submitButton = $('#submitButton');
-var test = $('#test');
+
+
 //============================SETTING INTERRACTIVE BUTTONS & RESPONSIVE LAYOUT=======================================//
 $(document).ready(
   function() {
     buttonHover(submitButton);
     submitButton.click(
       function() {
-       $('#wall').append('<div id="post"><button id="deleteButton"></button><div id="message">Lorem ipsum dolor sit am wefw ee  f wefwefet, consectetur adipiscing elitefwefwefwfwefw, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure </div><div id="divider"><img src="assets/img/divider_dots.svg" height="8px"></div></div>');
+        if(($('#messageBox').val()) != '') {
+          var post  = new postClass(); // creating temporary instance of postClass.
+          post.ID = generateID();
+          post.message = ($('#messageBox').val());
+          addPost(post);
+          //alert( temp.ID +": " + temp.message + ": "+ temp.dateCreated); // for debugging
+        }
       }
     );
   }
 );
+
+

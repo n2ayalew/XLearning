@@ -27,30 +27,32 @@ body {
 #noticeBoard {
 	position: relative;
 	overflow: auto;
-	left: 50%;
-	width: 25%;
-	height: 80vh;
+	left: 0%;
+	width: 30%;
+	height: 85vh;
 	background: #efefef;
+	border-radius: 5px;
 }
 #message {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	text-align: left;
 	font-family: Arial;
 	font-size: 12pt;
 	color: #2A2C31;
+
 }
-#deleteButton {
+.deleteButton {
 	background: url(../img/delete_button.svg) no-repeat;
 	background-size: 10px 10px;
 	width: 10px;
 	height: 10px;
 	border: 0px;
 	position: relative;
-	left: 50%;
-	top: 5px;
+	left: 47%;
+	top: 15px;
 }
-#deleteButton:hover {
+.deleteButton:hover {
 	background: url(../img/delete_button_pressed.svg) no-repeat;
 	background-size: 10px 10px;
 	width: 10px;
@@ -61,13 +63,14 @@ body {
 button {
 	outline: none;
 }
-textarea {
+#messageBox {
+	margin-top: 10px;
 	border: 0px;
-	border-radius: 3px;
+	border-radius: 5px;
 	font-family: arial;
 	resize: none;
 	color: #2A2C31;
-	width: 92%;
+	width: 90%;
 	height: auto;
 }
 textarea:focus {
@@ -75,19 +78,26 @@ textarea:focus {
 }
 #wall {
 	overflow: auto;
-	height: 70%;
-
+	height: 80%;	
 }
-#post {
+.post {
+	border-radius: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 5px;
 	padding-top: 0px;
 	margin-top: -5px;
+	margin-bottom: 10px;
+	margin-left: 4%;
+	margin-right: 4%;
+	width: 92%;
+	height: auto;
+	background: #fff;
+
 }
 #submitButton {
 	border: 0px;
-	border-radius: 10px;
+	border-radius: 5px;
 	background: #5EC8BE;
 	font-size: 12pt;
 	text-align: center;
