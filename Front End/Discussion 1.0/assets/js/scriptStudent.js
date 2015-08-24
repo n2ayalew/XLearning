@@ -113,7 +113,7 @@ function localDelete(id) {
 
       $('#'+id).remove();
       
-  },100);
+  },1000);
 }
 
 function globalDelete(user, id) {
