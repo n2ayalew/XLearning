@@ -16,7 +16,7 @@ class RegistarController extends Controller
      */
     public function index()
     {
-        return "Hello World";
+        return view("front_end/login1_1/login");
     }
 
     /**

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="assets/css/animate.css" rel="stylesheet" > 
+	    <link href="assets/css/styleStudent.css" rel="stylesheet">
+	    <link href="assets/css/styleTeacher.css" rel="stylesheet">
+	   	<title>Notice Board</title>
+	</head>
+	<body>
+
+
+<!------------------------STUDENT SIDE------------------------> 
+
+
+
+	<div id="studentSide" class="oneThird">
+
+		<div id="discussionBoard">
+			STUDENT SIDE			
+			
+			<div id="wallStudent">
+			</div>
+
+			<textarea id="messageBoxStudent" cols="auto" rows="5"></textarea>
+
+			<div id="submitButtonContainer">
+				<button id="submitButtonStudent">ASK QUESTION</button>
+			</div>
+		</div>
+	</div>
+
+
+
+<!------------------------TEACHER SIDE------------------------> 
+
+
+	<div id="teacherSide" class="twoThird">
+		
+		<div id="discussionBoard">
+			TEACHER SIDE
+			<div id="wallTeacher">
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="assets/js/scriptStudent.js"></script>
+	<script src="assets/js/scriptTeacher.js"></script>	
+    <script src="assets/js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+
+<div id="#answerS0" class="answerStudent">
+
+</div>
+
+<!--<div id="' + type + Id + '" class="question">
+	<button class="deleteButton" onClick = "deleteQuestion(\'' + type + '\',\'' + Id + '\' )"></button>
+
+	<div class="date">'+ date +'</div>
+
+	<div class="message">' + message + '</div>
+
+	<button class="reply" onClick = "replyQuestion(\'' + type + '\',\'' + Id + '\' )">ANSWER</button>
+
+</div> 
