@@ -111,7 +111,7 @@ function answerQuestion(user, id) {
 }
 
 
-//======================HIDE ANSWER BOX= ==============================//
+//======================HIDE ANSWER BOX===============================//
 function  hideAnswerBox(user, id) {
   $('#answerBox'+user+id).slideUp();
   $('#answerButton'+user+id).slideUp();

@@ -1,8 +1,6 @@
 //=====================SETTING VARIABLES/DOM ELEMENTS ==============================//
 var submitButton = $('#submitButton');
 var wall = $('#wall');
-var submitButton = $('#submitButton');
-var text;
 var counter = 0;
 
 
@@ -30,6 +28,9 @@ function addPost(post) {
 //======================DELETE POST============================//
 function deletePost(id) {
   $('#'+id).slideUp();
+  setTimeout( function(){
+      $('#'+id).remove();
+  },500);
 }
 //======================BUTTONHOVER============================//
 function buttonHover(element) {
