@@ -1,0 +1,226 @@
+/*============================================================================
+								FONTS
+/#============================================================================*/
+@font-face { font-family: Lobster; src: url(../fonts/Lobster.otf); } 
+
+
+body { 
+	background: url(../img/bg3.jpg) no-repeat center top;
+	background-color: white;
+	margin-top: 0px;
+	padding-top:400px;
+	text-align:center;
+	background-attachment: fixed;
+	background-position: center center;
+	min-height:100%;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+
+
+#title {
+	font-family: "Lobster", sans-serif;
+	color: #fff;
+	font-size: 50pt;
+	position: absolute;
+	width: 350px;
+	height: 150px;
+	margin-left: -175px;
+	margin-top: -75px;
+	left: 50%;
+	top: 20%;
+	text-shadow: 0px 0px 40px rgba(0,0,0,0.7);
+} 
+
+#icon {
+	margin-top: -90px;
+	margin-left: -90px;
+	position: absolute;
+	top: 85%;
+	left: 50%;
+}
+#icon2 {
+	margin-top: -90px;
+	margin-left: -90px;
+	position: absolute;
+	top: 85%;
+	left: 50%;
+}
+
+#brackets {
+	margin-top: -70px;
+	margin-left: -1350px;
+	position: absolute;
+	top: 17%;
+	left: 50%;
+}
+#loginForm{
+	text-shadow: 0px 0px 40px rgba(0,0,0,0.7);
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	margin-left: -150px;
+	margin-top: -150px;
+	top: 50%;
+	left: 50%;
+	font-size: 30pt;
+	color: #fff;
+	font-family: Lobster;
+	z-index: 3;
+}
+#registrationForm{
+	text-align: center;
+	text-shadow: 0px 0px 40px rgba(0,0,0,0.9);
+	font-size: 20pt;
+	color: #fff;
+	z-index: 0;
+	font-family: Lobster;
+}
+#button1, #button2 {
+	border: 0px;
+	background: #5EC8BE;
+	border-radius: 10px;
+	margin-right: 0px;
+	font-size: 20pt;
+	text-align: center;
+	width: 125px;
+	height: 40px;
+}
+#button3 {
+	border: 0px;
+	background: #5EC8BE;
+	border-radius: 10px;
+	margin-right: 0px;
+	font-size: 20pt;
+	text-align: center;
+	width: 352px;
+	height: 40px;
+}
+#button4 {
+	border: 0px;
+	background: #5EC8BE;
+	border-radius: 10px;
+	margin-right: 0px;
+	font-size: 20pt;
+	text-align: center;
+	width: 352px;
+	height: 40px;
+}
+#who {
+	position: absolute;
+	width: 600px;
+	height: 40px;
+	margin-top: -300px;
+	margin-left: -300px;
+	top: 100%;
+	left: 50%;
+	font-family: Lobster;
+	font-size: 30pt;
+	color: #fff;
+	text-align: center;
+	text-shadow:0px 0px 40px rgba(0,0,0,1);
+}
+#container {
+	position: absolute;
+	width:400px;
+	height: 600px;
+	margin-left: -200px;
+	margin-top: -300px;
+	left: 50%;
+	top: 0%;
+}
+#teacherButton {
+	font-family: Lobster;
+	font-size: 20pt;
+	position: absolute;
+	top: 30%;
+	left: 65%;
+	color: #fff;
+	text-shadow:0px 0px 40px rgba(0,0,0,1);	
+	margin-top:-90px;
+	margin-left: -90px;
+	width: 180px;
+	height: 180px;
+}
+#studentButton {
+ 	font-family: Lobster;
+	font-size: 20pt;
+	position: absolute;
+	top: 30%;
+	left: 35%;
+	color: #fff;
+	text-shadow:0px 0px 40px rgba(0,0,0,1);	
+	margin:60px;
+	width: 180px;
+	height: 180px;
+	margin-top:-90px;
+	margin-left: -90px;
+}
+
+#SB {
+	background: url(../img/student.svg) no-repeat;
+	background-size: 180px 180px;
+	width: 180px;
+	height: 180px;
+	border: 0px;
+}
+#TB {
+	background: url(../img/teacher.svg) no-repeat;
+	background-size: 180px 180px;
+	width: 180px;
+	height: 180px;
+	border: 0px;
+}
+input {
+	border: 0px;
+	background: #fff;
+	border-radius: 10px;
+	width: 250px;
+	height: 40px;
+	margin-bottom: 20px;
+	font-family: Arial;
+	font-size: 20pt;
+	color: #5EC8BE;
+}
+#studentId, #joinClass, #passwordS1, #passwordS2, #teacherId,
+#firstNameT,#firstNameS,#lastNameT,#lastNameS, #passwordT1,#emailT, #passwordT2 {
+	margin: 24px;
+}
+#next {
+	border: 0px;
+	border-radius: 10px;
+	background: #5EC8BE;
+	position: absolute;
+	left: 75%;
+	top: 90%;
+	width: 124px;
+	height: 40px;
+	font-size: 20pt;
+	font-family: Lobster;
+	color: #fff;
+}
+#SB:hover  {
+	background: url(../img/student_dark.svg) no-repeat;
+	background-size: 180px 180px;
+	width: 180px;
+	height: 180px;
+	border: 0px;
+}
+
+#TB:hover  {
+	background: url(../img/teacher_dark.svg) no-repeat;
+	background-size: 180px 180px;
+	width: 180px;
+	height: 180px;
+	border: 0px;
+}
