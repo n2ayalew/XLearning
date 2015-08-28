@@ -1,8 +1,8 @@
 //=============================GLOBAL VARIABLES====================================//
 //Data is for the current date and month and year.
-
     var d = new Date();
     var month_name = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var date_ = d.getDate();
     var month_ = d.getMonth();   
     // get something like : 0-11
     var year_ = d.getFullYear(); 
@@ -18,12 +18,14 @@
     // get something like : Tue Sep 30 2014 ...
 
 //============================INTERACTIVE CALENDAR================================//    
-window.onload = function(){
-    //var calendar = createCalendar(2 , 2016);
+/*window.onload = function(){
+    //var calendar = createCalendar(2,2016);
     var calendar = generateCalendarTable(first_day_index, no_days, month_+1, year_);
+    var rowDays = generateDayRow();
     document.getElementById("calendar-month-year").innerHTML = month_name[month_]+" "+year_;
+    document.getElementById("calendar-dates").appendChild(rowDays);
     document.getElementById("calendar-dates").appendChild(calendar);
-}
+}*/
 //===========================CREATE CALENDAR ===========================//
 //  Take as parameters the month index, e.g: for february its 2 & the year. 
 //  It returns a calendar object (DOM table).
@@ -32,13 +34,29 @@ function createCalendar(monthIndex, year) {
   var monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var firstDate = monthName[monthIndex-1] + " " + 1 + " " + year;
   var temp = new Date(firstDate).toDateString();
-  //alert(temp);
   var firstDay = temp.substring(0, 3);
   var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var firstDayIndex = dayNames.indexOf(firstDay); 
-  //alert(firstDayIndex); 
   var days = new Date(year, monthIndex, 0).getDate(); 
   return generateCalendarTable(firstDayIndex, days, monthIndex, year);
+}
+
+function generateDayRow() {
+    var tableHeader = document.createElement('table');
+    tableHeader.setAttribute("id", "tableHeader");
+    var daysRow = document.createElement('tr');
+    daysRow.setAttribute("class", "daysRow");
+    //row for the day letters
+    for(var c=0; c<=6; c++){
+        var td = document.createElement('td');
+        var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        td.setAttribute("id", dayNames[c]);
+        td.setAttribute("class", "dayElement");
+        td.innerHTML = dayNames[c];
+        daysRow.appendChild(td);
+    }
+    tableHeader.appendChild(daysRow);
+    return tableHeader;
 }
 
 //===========================GENERATE CALENDAR TABLE===========================//
@@ -48,20 +66,10 @@ function createCalendar(monthIndex, year) {
 
 function generateCalendarTable(firstDayIndex, days, monthIndex, yearIndex){
     var table = document.createElement('table');
-    var tr = document.createElement('tr');
-    //row for the day letters
-    for(var c=0; c<=6; c++){
-        var td = document.createElement('td');
-        var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-        td.setAttribute("id", dayNames[c]);
-        td.setAttribute("class", "dayNames");
-        td.innerHTML = dayNames[c];
-        tr.appendChild(td);
-    }
-    table.appendChild(tr);
+    table.setAttribute("id", "calendar");
     
     //create 2nd row
-    tr = document.createElement('tr');
+    var tr = document.createElement('tr');
     var c;
     for(c=0; c<=6; c++){
         if(c == firstDayIndex){
@@ -76,8 +84,9 @@ function generateCalendarTable(firstDayIndex, days, monthIndex, yearIndex){
     var count = 1;
     for(; c<=6; c++){
         var td = document.createElement('td');
-        td.setAttribute("id", count + ":" + monthIndex + ":" + yearIndex);
+        td.setAttribute("id", count + "-" + monthIndex + "-" + yearIndex);
         td.setAttribute("class", "dateElement");
+        td.setAttribute( "onclick", "showEvents("+count+","+monthIndex+","+yearIndex+")" );
         td.innerHTML = count;
         count++;
         tr.appendChild(td);
@@ -93,8 +102,9 @@ function generateCalendarTable(firstDayIndex, days, monthIndex, yearIndex){
                 return table;
             }
             var td = document.createElement('td');
-            td.setAttribute("id", count + ":" + monthIndex + ":" + yearIndex);
+            td.setAttribute("id", count + "-" + monthIndex + "-" + yearIndex);
             td.setAttribute("class", "dateElement");
+            td.setAttribute( "onclick", "showEvents("+count+","+monthIndex+","+yearIndex+")" );
             td.innerHTML = count;
             count++;
             tr.appendChild(td);
