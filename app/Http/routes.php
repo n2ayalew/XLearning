@@ -11,12 +11,24 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+	if (\Auth::user()){
+    	return view('welcome');
+    }
+ 	return view('front_end/auth/login_view');
+ });
 
-Route::get('/', 'RegistarController@index');
-//Route::get('home', 'HomeController@index'); // class Page
+Route::get('forgot-password', function (){
+	return view('auth/forgot_password');
+});
+Route::get('home', 'HomeController@index'); // class Page
+
+// Return Current Month
+Route::get('{class}/calendar', 'CalendarController@index');
+
+// Return Month with Given Date
+Route::get('{class}/calendar/{day}-{month}', 'CalendarController@show');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -20,7 +20,7 @@ return [
     ],
 
     'mandrill' => [
-        'secret' => '',
+        'secret' => env('MANDRILL_SECRET'),
     ],
 
     'ses' => [
@@ -36,3 +36,5 @@ return [
     ],
 
 ];
+//'14FRLYacdCUacKtv6BLuhg'
+// If there are issues with mail service then replace env('MANDRILL_SECRET') with API key above this line

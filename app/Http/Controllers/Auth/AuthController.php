@@ -31,7 +31,7 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
-
+    // protected $redirectTo = '/home';
     /**
      * Get a validator for an incoming registration request.
      *
@@ -40,11 +40,22 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        if ($data['is_teacher']){
+            return Validator::make($data, [
+                'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|confirmed|min:6',
+            ]);
+        }
+        if(!$data['is_teacher']){
+            return Validator::make($data, [
+                'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'student_id' => 'required|alphaNum|max:255|unique:users',
+                'password' => 'required|confirmed|min:6',
+            ]); 
+        }
     }
 
     /**
@@ -55,10 +66,22 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        if ($data['is_teacher']){
+            return User::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'is_teacher' => true,
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+        }
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'student_id' => $data['student_id'],
+            'is_teacher' => false,
             'password' => bcrypt($data['password']),
         ]);
+        
     }
 }
