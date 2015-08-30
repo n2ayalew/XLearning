@@ -1,0 +1,134 @@
+<!------------------------CALENDAR---------------------------->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="assets/css/animate.css" rel="stylesheet" > 
+	    <link href="assets/css/calendar_style.css" rel="stylesheet">
+	    <link href="assets/css/class_style.css" rel="stylesheet">
+	    <link href="assets/css/profile_style.css" rel="stylesheet">
+	    <link href="assets/css/common_style.css" rel="stylesheet">	    
+	   	<title>calendar</title>
+	</head>
+	<body>
+
+	<div class="overlay"></div>
+
+	<div class="pageHeader">
+		<div id="xlogo"><img src="assets/img/xlogo.svg" width="40px"> HOME</div>
+		<button id="refreshPage" class="but"></button>
+		<button id="logOut" class="but">LOG OUT</button>
+	</div>
+	<div id="main-container">
+
+	<div id="left-container">
+		<div id="userProfile-container">
+			<div id="userIcon-container">
+				<div id="userIcon"></div>
+			</div>
+			<div id="user-container">
+			<div id ="userName">USER NAME</div>
+			<button id="settingButton" class="but">SETTINGS</button>
+			</div>
+			<button id="refreshPage" class="but"></button>
+		</div>
+	</div>
+
+	<div id="middle-container">
+		<div id="classList-Container">
+			<div id="cvlassList"></div>
+		</div>
+	</div>
+
+	<div id="right-container">
+		<div id="calendar-container">
+	        <div id="calendar-header">
+	        <table id="bigHeader">
+	            <tr>
+	            	<td id="prev"><img id="previousButton" src="assets/img/previous.svg" width="10px"></td>
+	                <td id="calendar-month-year"></td>
+	                <td id="nxt"><img id="nextButton" src="assets/img/next.svg" width="10px"></td>
+	            </tr>
+	    	</table>
+	        </div>
+
+	        <div id="calendar-dates">
+	        </div>
+	    </div>
+
+	    <div id="eventList-container">
+	    	<button id="createNewEventButton" class="but">+</button>
+	    	<div id="eventList-innercontainer">
+		    	<div id="eventList-header">EVENTS TODAY 
+		    	</div>
+
+				<div id="eventList">
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+<!----------------------MODALS & MENUS------------------------>
+ 
+<!----------------------CREATE NEW EVENT---------------------->
+    <div id="newEvent-container">
+    	<button id='closeNewEvent'></button>
+        <div id="defaultEvent">NEW EVENT TODAY </div>
+        <div id="miniAlert1" class="miniAlert"></div>
+        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25"></input>
+        <input id="newEventTime" type="time"></input>
+        <br>
+
+        <div id="newEventClassContainer">
+			<select id="newEventClass">
+			  <option value="0">Select Class</option>
+			</select>
+		</div>
+
+        <button id="addEventButton" class="but">ADD EVENT</button>
+    </div>
+<!----------------------SETTINGS---------------------->
+	<div id="settings-container">
+		<button id="closeSettings"></button>
+		<div id="settingsHeader">USER SETTINGS</div>
+		<div id="miniAlert2" class="miniAlert"></div>
+		<div id="changeName-container">
+			<div class="title">CHANGE USER NAME</div>
+			NEW NAME: <input id="newName" type="text"></input><br>
+			<button id="submitNewName" class="but">CHANGE</button>
+		</div>
+		<div id="changeEmail-container">
+			<div class="title">CHANGE USER EMAIL</div>
+			<form>
+				NEW EMAIL: <input id="newEmail" type="email"><br>
+				<input type="submit" id="submitNewEmail" class="but" value="CHANGE">
+			</form>
+		</div>
+		<div id="changePassword-container">
+			<div class="title">CHANGE USER PASSWORD</div>
+			OLD PASSWORD: <input id="oldPassword" type="password"></input><br>
+			NEW PASSWORD: <input id="newPassword" type="password"></input><br>
+			<button id="submitNewPassword" class="but">CHANGE</button>
+		</div>
+	</div>
+
+<!------------------------SCRIPTS------------------------------>
+
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/calendar_javascript.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<script src="assets/js/eventDataStructure.js"></script>
+	<script src="assets/js/profile_jquery.js"></script>
+	<script src="assets/js/classes_jquery.js"></script>
+	<script src="assets/js/calendar_jquery.js"></script>	
+	<script src="assets/js/bootstrap.min.js"></script>
+	</body>
+</html>
