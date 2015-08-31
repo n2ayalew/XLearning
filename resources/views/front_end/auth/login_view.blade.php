@@ -80,7 +80,7 @@
 
 	<div id="registrationStudent">
 		<div id="container">
-			<form id="registrationForm" method="POST" action="auth/register">
+			<form id="registrationForm" method="POST" action="/auth/register">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="is_teacher">
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Student ID: </p>

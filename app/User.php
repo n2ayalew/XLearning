@@ -38,10 +38,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function user_classes(){
 
-        return $this->hasMany('app\user_class');
+        return $this->hasMany('App\user_class');
     }
 
     public function events(){
-        return $this->hasMany('app\Event');
+        return $this->hasMany('App\Event');
+    }
+
+    public function isTeacher(){
+        if ($this->is_teacher){
+            return true;
+        }
+        return false;
     }
 }

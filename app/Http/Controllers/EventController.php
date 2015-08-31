@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CalendarController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,8 @@ class CalendarController extends Controller
      */
     public function index()
     {
-        //
+        
+        return \Auth::user()->events->toArray();
     }
 
     /**
@@ -36,7 +37,7 @@ class CalendarController extends Controller
      */
     public function store()
     {
-        //
+        
     }
 
     /**
@@ -45,7 +46,7 @@ class CalendarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($day, $month)  
+    public function show($id)
     {
         //
     }

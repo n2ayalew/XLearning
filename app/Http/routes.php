@@ -21,14 +21,10 @@ Route::get('/', function () {
 Route::get('forgot-password', function (){
 	return view('auth/forgot_password');
 });
+
+Route::resource('event', 'EventController');
+
 Route::get('home', 'HomeController@index'); // class Page
-
-// Return Current Month
-Route::get('{class}/calendar', 'CalendarController@index');
-
-// Return Month with Given Date
-Route::get('{class}/calendar/{day}-{month}', 'CalendarController@show');
-
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

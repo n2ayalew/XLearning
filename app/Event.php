@@ -10,10 +10,10 @@ class Event extends Model
 
     public function user(){
 
-    	return $this->belongsTo('app\User');
+    	return $this->belongsTo('App\User');
     }
-    public function class(){
+    public function classe(){
 
-    	return $this->belongsTo('app\Classe');
+    	return $this->belongsTo('App\Classe');
     }
 }
