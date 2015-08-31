@@ -27,7 +27,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,8 +35,18 @@ class EventController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
+        $fields = $request->all();
+        $time = explode(':',$fields['event_time']);
+        $fields['event_time'] = ($time[0] * 60) + $time[1];
+        $fields['user_id'] = \Auth::user()->user_id;
+        $fields['teacher'] = \Auth::user()->user_id;
+        $fields['class_id'] = 6; // temporary.. we need to find populate the list on the modal with certain class ids
+        var_dump($fields);
+        die();
+
+        $event = new \App\Event();
         
     }
 

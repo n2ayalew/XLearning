@@ -12,6 +12,16 @@ var eventList = $('#eventList');
 var eventRecord = new yearEvents();
 var yearIndex = year_;
 
+for(var i =0; i<20; i++) {
+	var newEvent = new eventClass();
+	newEvent.time = 680;
+	newEvent.date = '30';
+	newEvent.month= '8';
+	newEvent.year= '2015';
+	newEvent.classId='2342';
+	eventRecord.saveEvent(newEvent);
+	console.log('yolo');
+}
 //===========================HIGHLIGHT CURRENT DATE===========================//
 function highlightDate(date_, monthIndex_, year_){
 	var date = date_.toString();
@@ -129,15 +139,20 @@ function refreshEventList(date, month) {
 			appendEventDOM(eventArray[i],i);
 		}
 	}
+	highlightDateWithEvent(month);
 	return;
 }
 //==============================CHECK INPUT===================================//
-function correctInput() {
+function correctInputNewEvent() {
 	if($('#newEventTitle').val() != '')
 		if($('#newEventTime').val() !='')
-			if($('#newEventClass').val() != 0)
+			if($('#newEventClassPicker').val() != 0)
 				return true;
-
+	var miniAlert = document.getElementById('miniAlert1');
+    miniAlert.innerHTML = "SOME INFORMATION IS MISSING PLEASE FILL THEM OUT";
+    setTimeout( function() {
+        $('#miniAlert1').empty();
+    },2000);
 	return false;
 }
 //==============================ADD EVENT===================================//
@@ -147,7 +162,7 @@ function correctInput() {
 // STEP 4: UPDATE UI CALENDAR.
 // STEP 5: SEND OBJECT TO BACK END SERVER.
 function addEvent(){
-	if(correctInput())
+	if(correctInputNewEvent())
 	{
 		var fullDate =[];
 		fullDate = currentFullDate.split(" ");
@@ -156,7 +171,7 @@ function addEvent(){
 		newEvent.date = fullDate[0];
 		newEvent.month = fullDate[1];
 		newEvent.year = fullDate[2];
-		console.log(newEvent.date);
+		
 		var tempTime = ($('#newEventTime').val());
 		tempTime =tempTime.toString();
 		var t = [];
@@ -173,17 +188,20 @@ function addEvent(){
 		
 		console.log("Event Object Time: "+newEvent.time); ////////////////////////////
 		
-		newEvent.classId = ($('#newEventClass').val()).toString();
+		var temp = [];
+		var str = ($('#newEventClassPicker').val()).toString();
+		temp = str.split(':');
+		newEvent.classId = temp[0]
+		newEvent.className = temp[1];
 		$('#newEventTitle').val(''); 
 		$('#newEventTime').val('');
-		$('#newEventClass').val('0');
+		$('#newEventClassPicker').val('0');
 		$('#newEvent-container').fadeOut('fast');
 		$('.overlay').fadeOut('fast');
 		// SEND TO SERVER --------------->> HERE <<-------------- SEND TO SERVER//
 		//SIMULTED USING CLASS OF ARRAYS
-		console.log(newEvent);
 		eventRecord.saveEvent(newEvent);
-
+		console.log(JSON.stringify(newEvent));
 		console.log("saving done"); ////////////////////////////
 
 		// SEND TO SERVER --------------->> HERE <<-------------- SEND TO SERVER//
@@ -209,7 +227,7 @@ function createEventDOM(newEvent,index) {
 
 	var deleteButton = document.createElement('button');
 	deleteButton.setAttribute("onclick", "deleteEvent("+index+","+newEvent.date+","+newEvent.month+","+newEvent.year+")");
-	deleteButton.setAttribute("class", "deleteEventButton");
+	deleteButton.setAttribute("class", "deleteButton");
 
 	e.appendChild(deleteButton);
 
@@ -234,11 +252,11 @@ function createEventDOM(newEvent,index) {
 
 	e.appendChild(title);
 
-	var classId = document.createElement('div');
-	classId.setAttribute("class", "eventClass");
-	classId.innerHTML = 'Class ID:' + newEvent.classId;
+	var className = document.createElement('div');
+	className.setAttribute("class", "eventClass");
+	className.innerHTML = 'Class :' + newEvent.className;
 
-	e.appendChild(classId);
+	e.appendChild(className);
 
 	return e;
 
@@ -269,14 +287,6 @@ function deleteEvent(index,date,month,year){
 }
 
 
-
-//===============HIDING ALL MODALS=======================================//
-$(document).ready(function() {
-	$('.overlay').hide();
-	$('#newEvent-container').hide();
-});
-
-
 //===============SETTING INTERRACTIVE CALENDAR=======================================//
 $(document).ready( function () {
 
@@ -285,7 +295,7 @@ $(document).ready( function () {
     document.getElementById("calendar-month-year").innerHTML = month_name[month_]+" "+year_;
     document.getElementById("calendar-dates").appendChild(rowDays);
     document.getElementById("calendar-dates").appendChild(calendar);
-    highlightDate(date_, month_,year_);
+
 
     nextButton.click(function () {
     	generateNextMonth(parseInt(year_));
@@ -302,8 +312,8 @@ $(document).ready( function () {
 //===============SETTING INTERRACTIVE EVENT CREATOR=======================================//
 $(document).ready( function() {
 	$('#createNewEventButton').click( function() {
-		$('.overlay').fadeIn('fast');
-		$('#newEvent-container').fadeIn('fast');
+		$('.overlay').css('visibility','visible').hide().fadeIn('fast');
+		$('#newEvent-container').css('visibility','visible').hide().fadeIn('fast');
 	});
 
 	$('#closeNewEvent').click( function() {
@@ -318,7 +328,11 @@ $(document).ready( function() {
 
 
 
-
+$(document).ready( function() {
+		refreshEventList(date_,currentMonthIndex);
+		highlightDate(date_,month_,yearIndex);
+		highlightDateWithEvent(currentMonthIndex);
+});
 
 
 

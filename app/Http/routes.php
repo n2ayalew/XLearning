@@ -13,14 +13,10 @@
 
 Route::get('/', function () {
 	if (\Auth::user()){
-    	return view('welcome');
+    	return view('Home/homepage');
     }
  	return view('front_end/auth/login_view');
  });
-
-Route::get('forgot-password', function (){
-	return view('auth/forgot_password');
-});
 
 Route::resource('event', 'EventController');
 
