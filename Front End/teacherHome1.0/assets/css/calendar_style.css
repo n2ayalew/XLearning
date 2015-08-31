@@ -1,0 +1,238 @@
+#bigHeader {
+	height: 100px;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: #5AB4C0;
+}
+#calendar-container {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+	overflow: auto;	
+	background: #fff;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+#prev, #nxt {
+	width: auto;
+	padding-bottom: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#nextButton, #previousButton:hover {
+	cursor: pointer;
+}
+
+#calendar-month-year {
+	font-family: JosefinBold;
+	font-size: 20pt;
+	width: 340px;
+	color: #fff;
+	padding-bottom: 40px;
+	text-transform: uppercase;
+}
+#calendar {
+	background: #fff;
+	margin-top: -20px;
+
+}
+#newEvent-container {
+	position: absolute;
+	width: 400px;
+	height: auto;
+	margin-left: -200px;
+	margin-top: -100px;
+	left: 50%;
+	top: 50%;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #fff;
+	border-radius: 20px;
+	z-index: 11;
+	box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+}
+
+#newEventTitle {
+	margin-top: 10px;
+	border: none;
+	border-top: 0px;
+	border-left: 0px;
+	width: 70%;
+	height: 40px;
+	border-radius: 10px;
+	padding: 5px;
+	margin-bottom: 10px;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+#newEventTime {
+	margin-top: 10px;
+	width: 20%;
+	height: 40px;
+	border: 0px;
+	border-radius: 10px;
+	padding: 5px;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+#addEventButton {
+	margin: 0px;
+	margin-bottom: 10px;
+	outline: 0px;
+	border: 0px;
+	border-radius: 10px;
+	font-size: 12pt;
+	text-align: center;
+	width: 100%;
+	height: 50px;
+	font-family: Josefin;
+	color: #fff;
+}
+#addEventButton:hover {
+	background: #3E4147;
+	color: #fff;
+}
+#eventList-container {
+	margin-top: 20px;
+	width: auto;
+	padding-top: 5%;
+	padding-bottom: 2%;
+   	height: auto;
+	z-index: 2;
+	border-radius: 10px;
+}
+#eventList-header {
+	padding: 10px;
+	font-family: Josefin;
+	font-size: 14pt;
+	color: #fff;
+	background: #5AB4C0;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#eventList-innercontainer {
+	border-radius: 10px;
+	color: #000;
+	background: #fff;
+	height: 100%;
+	margin-left: 0%;
+	width: 100%;
+	border-left: solid 1px rgba(0,0,0,0.2);
+	border-right: solid 1px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+#eventList {
+	max-height: 475px;
+	overflow: auto;
+}
+#noEvent {
+	font-family: Josefin;
+	font-size: 30px;
+	color: #000;
+}
+#createNewEventButton {
+	width: 30px;
+	height: 30px;
+	font-size: 14pt;
+	border-radius: 10px;
+	border: 0px;
+	outline: 0px;
+	position: absolute;
+	right: 10px;
+	margin-top: 8px;
+	text-align: center;
+}
+#createNewEventButton:hover {
+	background: #3E4147;
+	color: #fff;
+}
+.dateElement {
+	font-size: 15px;
+	width: 50px;
+	height: 50px;
+	font-family: Josefin;
+	border-radius: 50%;
+}
+.dateElement:hover {
+	cursor: pointer;
+	background: url(../img/date_surround.svg) no-repeat;
+	background-size: 50px 50px;
+	color: #FE6356;
+}
+.dateElementToday {
+	background: url(../img/date_today.svg) no-repeat;
+	background-size: 50px 50px;	
+	color: #fff;
+}
+.dateWithEvent {
+	font-size: 20px; 
+	text-decoration: underline;
+}
+#tableHeader {
+	margin-top:  -50px;
+	margin-bottom: 30px;
+	background: #fff;
+	color: #5AB4C0;
+	border-radius: 10px;
+	font-family: Josefin;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,10.5);
+}
+.dayElement {
+	width: 50px;
+	height: 30px;
+}
+.selectedDate {
+	box-shadow: inset 0px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 4px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 4px rgba(0,0,0,0.5);
+}
+.eventElement {
+	width: 100%;
+	height: 60px;
+	background: #fff;
+	border-top: solid 1px rgba(0,0,0,0.2);
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	z-index: 0;
+}
+.eventTitle {
+	width: 60%;
+	height: 60px;
+	padding: 10px;
+	margin-top: -40px;
+	margin-left: 33%;
+	font-family: Josefin;
+	font-size: 20px;
+}
+.eventTime {
+	width: 30%;
+	height: 40px;
+	padding: 10px;
+	font-family: JosefinBold;
+	font-size: 20px;
+}
+.eventClass {
+	width: 33%;
+	height: 20px;
+	margin-top: -20px;
+	font-size: 8pt;
+}
+#newEvent-container {
+	visibility: hidden;
+}
+
+
+
+
