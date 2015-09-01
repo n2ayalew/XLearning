@@ -132,8 +132,8 @@ s
 <!----------------------CREATE NEW EVENT---------------------->
 	<div id="newEvent-container">
 	    <button id='closeNewEvent'  class="closeButton"></button>
-	    <!--<form id="createEventForm" method="POST" action="/event">-->
-	    	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	    <form id="createEventForm" method="POST" action="/event">
+	    	<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 	        <div id="defaultEvent" class="modalHeader">NEW EVENT TODAY </div>
 	        <div id="miniAlert1" class="miniAlert"></div>
 	        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25" name="event"></input>
@@ -147,7 +147,7 @@ s
 			</div>
 
 	        <button id="addEventButton" class="but" type="submit">ADD EVENT</button>
-	    <!--</form>!-->
+	    </form>
 	</div>
 
 

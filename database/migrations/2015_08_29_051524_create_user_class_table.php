@@ -15,7 +15,7 @@ class CreateUserClassTable extends Migration
         Schema::create('user_class', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('class_id')->unsigned();
+            $table->integer('classe_id')->unsigned();
             $table->boolean('is_teacher');
             $table->timestamps();
         });
@@ -23,7 +23,7 @@ class CreateUserClassTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
         Schema::table('user_class', function($table) {
-            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
+            $table->foreign('classe_id')->references('class_id')->on('classes')->onDelete('cascade');
         });
     }
 

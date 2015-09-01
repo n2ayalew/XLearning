@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder
 	        'last_name'     => 'Sevilleja',
 	        'student_id' => 'sevilayha',
 	        'is_teacher' => false,
-	        'password' => Hash::make('awesome')
+	        'password' => Hash::make('tacos')
 	    ));
 	    \App\User::create(array(
 	    	'first_name' => 'Nate',
@@ -28,14 +28,14 @@ class UserTableSeeder extends Seeder
 	        'last_name'     => 'Po',
 	        'student_id' => 'po123',
 	        'is_teacher' => false,
-	        'password' => Hash::make('hello')
+	        'password' => Hash::make('tacos')
 	    ));
 	    \App\User::create(array(
 	    	'first_name' => 'Wes',
 	        'last_name'     => 'Coast',
 	        'student_id' => 'wes23',
 	        'is_teacher' => false,
-	        'password' => Hash::make('bestPassword')
+	        'password' => Hash::make('tacos')
 	    ));
 	    $this->command->info('User table seeded!');
 	}

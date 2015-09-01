@@ -4,7 +4,7 @@ var currentMonthIndex = month_+1;
 var nextButton = $('#nextButton');
 var previousButton = $('#previousButton');
 var calendar = $('#calendar-dates');
-var addEventButton = $('#addEventButton');
+var createEventForm = $('#createEventForm');
 var previousDate ;
 var currentFullDate = date_+" "+(month_+1)+" "+year_;
 var isListEmpty = true;
@@ -161,7 +161,8 @@ function correctInputNewEvent() {
 // STEP 3: CREATE LOCAL EVENT OBJECT ON CLIENT SIDE.	x
 // STEP 4: UPDATE UI CALENDAR.
 // STEP 5: SEND OBJECT TO BACK END SERVER.
-function addEvent(){
+function addEvent(f){
+	var form = f;
 	if(correctInputNewEvent())
 	{
 		var fullDate =[];
@@ -193,15 +194,41 @@ function addEvent(){
 		temp = str.split(':');
 		newEvent.classId = temp[0]
 		newEvent.className = temp[1];
-		$('#newEventTitle').val(''); 
-		$('#newEventTime').val('');
-		$('#newEventClassPicker').val('0');
 		$('#newEvent-container').fadeOut('fast');
 		$('.overlay').fadeOut('fast');
 		// SEND TO SERVER --------------->> HERE <<-------------- SEND TO SERVER//
 		//SIMULTED USING CLASS OF ARRAYS
+		form.year = newEvent.year;
+		form.month = newEvent.month;
+		form.date = newEvent.date;
+		var ff = document.getElementById('createEventForm');
+		var dd = document.createElement('input');
+		ff.appendChild(dd);
+		dd.setAttribute('visibility','hidden');
+		dd.setAttribute('name', 'event_date');
+		dd.setAttribute('value', newEvent.year+'-'+newEvent.month+'-'+newEvent.date);
+
+		console.log(newEvent);
+		console.log(form);
+		var result;
+		$.ajax({
+			type: 'POST',
+			url: '/event',
+			data: form.serialize(),
+			success: function(response, status){
+				console.log(response);
+				// integrate logic with event id here
+				// response holds last event id added to db
+			}
+		});
+
+		ff.removeChild(dd);
+		$('#newEventTitle').val(''); 
+		$('#newEventTime').val('');
+		$('#newEventClassPicker').val('0');
+
 		eventRecord.saveEvent(newEvent);
-		console.log(JSON.stringify(newEvent));
+		
 		console.log("saving done"); ////////////////////////////
 
 		// SEND TO SERVER --------------->> HERE <<-------------- SEND TO SERVER//
@@ -320,8 +347,9 @@ $(document).ready( function() {
 		$('#newEvent-container').fadeOut('fast');
 		$('.overlay').fadeOut('fast');
 	});
-	addEventButton.click( function() {
-		addEvent();
+	createEventForm.on('submit', function(e) {
+		e.preventDefault();
+		addEvent($(this));
 	});
 });
 
