@@ -1,0 +1,224 @@
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        TEACHER COMMON
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*============================================================================*/
+								/*FONTS*/
+@font-face { font-family: Lobster; src: url(../fonts/Lobster.otf); } 
+@font-face { font-family: Josefin; src: url(../fonts/josefin-sans/JosefinSans-Light.ttf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-SemiBold.ttf); } 
+/*============================================================================*/
+
+
+body {
+	background: #E5E5E5;
+	text-align:center;
+	background-attachment: fixed;
+	background-position: center center;
+	min-height:100%;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+input {
+	border-radius: 5px;
+	border: 0px;
+	padding-left: 5px;
+	margin-bottom: 10px;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+textarea {
+	padding: 5px;
+	resize: none;
+	border: 0px;
+	border-radius: 10px;
+	width: 95%;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+textarea:focus, input:focus{
+    outline: 0px;
+}
+button {
+	outline: 0px;
+	border: 0px;
+}
+a:hover {
+	text-decoration: none;
+	text-transform: none;
+}
+select {
+	width: 40%;
+	margin: 10px;
+}
+.closeButton {
+	background: url(../img/delete_button.svg) no-repeat;
+	background-size: 15px 15px;
+	width: 15px;
+	height: 15px;
+	border: 0px;
+	outline: none;
+	position:relative;
+	float: right;
+	top: 10px;
+}
+.closeButton:hover {
+	background: url(../img/delete_button_pressed.svg) no-repeat;
+	background-size: 15px 15px;
+	width: 15px;
+	height: 15px;
+}
+.modalHeader {
+	margin: 10px;
+	font-family: Josefin;
+	font-size: 16pt;
+	color: #000;
+}
+.container-header {
+	color: #fff;
+	height: 50px;
+	padding: 10px;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: #5AB4C0;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0,0,0,0.3);
+  visibility: hidden;
+}
+.pageHeader {
+	width: 100%;
+	background: #5AB4C0;
+	height: 50px;
+	z-index: 9;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	border-bottom: solid 1px #62A39D; 
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	overflow: none;
+}
+.but {
+	margin: 10px;
+	color: #fff;
+	font-family: Josefin;
+	background-color: #50A4AF;
+	border-radius: 5px;
+	box-shadow:  inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+.but:hover {
+	background-color: #3E4147;
+}
+.counter {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: #FE6356;
+	position: absolute;
+	left: 90%;
+	font-family: Josefin;
+}
+
+.deleteButton {
+	background: url(../img/delete_button.svg) no-repeat;
+	background-size: 15px 15px;
+	width: 15px;
+	height: 15px;
+	border: 0px;
+	outline: none;
+	position: relative;
+	float: right;
+	margin: 10px;
+}
+.deleteButton:hover {
+	background: url(../img/delete_button_pressed.svg) no-repeat;
+	background-size: 15px 15px;
+}
+
+#xlogo {
+	color: #fff;
+	font-family: Lobster;
+	font-size: 20px;
+	position: absolute;
+	left: 15px;
+	top: 8px;
+}
+#main-container {
+	width: 100%;
+	max-width: 1280px;
+	min-width: 1000px;
+	height: 100vh;
+	position: fixed;
+	right: 0px;
+	left: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	background: #fff; 
+	overflow: auto;
+}
+#left-container {
+	position: absolute;
+	top: 90px;
+	left: 10px;
+	height: auto;
+	width: 25%;
+	border-radius: 10px;
+}
+#middle-container {
+	position: absolute;
+	left: 50%;
+	top: 90px;
+	width: 30%;
+	height: auto;
+	margin-right: auto;
+	margin-left: -200px;
+}
+#right-container {
+	position: absolute;
+	margin-left: -420px;
+	top: 90px;
+	right: 10px;
+	height: auto;
+	width: 25%;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+#logOut {
+	height: 30px;
+	width: auto;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	float: right;	
+}
+.miniAlert {
+	width: 100%;
+	height: 10px;
+	color: #FF803E;
+	font-size: 10px;
+}

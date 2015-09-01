@@ -1,0 +1,74 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        TEACHER NOTICE
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+#noticeBoard-container {
+	height: auto;
+	width: 100%;
+	margin-top: 40px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+#noticeBoard-header {
+	font-family: Josefin;
+	font-size: 14pt;
+}
+
+#newNoticeButton {
+	width: 30px;
+	height: 30px;
+	font-size: 14pt;
+	border-radius: 10px;
+	border: 0px;
+	outline: 0px;
+	position: absolute;
+	right: 10px;
+	margin-top: 0px;
+	text-align: center;
+}
+#noticeList {
+	max-height: 550px;
+	overflow: auto;
+}
+#newNotice-container {
+	visibility: hidden;
+	position: absolute;
+	width: 600px;
+	height: auto;
+	margin-left: -300px;
+	margin-top: -200px;
+	left: 50%;
+	top: 50%;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: #fff;
+	border-radius: 20px;
+	z-index: 11;
+	box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+}
+.noticeDate {
+	padding-top: 10px;
+	font-family: Josefin;
+	font-size: 14px;
+	color: #FE6356;
+	border-top: solid 1px rgba(0,0,0,0.2);
+}
+.noticeMessage {
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+.noticeClass {
+	margin-bottom: 10px;
+	font-size: 14px;
+	width: 100%;
+}
