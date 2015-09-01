@@ -46,7 +46,6 @@
 
 		<div id="noticeBoard-container">
 			<div id="noticeBoard-header" class="container-header">ANNOUNCEMENTS
-				<button id="newNoticeButton" class="but">+</button>
 			</div>
 			<div id="noticeList"></div>
 			
@@ -64,22 +63,9 @@ s
 			<div id="classList-header" class="container-header">YOUR CLASSES</div>
 			<div id="classList"></div>
 			<div id="classList-footer">
-				<button id="createNewClassButton" class="but">CREATE NEW CLASS</button>
+				<button id="joinNewClassButton" class="but">JOIN NEW CLASS</button>
 			</div>
 		</div>
-
-		<div id="joinRequestMini-container">
-			
-			<div id="joinRequestMini-header" class="container-header">
-				<div id="joinRequest-counter" class="counter"></div>
-				JOIN REQUESTS
-			</div>
-
-			<div id="joinRequestList"></div>
-
-
-		</div>
-
 	</div>
 
 
@@ -104,7 +90,6 @@ s
 	    </div>
 
 	    <div id="eventList-container">
-	    	<button id="createNewEventButton" class="but">+</button>
 	    	<div id="eventList-innercontainer">
 		    	<div id="eventList-header">EVENTS TODAY 
 		    	</div>
@@ -130,24 +115,6 @@ s
 
 <!----------------------MODALS & MENUS------------------------>
  
-<!----------------------CREATE NEW EVENT---------------------->
-    <div id="newEvent-container">
-    	<button id='closeNewEvent'  class="closeButton"></button>
-        <div id="defaultEvent" class="modalHeader">NEW EVENT TODAY </div>
-        <div id="miniAlert1" class="miniAlert"></div>
-        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25"></input>
-        <input id="newEventTime" type="time"></input>
-        <br>
-
-        <div id="newEventClassContainer">
-			<select id="newEventClassPicker">
-			  <option value="0">Select Class</option>
-			</select>
-		</div>
-
-        <button id="addEventButton" class="but">ADD EVENT</button>
-    </div>
-
 
 
 <!----------------------SETTINGS---------------------->
@@ -176,49 +143,15 @@ s
 	</div>
 
 
-<!----------------------MAKE NEW ANNOUNCEMENT---------------------->
-	<div id="newNotice-container">
-
-			<button id="closeNewNotice" class="closeButton"></button>
-
-			<div id="newNotice" class="modalHeader">NEW ANNOUCEMENT</div>
-
-			<div id="miniAlert4" class="miniAlert"></div>
-
-			<div id="announcement-container">
-				<div class="title">WRITE YOUR MESSAGE</div>
-				<textarea id="announcement" type="text" cols="50" rows="7"></textarea>
-			</div>
-
-			<div id="newNoticeClassContainer">
-				<div class="title">CHOOSE CLASS</div>
-				<select id="newNoticeClassPicker">
-				  <option value="0">Select Class</option>
-				</select>
-			</div>
-
-			<button id="submitNewNotice" class="but">POST</button>
-	</div>
-
-
-
-
-<!----------------------CREATE NEW CLASS---------------------->
-	<div id="createNewClass-container">
-		<button id="closeCreateNewClass" class="closeButton"></button>
-		<div id="createNewClassHeader" class="modalHeader">CREATE NEW CLASS</div>
-		<div id="miniAlert3" class="miniAlert"></div>
-		<div id="chooseClassName-container">
-			<div class="title">CHOOSE CLASS NAME</div>
-			CLASS NAME: <input id="newClassName" type="text"></input><br>
+<!----------------------JOIN NEW CLASS---------------------->
+	<div id="joinNewClass-container">
+		<button id="closeJoinNewClass" class="closeButton"></button>
+		<div id="joinNewClassHeader" class="modalHeader">JOIN NEW CLASS</div>
+		<div id="miniAlert5" class="miniAlert"></div>
+		<div id="allClassList-container">
+			<div id="allClassList"></div>
 		</div>
-		<div id="chooseClassYear-container">
-			<div class="title">CHOOSE YEAR</div>
-			CLASS YEAR: <input id="newClassYear" type="text"></input><br>
-		</div>
-		<button id="submitNewClass" class="but">CREATE</button>
 	</div>
-
 
 <!------------------------SCRIPTS------------------------------>
 
