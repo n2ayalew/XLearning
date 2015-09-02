@@ -1,6 +1,12 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+						TEACHER CALENDAR
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 
 //=============================GLOBAL VARIABLES====================================//
-var currentMonthIndex = month_+1;
+var currentMonthIndex = month_+1; //1-12
 var nextButton = $('#nextButton');
 var previousButton = $('#previousButton');
 var calendar = $('#calendar-dates');
@@ -11,16 +17,17 @@ var isListEmpty = true;
 var eventList = $('#eventList');
 var eventRecord = new yearEvents();
 var yearIndex = year_;
-
+var yearLoop = new yearLoopClass();
+	
+console.log('------------------------CREATING DUMMY EVENTS TODAY----------------------');
 for(var i =0; i<20; i++) {
 	var newEvent = new eventClass();
 	newEvent.time = 680;
-	newEvent.date = '30';
-	newEvent.month= '8';
+	newEvent.date = date_.toString();
+	newEvent.month= (month_+1).toString();
 	newEvent.year= '2015';
 	newEvent.classId='2342';
 	eventRecord.saveEvent(newEvent);
-	console.log('yolo');
 }
 //===========================HIGHLIGHT CURRENT DATE===========================//
 function highlightDate(date_, monthIndex_, year_){
@@ -47,19 +54,19 @@ function highlightDateWithEvent(month){
 //===============GENERATE NEXT MONTH CALENDAR=======================================//
 // Parameter: interger Year e.g 2014.
 // loops from the september to august , one school year .
-function generateNextMonth(currentYear){
-
+function generateNextMonth(startPoint){
+	console.log('startPoint:' + startPoint) /////////////////////////////
+	startPoint = parseInt(startPoint);
 	calendar.empty();
-	currentMonthIndex++;
-	if(currentMonthIndex >= 9 && currentMonthIndex <=12)
-		yearIndex = currentYear-1;
-
-	else if(currentMonthIndex > 12) {
-		currentMonthIndex = 1;
-		yearIndex = currentYear;
-	}
-		else
-			yearIndex = currentYear;
+	startPoint = (startPoint+1)%12;
+	console.log('new startPoint:'+startPoint); /////////////////////////
+	currentMonthIndex = startPoint +1;
+	var months = [];
+	months = yearLoop.getMonths();
+	yearIndex = parseInt(months[currentMonthIndex-1]);
+	
+	console.log("currentMonthIndex: "+currentMonthIndex);//////////////
+	console.log(months); /////////////////////////////////////////////
 
 	var calObjt = createCalendar(currentMonthIndex, yearIndex);
 	var rowDays = generateDayRow();
@@ -71,16 +78,21 @@ function generateNextMonth(currentYear){
 //================GENERATE PREVIOUS MONTH CALENDAR=======================================//
 //Parameter: interger Year e.g 2014.
 // loops from the september to august , one school year .
-function generatePreviousMonth(currentYear){
-
+function generatePreviousMonth(startPoint){
+	console.log('startPoint:' + startPoint) /////////////////////////////
+	startPoint = parseInt(startPoint);
 	calendar.empty();
-	currentMonthIndex --;
-	if (currentMonthIndex < 1)
-		currentMonthIndex =12;
-		if(currentMonthIndex >= 9 && currentMonthIndex <=12)
-			yearIndex = currentYear-1;
-		else
-			yearIndex = currentYear;
+	startPoint--;
+	console.log('new startPoint:'+startPoint); /////////////////////////
+	if (startPoint < 0)
+		startPoint = 11;
+	currentMonthIndex = startPoint+1;
+	var months = [];
+	months = yearLoop.getMonths();
+	yearIndex = parseInt(months[currentMonthIndex-1]);
+
+	console.log("currentMonthIndex: "+currentMonthIndex);//////////////
+	console.log(months); /////////////////////////////////////////////
 
 	var calObjt = createCalendar(currentMonthIndex, yearIndex);
 	var rowDays = generateDayRow();
@@ -299,12 +311,12 @@ $(document).ready( function () {
 
 
     nextButton.click(function () {
-    	generateNextMonth(parseInt(year_));
+    	generateNextMonth(currentMonthIndex-1);
     	if(currentMonthIndex == month_+1)
     		highlightDate(date_, month_,year_);
     });
     previousButton.click(function () {
-    	generatePreviousMonth(parseInt(year_));
+    	generatePreviousMonth(currentMonthIndex-1);
     	if(currentMonthIndex == month_+1)
 	    	highlightDate(date_, month_,year_);
     });

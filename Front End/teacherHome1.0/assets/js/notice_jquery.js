@@ -1,3 +1,10 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        TEACHER NOTICE
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
 //======ADDING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
 function addNotice() {
   newNotice = new notice();

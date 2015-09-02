@@ -1,3 +1,10 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+						TEACHER CALENDAR
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
 //==============================EVENT CLASS===================================//
 // EVERYTHING SHOULD BE IN STRING!
 function eventClass() {
@@ -128,6 +135,64 @@ function yearEvents() {
 		return year[index].getEvents();
 	};
 }
+
+
+
+
+//=======================YEAR LOOP/LIST OF MONTHS IN A SCHOLAR YEAR=================================//
+// scholar year start at September shich is the 9th month of the year. 
+//But it will be at index 0 in our array.
+// glabal variable year_ is our current it should not be changed.
+function yearLoopClass() {
+	var months = [];
+
+	if (month_ >= 8 && month_<=11) {
+		for(var i=1; i<9; i++) {
+			months.push(year_+1);			
+		}
+		for(var i=9; i<13; i++) {
+			months.push(year_);
+		}
+
+	}
+	else {
+		for(var i=1; i<9; i++) {
+			months.push(year_);			
+		}
+		for(var i=9; i<13; i++) {
+			months.push(year_-1);
+		}
+	}
+
+	this.getMonths = function () {
+		return months;
+	};
+	console.log("successfull in creating year loop: "+months.length+"<----------------------------------");
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

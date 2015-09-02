@@ -1,3 +1,10 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+						STUDENT CLASS
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
 function class_() {
 	this.classID; // string
 	this.name;  //string
@@ -6,6 +13,7 @@ function class_() {
 var urClass =[]; 
 var allClass =[]; 
 //===========================CREATING DUMMY CLASSES===========================//
+console.log('------------------------CREATING DUMMY CLASSES----------------------');
 var class1 = new class_();
 class1.classID = '5251';
 class1.name = 'ECO1';
