@@ -1,0 +1,218 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        TEACHER DICUSSION
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+#discussion-container {
+	height: 100vh;
+	padding-top: 50px;
+}
+#discussionList-container {
+	width: 100%;
+	height: 90%;
+}
+#discussionList {
+	height: 100%;
+	overflow: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#createDisc-container {
+	width: 100%;
+	height: 10%;
+	padding-bottom: 10px;
+}
+
+#createDiscButton {
+	height: 40%;
+}
+
+.discElement {
+	height: auto;
+	width: 100%;
+	border-top: solid 1px rgba(0,0,0,0.2);	
+}
+.discElement:hover {
+	cursor: pointer;
+	background-color:;
+}
+.discDate {
+	text-align: right;
+	padding-right: 12%;
+	padding-top: 10px;
+	font-family: Josefin;
+	font-size: 14px;
+	color: #FE6356;
+}
+.discTitle {
+	text-align: left;
+	padding-left: 12%;
+	font-size: 30px;
+	font-family: JosefinBold;
+}
+.discMiniDetail {
+	padding-left: 12%;
+	padding-right: 12%;
+	text-align: left;
+}
+.discPoster {
+	text-align: left;
+	height: 40px;
+	width: 80%;
+	margin-left: 20px;
+	margin-top: 10px;
+	background: url(../img/poster.svg) no-repeat;
+	background-size: 25px 25px;
+	padding-left: 30px;
+	color: #979797;
+}
+.discPosterTeacher {
+	text-align: left;
+	height: 40px;
+	width: 80%;
+	margin-left: 20px;
+	margin-top: 10px;
+	background: url(../img/poster_teacher.svg) no-repeat;
+	background-size: 25px 25px;
+	padding-left: 30px;
+	color: #FE6356;
+}
+.openedDisc {
+	background: #F6F6F6;
+}
+#createDisc-container {
+	border-top: solid 1px rgba(0,0,0,0.3);	
+}
+
+#newDiscussion-container {
+	font-family: Josefin;
+    font-size: 12pt;
+    text-align: center;
+    margin: 10px;
+	visibility: hidden;
+	position: absolute;
+	width: 700px;
+	height: 360px;
+	margin-left: -350px;
+	margin-top: -180px;
+	left: 50%;
+	top: 50%;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #fff;
+	border-radius: 20px;
+	z-index: 11;
+	box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 100px rgba(0,0,0,0.3);
+}
+#newDiscTitle {
+	margin-left: 10px;
+	width: 200px;
+	font-family: arial;
+	font-size: default;
+}
+#newDiscDetail {
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: arial;
+	font-size: default;
+}
+#submitNewDiscButton {
+	position: relative;
+	top: 5px;
+}
+#middle-container {
+	box-shadow: 1px 0px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 0px 2px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 0px 2px rgba(0,0,0,0.3);
+}	
+
+#topDisc {
+	height: 80%;
+	overflow-y: auto;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+#discFullDetail-container {
+	padding-top: 60px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	background: #F6F6F6;
+	border-radius: 10px;
+}
+#discFullDetail {
+	font-size: 14px;
+	text-align: left;
+}
+
+.commElement {
+	padding-right: 10px;
+	padding-left: 20px;
+	border-bottom: solid 1px rgba(0,0,0,0.2);
+	height: auto;
+	width: 100%;	
+}
+.commDate {
+	text-align: right;
+	padding-right: 10%;
+	padding-top: 10px;
+	color: #A7A7A7;
+	font-size: 12px;
+}
+.commMessage {
+	font-size: 14px;
+	text-align: left;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+.commPoster {
+	text-align: left;
+	font-size: 12px;
+	height: 30px;
+	width: 80%;
+	margin-left: 0px;
+	margin-top: -20px;
+	background: url(../img/poster.svg) no-repeat;
+	background-size: 15px 15px;
+	padding-left: 30px;
+	color: #979797;
+}
+.commPosterTeacher {
+	text-align: left;
+	font-size: 12px;
+	height: 30px;
+	width: 80%;
+	margin-left: 0px;
+	margin-top: -20px;
+	background: url(../img/poster_teacher.svg) no-repeat;
+	background-size: 15px 15px;
+	padding-left: 30px;
+	color: #FE6356;
+}
+
+#bottomDisc {
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 20%;
+	border-top: solid 1px rgba(0,0,0,0.3);
+}
+#commentBox {
+	margin-top: 15px;
+	width: 100%;
+	height: 12vh;
+}
+#submitComment {
+	margin-top: 0px;
+	height: 3vh;
+}
+#bottomDisc {
+	padding-bottom: 10px;
+}
+
