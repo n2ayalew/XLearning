@@ -6,40 +6,18 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-class HomeController extends Controller
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-
-    public function __construct(){
-
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        // Get All classes that user is apart of
-        $classes = new ClasseController();
-        $classes = $classes->index();
-
-        // Get All announcements for current user
-       
-        $announ = new AnnouncementController();
-        $announcements =  $announ->index();
-
-        // Get Users first name
-        $first_name = \Auth::user()->first_name;
-        
-        // Return view with data
-        return view('Home/homepage')->with([
-            'first_name' => $first_name,
-            'announcements' => $announcements,
-            'classes' => $classes
-        ]);
+        return \Auth::user();
     }
 
     /**
@@ -49,7 +27,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -57,9 +35,22 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-
+        $user = \Auth::user();
+        if($request->has('email')){
+            $user->email = $request->email;
+            $user->save();
+            return Redirect::back()->with('message', 'Your Email Has Been Changed!');
+        }
+        if ($request->has('password')){
+            if(Hash::check($request->oldPassword, $user->password)){
+                $user->password = $request->password;
+                $user->save();
+                return Redirect::back()->with('message', 'Your Password Has Been Changed!');
+            }
+            return Redirect::back()->with('message', 'Wrong Password!');
+        }
     }
 
     /**
@@ -81,7 +72,7 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -92,7 +83,6 @@ class HomeController extends Controller
      */
     public function update($id)
     {
-        //
     }
 
     /**
@@ -103,6 +93,6 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

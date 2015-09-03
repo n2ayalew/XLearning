@@ -17,7 +17,6 @@ class EventController extends Controller
      */
     public function index()
     {
-        
         return \Auth::user()->events->toArray();
     }
 
@@ -64,7 +63,17 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $date = trim($id, '{}');
+        $date = explode('&', $date);
+        if ($date[1] < 10){
+            $date[1] = '0' . $date[1];
+        }
+        if ($date[2] < 10){
+            $date[2] = '0' . $date[2];
+        }
+        $date = $date[0]  . '-' . $date[1] . '-' .  $date[2]; 
+        return \Auth::user()->events->where('event_date', $date)->toArray();
+        
     }
 
     /**
@@ -97,6 +106,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = App\Event::find($id);
+        $event->delete();
     }
 }

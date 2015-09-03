@@ -11,5 +11,10 @@ class announcement extends Model
 
     protected $fillable = ['announcement'];
 
+    public function classe(){
+
+    	return $this->belongsTo('App\Classe');
+    }
+
 
 }

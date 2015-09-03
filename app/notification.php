@@ -9,5 +9,9 @@ class notification extends Model
     //
     protected $table = 'notifications';
     protected $fillable = ['serialized_notification'];
+
+    public function classe(){
+    	return $this->belongsTo('App\Classe');
+    }
     
 }
