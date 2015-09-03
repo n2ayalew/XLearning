@@ -7,39 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-
-    public function __construct(){
-
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        // Get All classes that user is apart of
-        $classes = new ClasseController();
-        $classes = $classes->index();
-
-        // Get All announcements for current user
-       
-        $announ = new AnnouncementController();
-        $announcements =  $announ->index();
-
-        // Get Users first name
-        $first_name = \Auth::user()->first_name;
-        
-        // Return view with data
-        return view('Home/homepage')->with([
-            'first_name' => $first_name,
-            'announcements' => $announcements,
-            'classes' => $classes
-        ]);
+        return \Auth::user()->notifications;
     }
 
     /**
@@ -49,7 +26,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -57,9 +34,11 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
+        $newNote = new App\Notification();
 
+        
     }
 
     /**
@@ -103,6 +82,7 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $notification = App\Notification::find($id);
+        $notification->delete();
     }
 }

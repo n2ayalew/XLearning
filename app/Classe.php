@@ -11,7 +11,12 @@ class Classe extends Model
     public $primaryKey = "class_id";
     protected $fillable = ['subject'];
 
-    public function user_classes(){
-    	return $this->hasMany('App\user_class');
+    public function users(){
+    	return $this->belongsToMany('App\User', 'user_class');
+    }
+
+
+    public function announcements(){
+        return $this->hasMany('app\announcement');
     }
 }

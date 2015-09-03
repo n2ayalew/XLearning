@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
 	if (\Auth::user()){
-    	return view('Home/homepage');
+    	return redirect('home');
     }
  	return view('front_end/auth/login_view');
  });
@@ -27,6 +27,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 
 ]);
+
+
+Route::resource('announcement', 'AnnouncementController');
+Route::resource('class', 'ClasseController');
+Route::resource('profile', 'ProfileController');
+Route::resource('notification', 'NotificationController');
 
 
 

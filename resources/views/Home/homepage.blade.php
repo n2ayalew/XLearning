@@ -26,10 +26,8 @@
 	</div>
 	
 
-
-	<div id="main-container"><!------MAIN CONTAINER----->
-
-
+	<div id="main-container"><!------MAIN CONTAINER------>
+	
 <!----------------------LEFT COLUMN------------------------>
 
 	<div id="left-container">
@@ -38,7 +36,7 @@
 				<div id="userIcon"></div>
 			</div>
 			<div id="user-container">
-			<div id ="userName">USER NAME</div>
+			<div id ="userName">{{ $first_name }}</div>
 			<button id="settingButton" class="but">SETTINGS</button>
 			</div>
 		</div>
@@ -47,13 +45,15 @@
 			<div id="noticeBoard-header" class="container-header">ANNOUNCEMENTS
 				<button id="newNoticeButton" class="but">+</button>
 			</div>
-			<div id="noticeList"></div>
-			
+			<div id="noticeList">
+				@foreach ($announcements as $announ)
+					 <div>{{ $announ->announcement }}</div>
+				@endforeach
+			</div>
 
 		</div>
 	</div>
 
-s
 
 
 <!----------------------MIDDLE COLUMN------------------------>
@@ -61,7 +61,11 @@ s
 
 		<div id="classList-container">
 			<div id="classList-header" class="container-header">YOUR CLASSES</div>
-			<div id="classList"></div>
+			<div id="classList">
+				@foreach ($classes as $class)
+					<div>{{ $class['subject'] }}</div>
+				@endforeach
+			</div>
 			<div id="classList-footer">
 				<button id="createNewClassButton" class="but">CREATE NEW CLASS</button>
 			</div>
@@ -75,7 +79,6 @@ s
 			</div>
 
 			<div id="joinRequestList"></div>
-
 
 		</div>
 
@@ -151,39 +154,42 @@ s
 	</div>
 
 
-
 <!----------------------SETTINGS---------------------->
 	<div id="settings-container">
-		<form>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<button id="closeSettings"  class="closeButton"></button>
 			<div id="settingsHeader" class="modalHeader">USER SETTINGS</div>
 			<div id="miniAlert2" class="miniAlert"></div>
 			<div id="changeName-container">
+			<form>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="title">CHANGE USER NAME</div>
 				NEW NAME: <input id="newName" type="text"></input><br>
-				<button id="submitNewName" class="but">CHANGE</button>
+				<button id="submitNewName" class="but" type="submit">CHANGE</button>
+			</form>
 			</div>
 			<div id="changeEmail-container">
-				<div class="title">CHANGE USER EMAIL</div>
-				<form>
-					NEW EMAIL: <input id="newEmail" type="email"><br>
+			<form method="POST" action="/profile">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<div class="title">CHANGE/ADD USER EMAIL</div>
+					NEW EMAIL: <input id="newEmail" type="email" name="email"><br>
 					<input type="submit" id="submitNewEmail" class="but" value="CHANGE">
-				</form>
+			</form>
 			</div>
 			<div id="changePassword-container">
+			<form method="POST" action="/profile">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="title">CHANGE USER PASSWORD</div>
-				OLD PASSWORD: <input id="oldPassword" type="password"></input><br>
-				NEW PASSWORD: <input id="newPassword" type="password"></input><br>
-				CONFIRM PASSWORD: <input id="confirmNewPassword" type="password"></input><br>
+				OLD PASSWORD: <input id="oldPassword" type="password" name="oldPassword"></input><br>
+				NEW PASSWORD: <input id="newPassword" type="password" name="password"></input><br>
+				CONFIRM PASSWORD: <input id="confirmNewPassword" type="password" name="newConfirmPassword"></input><br>
 				<button id="submitNewPassword" class="but">CHANGE</button>
+			</form>
 			</div>
-		</form>
 	</div>
 
 
 <!----------------------MAKE NEW ANNOUNCEMENT---------------------->
-	<form>
+	<form method="POST" action="/announcement">
 		<div id="newNotice-container">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<button id="closeNewNotice" class="closeButton"></button>
@@ -194,17 +200,17 @@ s
 
 				<div id="announcement-container">
 					<div class="title">WRITE YOUR MESSAGE</div>
-					<textarea id="announcement" type="text" cols="50" rows="7"></textarea>
+					<textarea id="announcement" type="text" cols="50" rows="7" name="announcement"></textarea>
 				</div>
 
 				<div id="newNoticeClassContainer">
 					<div class="title">CHOOSE CLASS</div>
-					<select id="newNoticeClassPicker">
+					<select id="newNoticeClassPicker" name="class_id">
 					  <option value="0">Select Class</option>
 					</select>
 				</div>
 
-				<button id="submitNewNotice" class="but">POST</button>
+				<button id="submitNewNotice" class="but" type="submit">POST</button>
 		</div>
 	</form>
 
@@ -212,7 +218,7 @@ s
 
 
 <!----------------------CREATE NEW CLASS---------------------->
-	<form>
+	<form method="POST" action="/class">
 		<div id="createNewClass-container">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<button id="closeCreateNewClass" class="closeButton"></button>
@@ -220,13 +226,13 @@ s
 			<div id="miniAlert3" class="miniAlert"></div>
 			<div id="chooseClassName-container">
 				<div class="title">CHOOSE CLASS NAME</div>
-				CLASS NAME: <input id="newClassName" type="text"></input><br>
+				CLASS NAME: <input id="newClassName" type="text" name="subject"></input><br>
 			</div>
 			<div id="chooseClassYear-container">
 				<div class="title">CHOOSE YEAR</div>
-				CLASS YEAR: <input id="newClassYear" type="text"></input><br>
+				CLASS YEAR: <input id="newClassYear" type="text" name="year"></input><br>
 			</div>
-			<button id="submitNewClass" class="but">CREATE</button>
+			<button id="submitNewClass" class="but" type="submit">CREATE</button>
 		</div>
 	</form>
 

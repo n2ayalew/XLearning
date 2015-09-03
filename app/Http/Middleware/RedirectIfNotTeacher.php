@@ -19,6 +19,6 @@ class RedirectIfNotTeacher
             return $next($request);
         }
 
-        return redirect('student/' . $request->path());
+        return response('Unauthorized.', 401);
     }
 }

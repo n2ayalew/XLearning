@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class RegistarController extends Controller
+class ClasseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class RegistarController extends Controller
      */
     public function index()
     {
-        //return view("front_end/login1_1/login");
+       return \Auth::user()->classes->toArray();
     }
 
     /**
@@ -34,9 +34,14 @@ class RegistarController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $newClass = $request->except('_token', 'year');
+        $newClass['teacher'] = \Auth::user()->user_id;
+        $class = new \App\Classe();
+        $class->subject = $newClass['subject'];
+        $class->teacher = $newClass['teacher'];
+        \Auth::user()->classes()->save($class);
     }
 
     /**
@@ -80,6 +85,7 @@ class RegistarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $class = Classe::find($id);
+        $class->delete();
     }
 }

@@ -112,6 +112,17 @@ function showEvents(date, month, year){
 	}
 	//RETRIEVE FROM SERVER --------------->> HERE <<-------------- RETRIEVE FROM SERVER SERVER//
 	//SIMULTED USING CLASS OF ARRAYS
+	currDate = year + '&' + month + '&' + date;
+	$.ajax({
+			type: 'GET',
+			url: '/event/{' + currDate + '}' ,
+			success: function(response, status){
+				console.log(response);
+				// The response has all the event objects for the date selected
+				
+			}
+		});
+
 	refreshEventList(date, month);
 
 }

@@ -16,7 +16,7 @@ class CreateUserClassTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('classe_id')->unsigned();
-            $table->boolean('is_teacher');
+            $table->boolean('is_teacher'); // ignore this column for now
             $table->timestamps();
         });
         Schema::table('user_class', function($table) {
