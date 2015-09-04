@@ -14,13 +14,13 @@ class NotificationTableSeeder extends Seeder
         \DB::table('notifications')->delete();
 
         \App\Notification::create(array(
-        	'user_id' => 6,
-        	'serialized_notification' => 'test 2',
+        	'user_id' => 2,
+        	'serialized_notification' => 'test 1',
         ));
 
         \App\Notification::create(array(
-        	'user_id' => 6,
-        	'serialized_notification' => 'test 3',
+        	'user_id' => 2,
+        	'serialized_notification' => 'test 2',
         ));
     }
 }

@@ -14,34 +14,34 @@ class EventTableSeeder extends Seeder
     	DB::table('events')->delete();
       
     	\App\Event::create(array(
-    		'user_id' => 5,
-    		'classe_id' => 3,
-    		'teacher' => 6,
-    		'event' => 'test event',
+    		'user_id' => 1,
+    		'classe_id' => 1,
+    		'teacher' => 2,
+    		'event_title' => 'test event',
     		'event_date' => '2015-10-04',
     		'event_time' => 840,
     	));
     	\App\Event::create(array(
-    		'user_id' => 6,
-    		'classe_id' => 3,
-    		'teacher' => 6,
-    		'event' => 'test event',
+    		'user_id' => 2,
+    		'classe_id' => 1,
+    		'teacher' => 2,
+    		'event_title' => 'test event',
     		'event_date' => '2015-10-04',
     		'event_time' => 840,
     	));
     	\App\Event::create(array(
-    		'user_id' => 7,
-    		'classe_id' => 3,
-    		'teacher' => 6,
-    		'event' => 'test event',
+    		'user_id' => 3,
+    		'classe_id' => 1,
+    		'teacher' => 2,
+    		'event_title' => 'test event',
     		'event_date' => '2015-10-04',
     		'event_time' => 840,
     	));
     	\App\Event::create(array(
-    		'user_id' => 8,
-    		'classe_id' => 3,
-    		'teacher' => 6,
-    		'event' => 'test event',
+    		'user_id' => 4,
+    		'classe_id' => 1,
+    		'teacher' => 2,
+    		'event_title' => 'test event',
     		'event_date' => '2015-10-04',
     		'event_time' => 840,
     	));

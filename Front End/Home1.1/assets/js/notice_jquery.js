@@ -3,7 +3,7 @@ function addNotice() {
   newNotice = new notice();
   newNotice.message = $('#announcement').val().toString();
 
-  console.log('saving new message: '+newNotice.message);
+  // console.log('saving new message: '+newNotice.message);
   ///////////////NEEDS TO SET THE TEACHER ID LATER//////////
   var temp =[];
   var str = $('#newNoticeClassPicker').val().toString();
@@ -27,7 +27,7 @@ function addNotice() {
 
 //======DELETING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
 function deleteNotice(index) {
-  console.log('deleting message with index:'+index);
+  // console.log('deleting message with index:'+index);
   /////////////REQUEST SERVER TO DELETE ///////////
   ////////////////SEND ID TO SERVER////////////////////////
   //////////////DELETE IN LOCAL DB//////////////
@@ -72,7 +72,7 @@ function createNoticeDOM (newNotice, index) {// index in array NOT IN BACKEND DA
 
   var date = document.createElement('div');
   date.setAttribute('class', 'noticeDate');
-  console.log('date: ------->'+ newNotice.dateCreated);
+  // console.log('date: ------->'+ newNotice.dateCreated);
   date.innerHTML =newNotice.dateCreated; 
 
   e.appendChild(date);
@@ -100,12 +100,12 @@ function appendNoticeDOM(newNotice,index) {
 
 //==============================CHECK INPUT===================================//
 function correctInputNewNotice() {
-  console.log('checking input');  
+  // console.log('checking input');  
   if($('#announcement').val() != '' && $('#newNoticeClassPicker').val() !='0') {
-        console.log('right input');        
+        // console.log('right input');        
         return true;
   }
-  console.log('wrong input');
+  // console.log('wrong input');
   var miniAlert = document.getElementById('miniAlert4');
   miniAlert.innerHTML = "SOME INFORMATION IS MISSING PLEASE FILL THEM OUT";
   setTimeout( function() {
@@ -127,9 +127,9 @@ $(document).ready( function () {
   });
 
   $('#submitNewNotice').click( function() {
-    console.log('button pressed');
+    // console.log('button pressed');
     if(correctInputNewNotice()) {
-      console.log('right input adding');
+      // console.log('right input adding');
       addNotice();
     }
   });

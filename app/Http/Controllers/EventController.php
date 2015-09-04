@@ -18,6 +18,7 @@ class EventController extends Controller
     public function index()
     {
         return \Auth::user()->events->toArray();
+
     }
 
     /**
@@ -42,14 +43,14 @@ class EventController extends Controller
         $fields['event_time'] = ($time[0] * 60) + $time[1];
         $fields['user_id'] = \Auth::user()->user_id;
         $fields['teacher'] = \Auth::user()->user_id;
-        $fields['classe_id'] = 3; // temporary.. we need to find populate the list on the modal with certain class ids
+        $fields['classe_id'] = $fields['class_id']; // temporary.. we need to find populate the list on the modal with certain class ids
         $newEvent = new \App\Event();
         $newEvent->user_id = \Auth::user()->user_id;
         $newEvent->teacher = \Auth::user()->user_id;; //$fields['teacher'];
-        $newEvent->event = $fields['event'];
+        $newEvent->event_title = $fields['event_title'];
         $newEvent->event_date = $fields['event_date'];
         $newEvent->event_time = $fields['event_time'];
-        $classEvent = \App\Classe::where('class_id', 3)->first();
+        $classEvent = \App\Classe::where('class_id', $fields['class_id'])->first();
         $newEvent->classe()->associate($classEvent);
         \Auth::user()->events()->save($newEvent);
         $user_id = DB::table('events')->select('id')->orderBy('id', 'desc')->pluck('id');
@@ -107,6 +108,11 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = App\Event::find($id);
+        $event->delete();
+    }
+
+    public function remove($id){
+        $event = \App\Event::find($id);
         $event->delete();
     }
 }

@@ -25,21 +25,21 @@ function dayEvents() {
 	this.saveEvent = function(e) {
 		if (list.length == 0) {
 			list.push(e);
-			console.log('pushing into empty list');
+			// //console.log('pushing into empty list');
 			return;
 		}
-		console.log('list size:'+list.length);
+		// //console.log('list size:'+list.length);
 
 		var size = list.length;
 		for (var i=0; i<size; i++) {
 			if(list[i].time > e.time) {
 				list.splice(i,0,e);
-				console.log('inserted new event at:'+i+' size:'+list.length);
+				// //console.log('inserted new event at:'+i+' size:'+list.length);
 				return;
 			}
 		}
 		list.push(e); // if the element.time is the largest
-		console.log('inserted new event at end size:'+list.length);
+		// //console.log('inserted new event at end size:'+list.length);
 		return;
 	};
 
@@ -67,7 +67,7 @@ function monthEvents() {
 
 		var date = parseInt(e.date);
 		var index = date-1;
-		console.log('saving Event DateIndex = '+ index);
+		// //console.log('saving Event DateIndex = '+ index);
 		return month[index].saveEvent(e);
 	};
 
@@ -84,7 +84,7 @@ function monthEvents() {
 
 	this.getDayEvents = function(date) {
 
-		console.log('idate:' + date);//////////////
+		// //console.log('idate:' + date);//////////////
 
 		return month[date].getEvents();
 	};
@@ -117,7 +117,7 @@ function yearEvents() {
 		var indexMonth = month-1;
 		var indexDate = date-1;
 
-		console.log('idate:' + indexDate + ' imonth: ' + indexMonth); //////////////////////////////////
+		// //console.log('idate:' + indexDate + ' imonth: ' + indexMonth); //////////////////////////////////
 		
 		return year[indexMonth].getDayEvents(indexDate);
 	};
@@ -127,6 +127,34 @@ function yearEvents() {
 		var index = month -1;
 		return year[index].getEvents();
 	};
+}
+
+function yearLoopClass() {
+	var months = [];
+
+	if (month_ >= 8 && month_<=11) {
+		for(var i=1; i<9; i++) {
+			months.push(year_+1);			
+		}
+		for(var i=9; i<13; i++) {
+			months.push(year_);
+		}
+
+	}
+	else {
+		for(var i=1; i<9; i++) {
+			months.push(year_);			
+		}
+		for(var i=9; i<13; i++) {
+			months.push(year_-1);
+		}
+	}
+
+	this.getMonths = function () {
+		return months;
+	};
+	// //console.log("successfull in creating year loop: "+months.length+"<----------------------------------");
+
 }
 
 

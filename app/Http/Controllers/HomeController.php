@@ -31,6 +31,7 @@ class HomeController extends Controller
         $announ = new AnnouncementController();
         $announcements =  $announ->index();
 
+        
         // Get Users first name
         $first_name = \Auth::user()->first_name;
         

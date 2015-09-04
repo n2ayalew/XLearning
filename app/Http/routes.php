@@ -18,7 +18,6 @@ Route::get('/', function () {
  	return view('front_end/auth/login_view');
  });
 
-Route::resource('event', 'EventController');
 
 Route::get('home', 'HomeController@index'); // class Page
 
@@ -28,9 +27,15 @@ Route::controllers([
 
 ]);
 
+Route::resource('event', 'EventController');
+Route::get('event/remove/{id}', 'EventController@remove');
+
 
 Route::resource('announcement', 'AnnouncementController');
+Route::get('announcement/remove/{id}', 'AnnouncementController@remove');
+
 Route::resource('class', 'ClasseController');
+
 Route::resource('profile', 'ProfileController');
 Route::resource('notification', 'NotificationController');
 
