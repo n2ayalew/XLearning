@@ -1,5 +1,5 @@
-Get the latest version of The Lobster Font at
-http://www.impallari.com/lobster
+Get the latest version of The JosefinBold Font at
+http://www.impallari.com/JosefinBold
 
 And please donate if you liked it!
 

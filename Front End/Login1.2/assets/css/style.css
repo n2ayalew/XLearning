@@ -1,7 +1,7 @@
 /*============================================================================
 								FONTS
 /#============================================================================*/
-@font-face { font-family: Lobster; src: url(../fonts/Lobster.otf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
 
 
 body { 
@@ -29,7 +29,7 @@ body {
 
 
 #title {
-	font-family: "Lobster", sans-serif;
+	font-family: "JosefinBold", sans-serif;
 	color: #fff;
 	font-size: 50pt;
 	position: absolute;
@@ -43,20 +43,12 @@ body {
 } 
 
 #icon {
-	margin-top: -90px;
-	margin-left: -90px;
+	margin-top: -70px;
+	margin-left: -70px;
 	position: absolute;
 	top: 85%;
 	left: 50%;
 }
-#icon2 {
-	margin-top: -90px;
-	margin-left: -90px;
-	position: absolute;
-	top: 85%;
-	left: 50%;
-}
-
 #brackets {
 	margin-top: -70px;
 	margin-left: -1350px;
@@ -75,7 +67,7 @@ body {
 	left: 50%;
 	font-size: 30pt;
 	color: #fff;
-	font-family: Lobster;
+	font-family: JosefinBold;
 	z-index: 3;
 }
 #registrationForm{
@@ -84,11 +76,11 @@ body {
 	font-size: 20pt;
 	color: #fff;
 	z-index: 0;
-	font-family: Lobster;
+	font-family: JosefinBold;
 }
 #button1, #button2 {
 	border: 0px;
-	background: #5EC8BE;
+	background: #1D718D;
 	border-radius: 10px;
 	margin-right: 0px;
 	font-size: 20pt;
@@ -98,7 +90,7 @@ body {
 }
 #button3 {
 	border: 0px;
-	background: #5EC8BE;
+	background: #1D718D;
 	border-radius: 10px;
 	margin-right: 0px;
 	font-size: 20pt;
@@ -108,7 +100,7 @@ body {
 }
 #button4 {
 	border: 0px;
-	background: #5EC8BE;
+	background: #1D718D;
 	border-radius: 10px;
 	margin-right: 0px;
 	font-size: 20pt;
@@ -124,7 +116,7 @@ body {
 	margin-left: -300px;
 	top: 100%;
 	left: 50%;
-	font-family: Lobster;
+	font-family: JosefinBold;
 	font-size: 30pt;
 	color: #fff;
 	text-align: center;
@@ -140,7 +132,7 @@ body {
 	top: 0%;
 }
 #teacherButton {
-	font-family: Lobster;
+	font-family: JosefinBold;
 	font-size: 20pt;
 	position: absolute;
 	top: 30%;
@@ -153,7 +145,7 @@ body {
 	height: 180px;
 }
 #studentButton {
- 	font-family: Lobster;
+ 	font-family: JosefinBold;
 	font-size: 20pt;
 	position: absolute;
 	top: 30%;
@@ -190,23 +182,23 @@ input {
 	margin-bottom: 20px;
 	font-family: Arial;
 	font-size: 20pt;
-	color: #5EC8BE;
+	color: #1D718D;
 }
 #studentId, #joinClass, #passwordS1, #passwordS2, #teacherId,
-#firstNameT,#firstNameS,#lastNameT,#lastNameS, #passwordT1,#emailT, #passwordT2 {
+#firstNameT,#firstNameS,#lastNameT,#lastNameS, #passwordT1,#emailT,#emailS, #passwordT2 {
 	margin: 24px;
 }
 #next {
 	border: 0px;
 	border-radius: 10px;
-	background: #5EC8BE;
+	background: #1D718D;
 	position: absolute;
 	left: 75%;
 	top: 90%;
 	width: 124px;
 	height: 40px;
 	font-size: 20pt;
-	font-family: Lobster;
+	font-family: JosefinBold;
 	color: #fff;
 }
 #SB:hover  {
@@ -223,4 +215,7 @@ input {
 	width: 180px;
 	height: 180px;
 	border: 0px;
+}
+#teacherOrStudent, #registrationStudent, #registrationTeacher {
+	visibility: hidden;
 }

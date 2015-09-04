@@ -1,9 +1,9 @@
 /*============================================================================*/
 								/*FONTS*/
 
-@font-face { font-family: Lobster; src: url(../fonts/Lobster.otf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
 @font-face { font-family: Josefin; src: url(../fonts/josefin-sans/JosefinSans-Light.ttf); } 
-@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-SemiBold.ttf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
 /*============================================================================*/
 
 
@@ -155,7 +155,7 @@ select {
 
 #xlogo {
 	color: #fff;
-	font-family: Lobster;
+	font-family: JosefinBold;
 	font-size: 20px;
 	position: absolute;
 	left: 15px;

@@ -4,13 +4,13 @@ function buttonHover(element) {
   var button = $(element);
   button.mouseenter(
     function() {
-      button.css('background', '#3E4147');
+      button.css('background', '#121415');
     }
   );
 
   button.mouseleave(
     function () {
-      button.css('background', '#5EC8BE');
+      button.css('background', '#1D718D');
     }
   );
 }
@@ -24,9 +24,9 @@ function exitLogin() {
   brackets.removeClass("animated slideInDown");
   brackets.addClass("animated fadeOutUpBig"); 
   icon.removeClass("animated slideInUp");
-  icon2.removeClass("animated slideInUp");
+  // icon2.removeClass("animated slideInUp");
   icon.addClass("animated slideOutDown short");
-  icon2.addClass("animated slideOutDown short");
+  // icon2.addClass("animated slideOutDown short");
 }
 
 
@@ -68,7 +68,6 @@ var header = $('#header');
 var title = $('#title');
 var brackets = $('#brackets');
 var icon = $('#icon');
-var icon2 = $('#icon2');
 var star = $('#star');
 var loginForm = $('#loginForm');
 var logo = $('#logo');
@@ -121,7 +120,7 @@ $(document).ready(
     title.addClass("animated slideInDown");
     brackets.addClass("animated slideInDown");
     icon.addClass("animated slideInUp");
-    icon2.addClass("animated slideInUp");
+    // icon2.addClass("animated slideInUp");
     star.addClass("animated rotateIn");
     loginForm.addClass("animated fadeInDown")
   }
