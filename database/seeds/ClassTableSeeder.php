@@ -15,11 +15,11 @@ class ClassTableSeeder extends Seeder
 
         \App\Classe::create(array(
         	'subject' => 'Math',
-        	'teacher' => 6,
+        	'teacher' => 2,
         ));
         \App\Classe::create(array(
         	'subject' => 'Science',
-        	'teacher' => 6,
+        	'teacher' => 2,
         ));
         $this->command->info('Class table seeded!');
     }

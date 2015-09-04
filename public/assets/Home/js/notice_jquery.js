@@ -1,9 +1,10 @@
 //======ADDING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
-function addNotice() {
+function addNotice(f) {
+  var form = f;
   newNotice = new notice();
-  newNotice.message = $('#announcement').val().toString();
+  newNotice.message = $('#announcement').val();
 
-  console.log('saving new message: '+newNotice.message);
+  //console.log('saving new message: '+newNotice.message);
   ///////////////NEEDS TO SET THE TEACHER ID LATER//////////
   var temp =[];
   var str = $('#newNoticeClassPicker').val().toString();
@@ -11,11 +12,20 @@ function addNotice() {
   newNotice.classID = temp[0];
   newNotice.className = temp[1];
 
-  $('#announcement').val('');
-  $('#newNoticeClassPicker').val('0');
+  //$('#announcement').val('');
+  //$('#newNoticeClassPicker').val('0');
 
   /////////////SEND TO SERVER ///////////////////
+  $.ajax({
+    method:'POST',
+    url:'announcement',
+    data: form.serialize(),
+    success: function(response){
+      newNotice.noticeID = response;
+    }
+  });
   ////////////////GET ID////////////////////////
+
   //////////////SET ID IN LOCAL DB//////////////
   $('#miniAlert4').append('YOUR POST HAS BEEN SUBMITTED');
   setTimeout( function() {
@@ -23,13 +33,23 @@ function addNotice() {
   },2000);
   noticeList.saveNotice(newNotice);
   refreshNoticeList();
+  $('#newNoticeClassPicker').val("0");
+  $('#announcement').val("");
 }
 
 //======DELETING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
 function deleteNotice(index) {
-  console.log('deleting message with index:'+index);
+  //console.log('deleting message with index:'+index);
   /////////////REQUEST SERVER TO DELETE ///////////
   ////////////////SEND ID TO SERVER////////////////////////
+  var id  = noticeList.getList()[index].noticeID;
+  console.log(id);
+  $.ajax({
+    url:'/announcement/remove/'+ id,
+    success: function(response){
+      console.log('delete success');
+    }
+  });
   //////////////DELETE IN LOCAL DB//////////////
   noticeList.deleteNotice(index);
   $('#notice-'+index).slideUp();
@@ -72,7 +92,7 @@ function createNoticeDOM (newNotice, index) {// index in array NOT IN BACKEND DA
 
   var date = document.createElement('div');
   date.setAttribute('class', 'noticeDate');
-  console.log('date: ------->'+ newNotice.dateCreated);
+  //console.log('date: ------->'+ newNotice.dateCreated);
   date.innerHTML =newNotice.dateCreated; 
 
   e.appendChild(date);
@@ -100,12 +120,12 @@ function appendNoticeDOM(newNotice,index) {
 
 //==============================CHECK INPUT===================================//
 function correctInputNewNotice() {
-  console.log('checking input');  
+  //console.log('checking input');  
   if($('#announcement').val() != '' && $('#newNoticeClassPicker').val() !='0') {
-        console.log('right input');        
+        //console.log('right input');        
         return true;
   }
-  console.log('wrong input');
+  //console.log('wrong input');
   var miniAlert = document.getElementById('miniAlert4');
   miniAlert.innerHTML = "SOME INFORMATION IS MISSING PLEASE FILL THEM OUT";
   setTimeout( function() {
@@ -115,7 +135,26 @@ function correctInputNewNotice() {
 }
 //============================SETTING INTERACTIVE NOTICE CREATOR===================//
 $(document).ready( function () {
-  refreshNoticeList();
+  $.ajax({
+    method: 'GET',
+    url: '/announcement',
+    success: function(result){
+      var str, lst;
+      for (var i = 0; i < result.length; i++){
+        var temp = new notice();
+        lst = result[i].created_at.split(' ');
+        str = lst[0].split('-');
+        temp.dateCreated = str[2]+' '+str[1]+' '+str[0];
+        temp.noticeID = result[i].id;
+        temp.teacherID = result[i].teacher;
+        temp.classID = result[i].class_id;
+        temp.className = 'test';
+        temp.message = result[i].announcement;
+        noticeList.saveNotice(temp);
+        refreshNoticeList();
+      }
+    }
+  });
   $('#newNoticeButton').click( function () {
     $('.overlay').css('visibility', 'visible').hide().fadeIn('fast');
     $('#newNotice-container').css('visibility', 'visible').hide().fadeIn('fast');
@@ -126,11 +165,12 @@ $(document).ready( function () {
     $('#newNotice-container').fadeOut('fast');
   });
 
-  $('#submitNewNotice').click( function() {
-    console.log('button pressed');
+  $('#newAnnouncementForm').on( 'submit', function(e) {
+    e.preventDefault();
+    //console.log('button pressed');
     if(correctInputNewNotice()) {
-      console.log('right input adding');
-      addNotice();
+      //console.log('right input adding');
+      addNotice($(this));
     }
   });
 

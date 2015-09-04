@@ -1,5 +1,10 @@
 
 //=============================GLOBAL VARIABLES====================================//
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 var currentMonthIndex = month_+1;
 var nextButton = $('#nextButton');
 var previousButton = $('#previousButton');
@@ -11,17 +16,19 @@ var isListEmpty = true;
 var eventList = $('#eventList');
 var eventRecord = new yearEvents();
 var yearIndex = year_;
+var yearLoop = new yearLoopClass();
 
-for(var i =0; i<20; i++) {
-	var newEvent = new eventClass();
-	newEvent.time = 680;
-	newEvent.date = '30';
-	newEvent.month= '8';
-	newEvent.year= '2015';
-	newEvent.classId='2342';
-	eventRecord.saveEvent(newEvent);
-	console.log('yolo');
-}
+
+// for(var i =0; i<20; i++) {
+// 	var newEvent = new eventClass();
+// 	newEvent.time = 680;
+// 	newEvent.date = '30';
+// 	newEvent.month= '8';
+// 	newEvent.year= '2015';
+// 	newEvent.classId='2342';
+// 	eventRecord.saveEvent(newEvent);
+// 	 // //console.log('yolo');
+// }
 //===========================HIGHLIGHT CURRENT DATE===========================//
 function highlightDate(date_, monthIndex_, year_){
 	var date = date_.toString();
@@ -47,19 +54,19 @@ function highlightDateWithEvent(month){
 //===============GENERATE NEXT MONTH CALENDAR=======================================//
 // Parameter: interger Year e.g 2014.
 // loops from the september to august , one school year .
-function generateNextMonth(currentYear){
-
+function generateNextMonth(startPoint){
+	 // //console.log('startPoint:' + startPoint) /////////////////////////////
+	startPoint = parseInt(startPoint);
 	calendar.empty();
-	currentMonthIndex++;
-	if(currentMonthIndex >= 9 && currentMonthIndex <=12)
-		yearIndex = currentYear-1;
-
-	else if(currentMonthIndex > 12) {
-		currentMonthIndex = 1;
-		yearIndex = currentYear;
-	}
-		else
-			yearIndex = currentYear;
+	startPoint = (startPoint+1)%12;
+	 // //console.log('new startPoint:'+startPoint); /////////////////////////
+	currentMonthIndex = startPoint +1;
+	var months = [];
+	months = yearLoop.getMonths();
+	yearIndex = parseInt(months[currentMonthIndex-1]);
+	
+	 // //console.log("currentMonthIndex: "+currentMonthIndex);//////////////
+	 // //console.log(months); /////////////////////////////////////////////
 
 	var calObjt = createCalendar(currentMonthIndex, yearIndex);
 	var rowDays = generateDayRow();
@@ -71,16 +78,21 @@ function generateNextMonth(currentYear){
 //================GENERATE PREVIOUS MONTH CALENDAR=======================================//
 //Parameter: interger Year e.g 2014.
 // loops from the september to august , one school year .
-function generatePreviousMonth(currentYear){
-
+function generatePreviousMonth(startPoint){
+	// //console.log('startPoint:' + startPoint) /////////////////////////////
+	startPoint = parseInt(startPoint);
 	calendar.empty();
-	currentMonthIndex --;
-	if (currentMonthIndex < 1)
-		currentMonthIndex =12;
-		if(currentMonthIndex >= 9 && currentMonthIndex <=12)
-			yearIndex = currentYear-1;
-		else
-			yearIndex = currentYear;
+	startPoint--;
+	// //console.log('new startPoint:'+startPoint); /////////////////////////
+	if (startPoint < 0)
+		startPoint = 11;
+	currentMonthIndex = startPoint+1;
+	var months = [];
+	months = yearLoop.getMonths();
+	yearIndex = parseInt(months[currentMonthIndex-1]);
+
+	// //console.log("currentMonthIndex: "+currentMonthIndex);//////////////
+	// //console.log(months); /////////////////////////////////////////////
 
 	var calObjt = createCalendar(currentMonthIndex, yearIndex);
 	var rowDays = generateDayRow();
@@ -113,15 +125,6 @@ function showEvents(date, month, year){
 	//RETRIEVE FROM SERVER --------------->> HERE <<-------------- RETRIEVE FROM SERVER SERVER//
 	//SIMULTED USING CLASS OF ARRAYS
 	currDate = year + '&' + month + '&' + date;
-	$.ajax({
-			type: 'GET',
-			url: '/event/{' + currDate + '}' ,
-			success: function(response, status){
-				console.log(response);
-				// The response has all the event objects for the date selected
-				
-			}
-		});
 
 	refreshEventList(date, month);
 
@@ -130,7 +133,7 @@ function showEvents(date, month, year){
 function refreshEventList(date, month) {
 	$('#eventList').empty();
 
-	console.log("hey refresh__________________________________________________________________"); //////////////////////////////////
+	// //console.log("hey refresh__________________________________________________________________"); //////////////////////////////////
 
 	var eventArray = [];
 
@@ -141,11 +144,11 @@ function refreshEventList(date, month) {
 		$('#eventList').append('<div>NO EVENTS</div>');
 	else {
 
-		console.log('refreshing event list, size =' + size); //////////////////////////////////
+		// //console.log('refreshing event list, size =' + size); //////////////////////////////////
 
 		for (var i=0; i<size; i++) {
 
-			console.log('Appending index: '+i); //////////////////////////////////
+			// //console.log('Appending index: '+i); //////////////////////////////////
 			
 			appendEventDOM(eventArray[i],i);
 		}
@@ -190,15 +193,15 @@ function addEvent(f){
 		t = tempTime.split(':');
 		h = parseInt(t[0])*60
 
-		console.log("hour to min:" + t[0] + "-" + h); ////////////////////////////
+		// //console.log("hour to min:" + t[0] + "-" + h); ////////////////////////////
 
 		tempTime = h + parseInt(t[1]);
 
-		console.log("total min:" + tempTime); ////////////////////////////
+		// //console.log("total min:" + tempTime); ////////////////////////////
 		
 		newEvent.time = parseInt(tempTime);
 		
-		console.log("Event Object Time: "+newEvent.time); ////////////////////////////
+		// //console.log("Event Object Time: "+newEvent.time); ////////////////////////////
 		
 		var temp = [];
 		var str = ($('#newEventClassPicker').val()).toString();
@@ -219,17 +222,19 @@ function addEvent(f){
 		dd.setAttribute('name', 'event_date');
 		dd.setAttribute('value', newEvent.year+'-'+newEvent.month+'-'+newEvent.date);
 
-		console.log(newEvent);
-		console.log(form);
+		// //console.log(newEvent);
+		// //console.log(form);
 		var result;
 		$.ajax({
 			type: 'POST',
 			url: '/event',
 			data: form.serialize(),
 			success: function(response, status){
-				console.log(response);
+				// //console.log(response);
 				// integrate logic with event id here
 				// response holds last event id added to db
+				newEvent.eventID = response;
+
 			}
 		});
 
@@ -240,7 +245,7 @@ function addEvent(f){
 
 		eventRecord.saveEvent(newEvent);
 		
-		console.log("saving done"); ////////////////////////////
+		// //console.log("saving done"); ////////////////////////////
 
 		// SEND TO SERVER --------------->> HERE <<-------------- SEND TO SERVER//
 		
@@ -254,19 +259,26 @@ function addEvent(f){
 //==============================APPEND EVENT TO UI===================================//
 // PARAMETERS: NEWEVENT OBJECT.
 function createEventDOM(newEvent,index) {
-	/*var time = [];
-	time = (newEvent.time).split(":");
-	var timeStr = time[0] + time[1];*/
+	// var time = [];
+	// time = (newEvent.time).split(":");
+	// var timeStr = time[0] + time[1];
 
 
 	var e = document.createElement('div');
 	e.setAttribute("id",index+"-"+(newEvent.date.toString())+"-"+(newEvent.month.toString())+"-"+(newEvent.year.toString()) );
 	e.setAttribute("class", "eventElement");
-
 	var deleteButton = document.createElement('button');
-	deleteButton.setAttribute("onclick", "deleteEvent("+index+","+newEvent.date+","+newEvent.month+","+newEvent.year+")");
+	deleteButton.setAttribute("onclick", "deleteEvent("+"$(this)"+","+"event"+","+index+","+newEvent.date+","+newEvent.month+","+newEvent.year+","+newEvent.eventID+")");
 	deleteButton.setAttribute("class", "deleteButton");
-
+	// var deleteForm = document.createElement('form');
+	// deleteForm.setAttribute('method', 'POST');
+	// deleteForm.setAttribute('action', '/event');
+	// var hidToken = document.createElement('input');
+	// hidToken.setAttribute('type', 'hidden');
+	// hidToken.setAttribute('name','_token');
+	// hidToken.setAttribute('value', $('[name="csrf_token"]').attr('content'));
+	// deleteForm.appendChild(hidToken);
+	// deleteForm.appendChild(deleteButton);
 	e.appendChild(deleteButton);
 
 	var eventTime = document.createElement('div');
@@ -302,24 +314,31 @@ function createEventDOM(newEvent,index) {
 
 function appendEventDOM(newEvent,index) {
 	var element = createEventDOM(newEvent,index);
-	console.log("passed createElement");
+	// //console.log("passed createElement");
 	var list = document.getElementById('eventList');
 	list.appendChild(element);
 }
 
 
 //==============================DELETE EVENT===================================//
-function deleteEvent(index,date,month,year){
+function deleteEvent(form,e,index,date,month,year,eventID){
+	console.log(e);
+	$.ajax({
+		url: 'event/remove/' + eventID,	// Look into making this more secure
+		success: function (result){
+			console.log("deleted success");
+		}
+	});
 
 	eventRecord.deleteEvent(parseInt(index), date, parseInt(month), year);
 	var id = index+"-"+date+"-"+month+"-"+year;
-	console.log("Deleting: "+id);
+	// //console.log("Deleting: "+id);
 	
-		$('#'+id).slideUp();
+	$('#'+id).slideUp();
 
 	setTimeout( function() {
 	refreshEventList(date,month);
-	},500);
+	},0);
 
 	highlightDateWithEvent(currentMonthIndex);
 }
@@ -336,12 +355,12 @@ $(document).ready( function () {
 
 
     nextButton.click(function () {
-    	generateNextMonth(parseInt(year_));
+    	generateNextMonth(currentMonthIndex-1);
     	if(currentMonthIndex == month_+1)
     		highlightDate(date_, month_,year_);
     });
     previousButton.click(function () {
-    	generatePreviousMonth(parseInt(year_));
+    	generatePreviousMonth(currentMonthIndex-1);
     	if(currentMonthIndex == month_+1)
 	    	highlightDate(date_, month_,year_);
     });
@@ -367,10 +386,31 @@ $(document).ready( function() {
 
 
 
-$(document).ready( function() {
-		refreshEventList(date_,currentMonthIndex);
-		highlightDate(date_,month_,yearIndex);
-		highlightDateWithEvent(currentMonthIndex);
+$(document).ready(function(){
+		$.ajax({
+			method: 'GET',
+			url: '/event',
+			success: function(result){
+				for (var i = 0; i < result.length; i++){
+					//console.lgo(result[])
+					var temp = new eventClass();
+					temp.time = result[i].event_time;
+					var eventDate = result[i].event_date.split('-');
+					temp.date = eventDate[2];
+					temp.month = eventDate[1];
+					temp.year = eventDate[0]; 
+					temp.title = result[i].event_title;
+					temp.classId = result[i].classe_id;
+					temp.className = 'test';
+					temp.eventID = result[i].id;
+					eventRecord.saveEvent(temp);
+				}
+				refreshEventList(date_,currentMonthIndex);
+				highlightDate(date_,month_,yearIndex);
+				highlightDateWithEvent(currentMonthIndex);
+			}
+
+		});
 });
 
 

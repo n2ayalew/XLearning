@@ -1,4 +1,5 @@
 function class_() {
+	
 	this.classID; // string
 	this.name;  //string
 }
@@ -6,25 +7,25 @@ function class_() {
 var urClass =[];
 var allClass =[];
 //===========================CREATING DUMMY CLASSES===========================//
-var class1 = new class_();
-class1.classID = '5251';
-class1.name = 'ECO1';
-urClass.push(class1);
+// var class1 = new class_();
+// class1.classID = '5251';
+// class1.name = 'ECO1';
+// urClass.push(class1);
 
-var class2 = new class_();
-class2.classID = '4512';
-class2.name = 'PHY3';
-urClass.push(class2);
+// var class2 = new class_();
+// class2.classID = '4512';
+// class2.name = 'PHY3';
+// urClass.push(class2);
 
-var class3 = new class_();
-class3.classID = '1025';
-class3.name = 'BIO2';
-urClass.push(class3);
+// var class3 = new class_();
+// class3.classID = '1025';
+// class3.name = 'BIO2';
+// urClass.push(class3);
 
-var class4 = new class_();
-class4.classID = '7910';
-class4.name = 'MTE4';
-urClass.push(class4);
+// var class4 = new class_();
+// class4.classID = '7910';
+// class4.name = 'MTE4';
+// urClass.push(class4);
 
 //===========================CREATING ALL OTHER CLASSES RANOMLY====================//
 function makeName()
@@ -34,16 +35,16 @@ function makeName()
 
     for( var i=0; i < 3; i++ )
         subject += possible.charAt(Math.floor(Math.random() * possible.length));
-    console.log('subject: '+subject);
+    //console.log('subject: '+subject);
 	var year = Math.floor((Math.random() * 10) + 1);
-	console.log('class year: '+year);
+	//console.log('class year: '+year);
     return subject + (year).toString();
 }
 
 function makeID()
 {
 	var id = Math.floor((Math.random() * 10000) + 1);
-	console.log('classID: '+id);
+	//console.log('classID: '+id);
 	return id.toString();
 
 }

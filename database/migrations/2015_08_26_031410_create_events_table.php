@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('classe_id')->unsigned();
             $table->integer('teacher'); // teacher's user id
-            $table->string('event');
+            $table->string('event_title');
             $table->date('event_date');
             $table->integer('event_time'); // minutes from begining of day
             $table->timestamps();

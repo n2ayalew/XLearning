@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class AnnouncementController extends Controller
 {
@@ -55,12 +56,14 @@ class AnnouncementController extends Controller
     {
         $fields = $request->except('_token');
         $fields['teacher'] = \Auth::user()->user_id;
-        $fields['class_id'] = 3; // temporary!!! remove soon
+        $fields['class_id'] = 1; // temporary!!! remove soon
         $announcement = new \App\Announcement();
         $announcement->announcement = $fields['announcement'];
         $announcement->teacher = $fields['teacher'];
         $announcement->class_id = $fields['class_id'];
         $announcement->save();
+        $announId = \DB::table('announcements')->select('id')->orderBy('id', 'desc')->value('id');
+        return $announId;
     }
 
     /**
@@ -104,7 +107,12 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        $announcement = App\Announcement::find($id);
+        $announcement = \App\Announcement::find($id);
+        $announcement->delete();
+    }
+
+    public function remove($id){
+        $announcement = \App\Announcement::find($id);
         $announcement->delete();
     }
 }

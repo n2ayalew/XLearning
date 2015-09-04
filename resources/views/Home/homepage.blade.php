@@ -7,6 +7,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
+	    <meta name="csrf_token" content="{{ csrf_token() }}">
 		<link href="assets/Home/css/bootstrap.css" rel="stylesheet">
 		<link href="assets/Home/css/animate.css" rel="stylesheet" > 
 	    <link href="assets/Home/css/calendar_style.css" rel="stylesheet">
@@ -25,7 +26,6 @@
 		<a href="auth/logout"><button id="logOut" class="but" >LOG OUT</button></a>
 	</div>
 	
-
 	<div id="main-container"><!------MAIN CONTAINER------>
 	
 <!----------------------LEFT COLUMN------------------------>
@@ -47,7 +47,7 @@
 			</div>
 			<div id="noticeList">
 				@foreach ($announcements as $announ)
-					 <div>{{ $announ->announcement }}</div>
+					 <div class="classElement"> {{ $announ->announcement }} </div>
 				@endforeach
 			</div>
 
@@ -61,11 +61,7 @@
 
 		<div id="classList-container">
 			<div id="classList-header" class="container-header">YOUR CLASSES</div>
-			<div id="classList">
-				@foreach ($classes as $class)
-					<div>{{ $class['subject'] }}</div>
-				@endforeach
-			</div>
+			<div id="classList"></div>
 			<div id="classList-footer">
 				<button id="createNewClassButton" class="but">CREATE NEW CLASS</button>
 			</div>
@@ -139,7 +135,7 @@
 	    	<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 	        <div id="defaultEvent" class="modalHeader">NEW EVENT TODAY </div>
 	        <div id="miniAlert1" class="miniAlert"></div>
-	        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25" name="event"></input>
+	        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25" name="event_title"></input>
 	        <input id="newEventTime" type="time" name="event_time"></input>
 	        <br>
 
@@ -189,10 +185,10 @@
 
 
 <!----------------------MAKE NEW ANNOUNCEMENT---------------------->
-	<form method="POST" action="/announcement">
 		<div id="newNotice-container">
+			<button id="closeNewNotice" class="closeButton"></button>
+			<form id="newAnnouncementForm">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-				<button id="closeNewNotice" class="closeButton"></button>
 
 				<div id="newNotice" class="modalHeader">NEW ANNOUCEMENT</div>
 
@@ -211,8 +207,8 @@
 				</div>
 
 				<button id="submitNewNotice" class="but" type="submit">POST</button>
+		</form>
 		</div>
-	</form>
 
 
 
@@ -239,16 +235,17 @@
 
 <!------------------------SCRIPTS------------------------------>
 
-	
 	<script src="assets/Home/js/calendar_javascript.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="assets/Home/js/script.js"></script>
-	<script src="assets/Home/js/eventDataStructure.js"></script>
 	<script src="assets/Home/js/classDatabase.js"></script>
+	<script src="assets/Home/js/classes_jquery.js"></script>
+	<script src="assets/Home/js/eventDataStructure.js"></script>
+	<!--<script src="assets/Home/js/classDatabase.js"></script>-->
 	<script src="assets/Home/js/noticeDatabase.js"></script>
 	<script src="assets/Home/js/profile_jquery.js"></script>
 	<script src="assets/Home/js/notice_jquery.js"></script>	
-	<script src="assets/Home/js/classes_jquery.js"></script>
+	<!--<script src="assets/Home/js/classes_jquery.js"></script>-->
 	<script src="assets/Home/js/calendar_jquery.js"></script>	
 	<script src="assets/Home/js/bootstrap.min.js"></script>
 	</body>

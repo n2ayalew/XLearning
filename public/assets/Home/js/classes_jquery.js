@@ -11,7 +11,7 @@ function createClassPicker(classArray,DOM) { // takes in id of <select></select>
 		option.setAttribute('value',classArray[i].classID +":"+ classArray[i].name);
 		option.innerHTML = classArray[i].name;
 
-		console.log('importing:' + classArray[i].name);
+		//console.log('importing:' + classArray[i].name);
 
 		var selection = document.getElementById(DOM);
 		selection.appendChild(option);
@@ -50,11 +50,29 @@ function appendClass(newClass) {
 
 
 $(document).ready( function() {
-	generateAllClassPicker(urClass); // IMPORTING DUMMY CLASS FOR DEMO PURPOSES ONLY.
-	var size = urClass.length;
-	for(var i=0; i<size; i++) {
-		appendClass(urClass[i]);
-	}
+	$.ajax({
+		method: 'GET',
+		url: '/class',
+		success: function(result){
+			var temp, lst = [];
+			for (var i = 0; i < result.length; i++){
+				temp = new class_();
+				temp.classID = result[i].class_id;
+				temp.name = result[i].subject;
+				urClass.push(temp);
+			}
+			generateAllClassPicker(urClass);
+			var size = urClass.length;
+			for(var i=0; i<size; i++) {
+				appendClass(urClass[i]);
+			}
+		}
+	});
+	// generateAllClassPicker(urClass); // IMPORTING DUMMY CLASS FOR DEMO PURPOSES ONLY.
+	// var size = urClass.length;
+	// for(var i=0; i<size; i++) {
+	// 	appendClass(urClass[i]);
+	// }
 
 });
 
@@ -103,7 +121,7 @@ function appendRequest(newRequest, index) {
 // requestID is the id in the baack end database.
 function decline(requestID,index) {  
 	// send to back end....
-	console.log('deleting request with index: '+index);
+	//console.log('deleting request with index: '+index);
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');
@@ -117,7 +135,7 @@ function decline(requestID,index) {
 // requestID is the id in the baack end database.
 function accept(requestID,index) {  
 	// send to back end....
-	console.log('deleting request with index: '+index);
+	//console.log('deleting request with index: '+index);
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');
@@ -157,6 +175,7 @@ function refreshRequestList(requestList) {
 
 //=======================SETTING INTERACTIVE CLASS====================//
 $(document).ready( function() {
+
 	$('#createNewClassButton').click( function() {
 		$('.overlay').css('visibility','visible').hide().fadeIn('fast');
 		$('#createNewClass-container').css('visibility','visible').hide().fadeIn('fast');

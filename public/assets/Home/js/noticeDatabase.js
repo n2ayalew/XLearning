@@ -16,13 +16,13 @@ function noticeList() {
 	this.saveNotice = function(notice) {
 		if(list.length == 0) {
 			list.push(notice);
-			console.log('first notice item');
+			//console.log('first notice item');
 		} 
 		else {
-			console.log('saving new notice at front');
+			//console.log('saving new notice at front');
 			list.splice(0,0,notice);
 		}
-		console.log('checking list..... list[0].message='+list[0].message)
+		//console.log('checking list..... list[0].message='+list[0].message)
 		return ;
 	};
 

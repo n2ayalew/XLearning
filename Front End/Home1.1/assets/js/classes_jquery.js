@@ -11,7 +11,7 @@ function createClassPicker(classArray,DOM) { // takes in id of <select></select>
 		option.setAttribute('value',classArray[i].classID +":"+ classArray[i].name);
 		option.innerHTML = classArray[i].name;
 
-		console.log('importing:' + classArray[i].name);
+		// console.log('importing:' + classArray[i].name);
 
 		var selection = document.getElementById(DOM);
 		selection.appendChild(option);
@@ -103,7 +103,7 @@ function appendRequest(newRequest, index) {
 // requestID is the id in the baack end database.
 function decline(requestID,index) {  
 	// send to back end....
-	console.log('deleting request with index: '+index);
+	// console.log('deleting request with index: '+index);
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');
@@ -117,7 +117,7 @@ function decline(requestID,index) {
 // requestID is the id in the baack end database.
 function accept(requestID,index) {  
 	// send to back end....
-	console.log('deleting request with index: '+index);
+	// console.log('deleting request with index: '+index);
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');

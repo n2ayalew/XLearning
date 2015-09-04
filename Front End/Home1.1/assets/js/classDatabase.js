@@ -34,16 +34,16 @@ function makeName()
 
     for( var i=0; i < 3; i++ )
         subject += possible.charAt(Math.floor(Math.random() * possible.length));
-    console.log('subject: '+subject);
+    // console.log('subject: '+subject);
 	var year = Math.floor((Math.random() * 10) + 1);
-	console.log('class year: '+year);
+	// console.log('class year: '+year);
     return subject + (year).toString();
 }
 
 function makeID()
 {
 	var id = Math.floor((Math.random() * 10000) + 1);
-	console.log('classID: '+id);
+	// console.log('classID: '+id);
 	return id.toString();
 
 }
