@@ -88,7 +88,7 @@ select {
 	width: 100%;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	background: #5AB4C0;
+	background: #1D718D;
 }
 .overlay {
   position: absolute;
@@ -102,13 +102,13 @@ select {
 }
 .pageHeader {
 	width: 100%;
-	background: #5AB4C0;
+	background: #1D718D;
 	height: 50px;
 	z-index: 9;
 	position: absolute;
 	left: 0px;
 	right: 0px;
-	border-bottom: solid 1px #62A39D; 
+	border-bottom: solid 1px #26425C; 
 	box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
@@ -118,14 +118,14 @@ select {
 	margin: 10px;
 	color: #fff;
 	font-family: Josefin;
-	background-color: #50A4AF;
+	background-color: #245666;
 	border-radius: 5px;
 	box-shadow:  inset 0px 0px 2px rgba(0,0,0,0.5);
 	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
 	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
 }
 .but:hover {
-	background-color: #3E4147;
+	background-color: #121415;
 }
 .counter {
 	width: 28px;
@@ -159,7 +159,7 @@ select {
 	font-size: 20px;
 	position: absolute;
 	left: 15px;
-	top: 8px;
+	top: 0px;
 }
 #main-container {
 	width: 100%;
