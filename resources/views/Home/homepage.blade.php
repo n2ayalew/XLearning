@@ -214,10 +214,10 @@
 
 
 <!----------------------CREATE NEW CLASS---------------------->
-	<form method="POST" action="/class">
-		<div id="createNewClass-container">
+	<div id="createNewClass-container">
+		<button id="closeCreateNewClass" class="closeButton"></button>
+		<form method="POST" action="/class">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button id="closeCreateNewClass" class="closeButton"></button>
 			<div id="createNewClassHeader" class="modalHeader">CREATE NEW CLASS</div>
 			<div id="miniAlert3" class="miniAlert"></div>
 			<div id="chooseClassName-container">
@@ -229,8 +229,8 @@
 				CLASS YEAR: <input id="newClassYear" type="text" name="year"></input><br>
 			</div>
 			<button id="submitNewClass" class="but" type="submit">CREATE</button>
-		</div>
-	</form>
+		</form>
+	</div>
 
 
 <!------------------------SCRIPTS------------------------------>

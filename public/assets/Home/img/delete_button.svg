@@ -5,7 +5,7 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M19.5,19.5 L126.728729,126.728729" id="Line" stroke="#3E4147" stroke-width="7" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path d="M19.2712708,19.5 L126.5,126.728729" id="Line-Copy" stroke="#3E4147" stroke-width="7" stroke-linecap="square" sketch:type="MSShapeGroup" transform="translate(72.885635, 73.114365) scale(-1, 1) translate(-72.885635, -73.114365) "></path>
+        <path d="M19.5,19.5 L126.728729,126.728729" id="Line" stroke="#121415" stroke-width="7" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path d="M19.2712708,19.5 L126.5,126.728729" id="Line-Copy" stroke="#121415" stroke-width="7" stroke-linecap="square" sketch:type="MSShapeGroup" transform="translate(72.885635, 73.114365) scale(-1, 1) translate(-72.885635, -73.114365) "></path>
     </g>
 </svg>

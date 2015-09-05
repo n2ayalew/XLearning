@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="shortcut icon" href="assets/auth/img/tab_icon.ico">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-		<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-		<link href="/assets/css/animate.css" rel="stylesheet" > 
-	    <link href="/assets/css/style.css" rel="stylesheet">
+		<link href="/assets/auth/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="/assets/auth/css/animate.css" rel="stylesheet" > 
+	    <link href="/assets/auth/css/style.css" rel="stylesheet">
 
 
 	    <title>XLearning</title>
@@ -29,19 +30,16 @@
 		@endif
 	<div id="welcome">
 		<div id= "header">
-			<div id="title" >XLearning</div>
+			<div id="title" >XLEARNING</div>
 			
 			<div id="brackets">
-				<img src="/assets/img/brackets.svg" width="2048px">
+				<img src="/assets/auth/img/brackets.svg" width="2700px">
 			</div>
 		</div>
 
 		<div id="logo">
 			<div id="icon">
-				<img src="/assets/img/Witty.svg" width="180px">
-			</div>
-			<div id="icon2" class="animated slideInUp">
-				<img src="/assets/img/Star.svg" id="star" width="180px">
+				<img src="assets/auth/img/xlogo.svg" width="100px">
 			</div>
 		</div>
 		
@@ -53,7 +51,7 @@
 				Password:<br> <input type="password" id="password" name="password"><br>
 				<button id="button1" type="submit">Login</button>
 				<button id="button2" type="button">Register</button>
-				<a href="/password/email">Forgot Your Password?</a>
+				<a href="/password/email" id="forgotPassword">Forgot Your Password?</a>
 			</form>
 		</div>
 	</div>
@@ -86,14 +84,14 @@
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Student ID: </p>
 				<input type="text" id="student_id" name="student_id" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
 
-				<!--<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Join Class: </p>
-				<input type="text" id="joinClass" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">-->
-
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">First Name: </p>
 				<input type="text" id="first_name" name="first_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Last Name: </p>
 				<input type="text" id="last_name" name="last_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+
+				<!--<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Email: </p>
+				<input type="text" id="emailS" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">-->
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Password: </p>
 				<input type="password" id="password" name="password" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
@@ -136,6 +134,6 @@
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="/assets/js/script.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>	
+	<script src="/assets/auth/js/script.js"></script>
+    <script src="/assets/auth/js/bootstrap.min.js"></script>	
 </html>

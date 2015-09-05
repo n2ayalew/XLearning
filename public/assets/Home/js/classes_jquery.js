@@ -27,10 +27,16 @@ function importNewClass(id) {
 	}
 }
 //=========================APPEND CLASS TO UI===================================//
-function createClassDOM(newClass) {
+function createClassDOM(newClass,index) {
+	console.log('index2 : '+index);/////////////////////////////////////
 	var e = document.createElement('div');
 	e.setAttribute('id', newClass.classID +"-"+ newClass.name);
 	e.setAttribute('class','classElement');
+	
+	var deleteButton = document.createElement('button');
+	deleteButton.setAttribute("class", "deleteButton");
+	deleteButton.setAttribute("onclick", "deleteClass("+index+","+newClass.classID+")");
+	e.appendChild(deleteButton);
 	var a = document.createElement('a');
 	a.setAttribute('href','http://api.jquery.com/jquery.post/');
 
@@ -42,8 +48,9 @@ function createClassDOM(newClass) {
 	return e;
 }
 
-function appendClass(newClass) {
-	var e = createClassDOM(newClass);
+function appendClass(newClass, index) {
+	console.log('index1 : '+index);/////////////////////////////////////
+	var e = createClassDOM(newClass, index);
 	var classList = document.getElementById('classList');
 	classList.appendChild(e);
 }
@@ -64,7 +71,8 @@ $(document).ready( function() {
 			generateAllClassPicker(urClass);
 			var size = urClass.length;
 			for(var i=0; i<size; i++) {
-				appendClass(urClass[i]);
+				appendClass(urClass[i],i);
+				console.log('i : '+i);/////////////////////////////////////
 			}
 		}
 	});
@@ -75,6 +83,20 @@ $(document).ready( function() {
 	// }
 
 });
+//======================DELETE CLASS===================================//
+function deleteClass(index,classID) {
+	console.log('index in delete: '+index);////////////
+	if(confirm("Are you sure you you want to delete this class?")){
+		// $('#'+classID+'-'+className).slideUp();
+		$('#classList').empty();
+		urClass.splice(index,1);
+		for(var i=0; i < urClass.length; i++) {
+			console.log(urClass[i]);
+			appendClass(urClass[i],i);
+		}
+		console.log(urClass);
+	}
+}
 
 
 //=========================APPEND REQUEST TO UI===================================//
