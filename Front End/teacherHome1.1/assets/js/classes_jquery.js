@@ -32,6 +32,22 @@ function importNewClass(id) {
 		}
 	}
 }
+//=========================CONFIRM=======================//
+function confirm(message) {
+	document.getElementById('confirmMessage').innerHTML = message;
+	$('.overlay').css('visibility', 'visible').fadeIn('fast');
+	$('#confirm-container').css('visibility','visible').fadeIn('fast');
+	$('#confirmYes').click( function() {
+		return true;
+	});
+	$('#confirmNo').click( function() {
+		$('.overlay').fadeOut('fast');
+		$('#confirm-container').fadeOut('fast');
+		return false;
+	});
+}
+
+
 //=========================APPEND CLASS TO UI===================================//
 function createClassDOM(newClass) {
 	var e = document.createElement('div');
@@ -54,14 +70,16 @@ function appendClass(newClass) {
 	classList.appendChild(e);
 }
 
+//=========================REFRESHING CLASS LIST=======================//
+function refreshClassList() {
+	for(var i=0; i<urClass.length; i++) {
+		appendClass(urClass[i]);
+	}
+}
 
 $(document).ready( function() {
 	generateAllClassPicker(urClass); // IMPORTING DUMMY CLASS FOR DEMO PURPOSES ONLY.
-	var size = urClass.length;
-	for(var i=0; i<size; i++) {
-		appendClass(urClass[i]);
-	}
-
+	refreshClassList();
 });
 
 

@@ -7,6 +7,7 @@
 function class_() {
 	this.classID; // string
 	this.name;  //string
+	this.year;
 }
 
 var urClass =[];
