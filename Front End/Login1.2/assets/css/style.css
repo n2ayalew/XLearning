@@ -56,6 +56,26 @@ body {
 	top: 17%;
 	left: 50%;
 }
+#backButton {
+	visibility: hidden;
+	padding-left: 20px;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 110px;
+	height: 40px;
+	border: 0px;
+	background: url(../img/backButton.svg) no-repeat;
+	background-size: 110px 40px;
+	margin-right: 0px;
+	font-size: 20pt;
+	color: #fff;
+	text-align: center;
+}
+#backButton:hover {
+	background:  url(../img/backButton_dark.svg) no-repeat;
+	background-size: 110px 40px;
+}
 #loginForm{
 	text-shadow: 0px 0px 40px rgba(0,0,0,0.7);
 	width: 300px;

@@ -1,3 +1,36 @@
+var position = 0;
+$(document).ready( function() {
+  $('#backButton').click( function() {
+    if(position != 1) {
+      if(position == '2T') {
+        registrationTeacher.removeClass();
+        registrationTeacher.addClass("animated slideOutRight short ");
+      }
+      if(position == '2S') {
+        registrationStudent.removeClass();
+        registrationStudent.addClass("animated slideOutRight short");
+      }
+      position = 1;
+      teacherOrStudent.removeClass();
+      teacherOrStudent.addClass("animated slideInLeft short");
+    }
+    else {
+      teacherOrStudent.removeClass();
+      teacherOrStudent.addClass("animated slideOutRight short");
+      loginForm.removeClass();
+      title.removeClass();
+      brackets.removeClass();
+      icon.removeClass();
+      title.addClass("animated slideInDown");
+      brackets.addClass("animated slideInDown");
+      icon.addClass("animated slideInUp");
+      loginForm.addClass("animated fadeInDown");
+      position = 0;
+      $('#backButton').removeClass();
+      $('#backButton').addClass("animated fadeOut short");
+    }
+  });
+});
 //======================BUTTONHOVER============================//
 
 function buttonHover(element) {
@@ -31,15 +64,20 @@ function exitLogin() {
 
 
 function enterTeacherOrStudent() {
+  $('#backButton').css('visibility','visible');
+  $('#backButton').removeClass();
+  $('#backButton').addClass("animated fadeIn short");
+  teacherOrStudent.removeClass();
   teacherOrStudent.css('visibility', 'visible');
   teacherOrStudent.addClass("animated slideInRight short");
 
 }
 function exitTeacherOrStudent() {
-   teacherOrStudent.removeClass("animated slideInRight short");
+  teacherOrStudent.removeClass();
   teacherOrStudent.addClass("animated fadeOutLeftBig");
 }
 function enterRegistration(registration) {
+  registration.removeClass();
   registration.css('visibility','visible');
   registration.addClass("animated slideInRight short");
 }
@@ -120,9 +158,7 @@ $(document).ready(
     title.addClass("animated slideInDown");
     brackets.addClass("animated slideInDown");
     icon.addClass("animated slideInUp");
-    // icon2.addClass("animated slideInUp");
-    star.addClass("animated rotateIn");
-    loginForm.addClass("animated fadeInDown")
+    loginForm.addClass("animated fadeInDown");
   }
 
 );
@@ -132,10 +168,14 @@ $(document).ready(
   function() {
     register.click(
       function() {
+        position = 1;
+        console.log('position: ' + position);
         exitLogin();
         enterTeacherOrStudent();
         studentButton.click(
           function() {
+            position = '2S';
+            console.log('position: ' + position);
             exitTeacherOrStudent();
             enterRegistration(registrationStudent);
             
@@ -150,6 +190,8 @@ $(document).ready(
 
         teacherButton.click(
           function() {
+            position = '2T';
+            console.log('position: ' + position);            
             isTeacher = true;
             exitTeacherOrStudent();
             enterRegistration(registrationTeacher);
