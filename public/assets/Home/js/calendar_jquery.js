@@ -179,6 +179,7 @@ function addEvent(f){
 	var form = f;
 	if(correctInputNewEvent())
 	{
+		createEventConfirmation = false;
 		var fullDate =[];
 		fullDate = currentFullDate.split(" ");
 		newEvent = new eventClass();
@@ -252,7 +253,6 @@ function addEvent(f){
 		refreshEventList (newEvent.date, newEvent.month);
 
 		highlightDateWithEvent(currentMonthIndex);
-
 	}
 
 }
@@ -322,25 +322,34 @@ function appendEventDOM(newEvent,index) {
 
 //==============================DELETE EVENT===================================//
 function deleteEvent(form,e,index,date,month,year,eventID){
-	console.log(e);
-	$.ajax({
-		url: 'event/remove/' + eventID,	// Look into making this more secure
-		success: function (result){
-			console.log("deleted success");
-		}
-	});
-
-	eventRecord.deleteEvent(parseInt(index), date, parseInt(month), year);
-	var id = index+"-"+date+"-"+month+"-"+year;
-	// //console.log("Deleting: "+id);
 	
-	$('#'+id).slideUp();
+	if (!deleteEventConfirmation){
+		confirmDeleteEvent("Are sure you would like to delete this event?",form,e,index,date,month,year,eventID);
+	}
+	else{
+		console.log(index);
+		$.ajax({
+			url: 'event/remove/' + eventID,	// Look into making this more secure
+			success: function (result){
+				eventRecord.deleteEvent(parseInt(index), date, parseInt(month), year);
+				var id = index+"-"+date+"-"+month+"-"+year;
+				$('#'+id).slideUp();
+				setTimeout( function() {
+          			refreshEventList(date,month);
+        		},500);
+				document.getElementById("bigAlert").innerHTML = "The Event has been deleted!";
+				$('.overlay').css('visibility', 'visible');
+				$('#bigAlert-container').css('visibility', 'visible');
+				setTimeout( function() {
+					$('.overlay').fadeOut('fast');
+					$('#bigAlert-container').fadeOut('fast');
+				}, 2000);
 
-	setTimeout( function() {
-	refreshEventList(date,month);
-	},0);
-
-	highlightDateWithEvent(currentMonthIndex);
+				highlightDateWithEvent(currentMonthIndex);
+				deleteEventConfirmation = false;
+			}
+		});
+	}
 }
 
 
@@ -392,7 +401,6 @@ $(document).ready(function(){
 			url: '/event',
 			success: function(result){
 				for (var i = 0; i < result.length; i++){
-					//console.lgo(result[])
 					var temp = new eventClass();
 					temp.time = result[i].event_time;
 					var eventDate = result[i].event_date.split('-');

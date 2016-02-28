@@ -29,16 +29,21 @@ class HomeController extends Controller
         // Get All announcements for current user
        
         $announ = new AnnouncementController();
-        $announcements =  $announ->index();
-
+        $announs =  $announ->index()['announcements'];
+        // $temp = [];
+        // foreach ($announs as $a){
+        //     foreach ($a as $key) {
+        //         array_push($temp, $key);
+        //     }
+        // }
         
         // Get Users first name
         $first_name = \Auth::user()->first_name;
-        
-        // Return view with data
+
+        //Return view with data
         return view('Home/homepage')->with([
             'first_name' => $first_name,
-            'announcements' => $announcements,
+            'announcements' => $announs,
             'classes' => $classes
         ]);
     }

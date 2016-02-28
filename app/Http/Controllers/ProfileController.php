@@ -45,9 +45,9 @@ class ProfileController extends Controller
         }
         if ($request->has('password')){
             if(Hash::check($request->oldPassword, $user->password)){
-                $user->password = $request->password;
-                $user->save();
-                return Redirect::back()->with('message', 'Your Password Has Been Changed!');
+                    $user->password = $request->password;
+                    $user->save();
+                    return Redirect::back()->with('message', 'Your Password Has Been Changed!');
             }
             return Redirect::back()->with('message', 'Wrong Password!');
         }

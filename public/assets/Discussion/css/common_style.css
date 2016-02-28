@@ -8,9 +8,9 @@
 
 /*============================================================================*/
 								/*FONTS*/
-@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
+@font-face { font-family: Lobster; src: url(../fonts/Lobster.otf); } 
 @font-face { font-family: Josefin; src: url(../fonts/josefin-sans/JosefinSans-Light.ttf); } 
-@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-SemiBold.ttf); } 
 /*============================================================================*/
 
 
@@ -65,30 +65,36 @@ select {
 	width: 40%;
 	margin: 10px;
 }
-
-#bigAlert-container {
-	visibility: hidden;
-	position: absolute;
-	width: 300px;
-	height: 50px;
-	margin-left: -150px;
-	margin-top: -25px;
-	left: 50%;
-	top: 50%;
-	padding-left: 20px;
-	padding-right: 20px;
-	background: #fff;
-	border-radius: 20px;
-	z-index: 11;
-	box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
-	-webkit-box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
-	-moz-box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
+#sideBar {
+	padding-top: 50px;
 }
-#bigAlert {
+#sideBar > div {
+	height: 100px;
+	width: 100%;
+	padding-top: 35px;
+}
+#sideBarHome {
+	background-color: #50A4AF;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}
+#sideBar > div:hover {
+	background: #FE6356;
+	cursor: pointer;
+	color: #fff;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}
+.sideBarItem {
+	color: #fff;
 	font-family: Josefin;
-	font-size: 20px;
-	padding-top: 12px;
-	text-align: center;
+	font-size: 25px;
+}
+#pointer {
+	position:absolute;
+	right: 0px;
 }
 .closeButton {
 	background: url(../img/delete_button.svg) no-repeat;
@@ -120,7 +126,7 @@ select {
 	width: 100%;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	background: #1D718D;
+	background: #5AB4C0;
 }
 .overlay {
   position: absolute;
@@ -134,13 +140,13 @@ select {
 }
 .pageHeader {
 	width: 100%;
-	background: #1D718D;
+	background: #5AB4C0;
 	height: 50px;
 	z-index: 9;
 	position: absolute;
 	left: 0px;
 	right: 0px;
-	border-bottom: solid 1px #26425C; 
+	border-bottom: solid 1px #62A39D; 
 	box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
@@ -150,14 +156,14 @@ select {
 	margin: 10px;
 	color: #fff;
 	font-family: Josefin;
-	background-color: #245666;
+	background-color: #50A4AF;
 	border-radius: 5px;
 	box-shadow:  inset 0px 0px 2px rgba(0,0,0,0.5);
 	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
 	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
 }
 .but:hover {
-	background-color: #121415;
+	background-color: #3E4147;
 }
 .counter {
 	width: 28px;
@@ -187,16 +193,15 @@ select {
 
 #xlogo {
 	color: #fff;
-	font-family: JosefinBold;
+	font-family: Lobster;
 	font-size: 20px;
 	position: absolute;
 	left: 15px;
-	top: 0px;
+	top: 8px;
 }
 #main-container {
-	width: 100%;
+	width: auto;
 	max-width: 1280px;
-	min-width: 1000px;
 	height: 100vh;
 	position: fixed;
 	right: 0px;
@@ -204,34 +209,38 @@ select {
 	margin-right: auto;
 	margin-left: auto;
 	background: #fff; 
-	overflow: visible;
 }
 #left-container {
 	position: absolute;
-	top: 90px;
-	left: 10px;
-	height: auto;
-	width: 25%;
-	border-radius: 10px;
+	top: 0px;
+	left: 0px;
+	height: 100vh;
+	width: 19.0625%;
+	background-color: #37525C;
+	overflow-y: auto;
+	z-index: 4;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
 }
 #middle-container {
 	position: absolute;
-	left: 50%;
-	top: 90px;
-	width: 30%;
-	height: auto;
+	left: 19.0625%;
+	top: 0px;
+	width: 30.9375%;
+	height: 100vh;
 	margin-right: auto;
-	margin-left: -200px;
+	margin-left: 0px;
+	z-index: 2;
 }
 #right-container {
 	position: absolute;
-	margin-left: -420px;
-	top: 90px;
-	right: 10px;
-	height: auto;
-	width: 25%;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+	margin-left: 0px;
+	top: 0px;
+	left: 50%;
+	height: 100vh;
+	width: 50%;
+	z-index: 1;
 }
 #logOut {
 	height: 30px;
@@ -247,38 +256,9 @@ select {
 	color: #FF803E;
 	font-size: 10px;
 }
-
-#confirm-container {
-	visibility: hidden;
-	position: absolute;
-	width: 400px;
-	height: auto;
-	margin-left: -200px;
-	margin-top: -150px;
-	left: 50%;
-	top: 50%;
-	padding-top: 15px;
-	padding: 20px;
-	padding-bottom: 0px;
-	background: #fff;
-	border-radius: 20px;
-	z-index: 15;
-	box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
-	-webkit-box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
-	-moz-box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
-}
-#confirmMessage {
+.modalTitle {
 	font-family: Josefin;
-	font-size:  16px;
-	margin-bottom: 20px;
-}
-#confirmYes {
-	width: 40%;
-	margin-right: 5%;
-	height: 30px;
-}
-#confirmNo {
-	width: 40%;
-	height: 30px;
-	margin-left: 5%;
+    font-size: 12pt;
+    text-align: center;
+    margin: 10px;
 }

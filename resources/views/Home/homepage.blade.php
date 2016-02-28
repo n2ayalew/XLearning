@@ -8,13 +8,13 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    <meta name="csrf_token" content="{{ csrf_token() }}">
-		<link href="assets/Home/css/bootstrap.css" rel="stylesheet">
-		<link href="assets/Home/css/animate.css" rel="stylesheet" > 
-	    <link href="assets/Home/css/calendar_style.css" rel="stylesheet">
-	    <link href="assets/Home/css/class_style.css" rel="stylesheet">
-	    <link href="assets/Home/css/profile_style.css" rel="stylesheet">
-	    <link href="assets/Home/css/notice_style.css" rel="stylesheet">
-	    <link href="assets/Home/css/common_style.css" rel="stylesheet">	    
+		<link href="/assets/Home/css/bootstrap.css" rel="stylesheet">
+		<link href="/assets/Home/css/animate.css" rel="stylesheet" > 
+	    <link href="/assets/Home/css/calendar_style.css" rel="stylesheet">
+	    <link href="/assets/Home/css/class_style.css" rel="stylesheet">
+	    <link href="/assets/Home/css/profile_style.css" rel="stylesheet">
+	    <link href="/assets/Home/css/notice_style.css" rel="stylesheet">
+	    <link href="/assets/Home/css/common_style.css" rel="stylesheet">	    
 	   	<title>calendar</title>
 	</head>
 	<body>
@@ -22,7 +22,7 @@
 	<div class="overlay"></div>
 
 	<div class="pageHeader">
-		<div id="xlogo"><img src="assets/Home/img/xlogo.svg" width="40px"> HOME</div>
+		<div id="xlogo"><img src="/assets/Home/img/xlogo.svg" width="40px"> HOME</div>
 		<a href="auth/logout"><button id="logOut" class="but" >LOG OUT</button></a>
 	</div>
 	
@@ -46,9 +46,9 @@
 				<button id="newNoticeButton" class="but">+</button>
 			</div>
 			<div id="noticeList">
-				@foreach ($announcements as $announ)
-					 <div class="classElement"> {{ $announ->announcement }} </div>
-				@endforeach
+				<!-- @foreach ($announcements as $announ)
+					<div class="classElement"> {{ $announ->announcement }} </div>
+				@endforeach -->
 			</div>
 
 		</div>
@@ -90,9 +90,9 @@
 	        <div id="calendar-header">
 	        <table id="bigHeader">
 	            <tr>
-	            	<td id="prev"><img id="previousButton" src="assets/Home/img/previous.svg" width="10px"></td>
+	            	<td id="prev"><img id="previousButton" src="/assets/Home/img/previous.svg" width="10px"></td>
 	                <td id="calendar-month-year"></td>
-	                <td id="nxt"><img id="nextButton" src="assets/Home/img/next.svg" width="10px"></td>
+	                <td id="nxt"><img id="nextButton" src="/assets/Home/img/next.svg" width="10px"></td>
 	            </tr>
 	    	</table>
 	        </div>
@@ -127,7 +127,19 @@
 
 
 <!----------------------MODALS & MENUS------------------------>
- 
+
+ <!---------------------BIG ALERT------------------------------>
+ <div id="bigAlert-container">
+ 	<div id="bigAlert">
+ 	</div>
+ </div>
+
+ <!---------------------CONFIRM MODAL---------------------->
+<div id="confirm-container">
+	<div id="confirmMessage"></div>
+	<button id="confirmYes" class="but">YES</button><button id="confirmNo"class="but">NO</button>
+</div>
+
 <!----------------------CREATE NEW EVENT---------------------->
 	<div id="newEvent-container">
 	    <button id='closeNewEvent'  class="closeButton"></button>
@@ -164,7 +176,7 @@
 			</form>
 			</div>
 			<div id="changeEmail-container">
-			<form method="POST" action="/profile">
+			<form id ="changeEmailForm" method="POST" action="/profile" onsubmit="return checkEmail(event)">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="title">CHANGE/ADD USER EMAIL</div>
 					NEW EMAIL: <input id="newEmail" type="email" name="email"><br>
@@ -172,7 +184,7 @@
 			</form>
 			</div>
 			<div id="changePassword-container">
-			<form method="POST" action="/profile">
+			<form id="changePasswordForm" method="POST" action="/profile" onsubmit="return checkPassword(event)">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="title">CHANGE USER PASSWORD</div>
 				OLD PASSWORD: <input id="oldPassword" type="password" name="oldPassword"></input><br>
@@ -235,18 +247,16 @@
 
 <!------------------------SCRIPTS------------------------------>
 
-	<script src="assets/Home/js/calendar_javascript.js"></script>
+	<script src="/assets/Home/js/calendar_javascript.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="assets/Home/js/script.js"></script>
-	<script src="assets/Home/js/classDatabase.js"></script>
-	<script src="assets/Home/js/classes_jquery.js"></script>
-	<script src="assets/Home/js/eventDataStructure.js"></script>
-	<!--<script src="assets/Home/js/classDatabase.js"></script>-->
-	<script src="assets/Home/js/noticeDatabase.js"></script>
-	<script src="assets/Home/js/profile_jquery.js"></script>
-	<script src="assets/Home/js/notice_jquery.js"></script>	
-	<!--<script src="assets/Home/js/classes_jquery.js"></script>-->
-	<script src="assets/Home/js/calendar_jquery.js"></script>	
-	<script src="assets/Home/js/bootstrap.min.js"></script>
+	<script src="/assets/Home/js/script.js"></script>
+	<script src="/assets/Home/js/classDatabase.js"></script>
+	<script src="/assets/Home/js/classes_jquery.js"></script>
+	<script src="/assets/Home/js/eventDataStructure.js"></script>
+	<script src="/assets/Home/js/noticeDatabase.js"></script>
+	<script src="/assets/Home/js/profile_jquery.js"></script>
+	<script src="/assets/Home/js/notice_jquery.js"></script>	
+	<script src="/assets/Home/js/calendar_jquery.js"></script>	
+	<script src="/assets/Home/js/bootstrap.min.js"></script>
 	</body>
 </html>

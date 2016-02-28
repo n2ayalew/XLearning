@@ -22,19 +22,19 @@ function addNotice(f) {
     data: form.serialize(),
     success: function(response){
       newNotice.noticeID = response;
+      $('#miniAlert4').append('YOUR POST HAS BEEN SUBMITTED');
+      setTimeout( function() {
+          $('#miniAlert4').empty();
+      },2000);
+      noticeList.saveNotice(newNotice);
+      refreshNoticeList();
+      $('#newNoticeClassPicker').val("0");
+      $('#announcement').val("");
     }
   });
   ////////////////GET ID////////////////////////
 
   //////////////SET ID IN LOCAL DB//////////////
-  $('#miniAlert4').append('YOUR POST HAS BEEN SUBMITTED');
-  setTimeout( function() {
-      $('#miniAlert4').empty();
-  },2000);
-  noticeList.saveNotice(newNotice);
-  refreshNoticeList();
-  $('#newNoticeClassPicker').val("0");
-  $('#announcement').val("");
 }
 
 //======DELETING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
@@ -42,20 +42,31 @@ function deleteNotice(index) {
   //console.log('deleting message with index:'+index);
   /////////////REQUEST SERVER TO DELETE ///////////
   ////////////////SEND ID TO SERVER////////////////////////
-  var id  = noticeList.getList()[index].noticeID;
-  console.log(id);
-  $.ajax({
-    url:'/announcement/remove/'+ id,
-    success: function(response){
-      console.log('delete success');
-    }
-  });
-  //////////////DELETE IN LOCAL DB//////////////
-  noticeList.deleteNotice(index);
-  $('#notice-'+index).slideUp();
-  setTimeout( function() {
-    refreshNoticeList();
-  },500);
+  if (!deleteAnnouncementConfirmation){
+    confirmDeleteAnnouncement("Are you sure you would like to remove this Announcement?", index);
+  }
+  else{
+    deleteAnnouncementConfirmation = false;
+    var id  = noticeList.getList()[index].noticeID;
+    $.ajax({
+      url:'/announcement/remove/'+ id,
+      success: function(response){
+        //////////////DELETE IN LOCAL DB//////////////
+        document.getElementById("bigAlert").innerHTML = "The Announcement has been deleted!";
+        $('.overlay').css('visibility', 'visible');
+        $('#bigAlert-container').css('visibility', 'visible');
+        setTimeout( function() {
+          $('.overlay').fadeOut('fast');
+          $('#bigAlert-container').fadeOut('fast');
+        }, 2000);
+        noticeList.deleteNotice(index);
+        $('#notice-'+index).slideUp();
+        setTimeout( function() {
+          refreshNoticeList();
+        },500);
+      }
+    });
+  }
 }
 
 
@@ -140,16 +151,24 @@ $(document).ready( function () {
     url: '/announcement',
     success: function(result){
       var str, lst;
-      for (var i = 0; i < result.length; i++){
+      var announs = result['announcements'];
+      var classes = result['classes'];
+      console.log(announs);
+      console.log(classes);
+      for (var i = 0; i < announs.length; i++){
         var temp = new notice();
-        lst = result[i].created_at.split(' ');
+        lst = announs[i].created_at.split(' ');
         str = lst[0].split('-');
         temp.dateCreated = str[2]+' '+str[1]+' '+str[0];
-        temp.noticeID = result[i].id;
-        temp.teacherID = result[i].teacher;
-        temp.classID = result[i].class_id;
-        temp.className = 'test';
-        temp.message = result[i].announcement;
+        temp.noticeID = announs[i].id;
+        temp.teacherID = announs[i].teacher;
+        temp.classID = announs[i].classe_id;
+        for (var j = 0; j < classes.length; j++){
+          if (temp.classID == classes[j].class_id){
+            temp.className = classes[j].subject;
+          }
+        }
+        temp.message = announs[i].announcement;
         noticeList.saveNotice(temp);
         refreshNoticeList();
       }

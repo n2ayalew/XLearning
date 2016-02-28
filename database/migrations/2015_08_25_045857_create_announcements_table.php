@@ -14,10 +14,13 @@ class CreateAnnouncementsTable extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('class_id');
+            $table->integer('classe_id')->unsigned();
             $table->integer('teacher'); // teacher's user id
             $table->string('announcement');
             $table->timestamps();
+        });
+        Schema::table('announcements', function($table) {
+            $table->foreign('classe_id')->references('class_id')->on('classes')->onDelete('cascade');
         });
     }
 

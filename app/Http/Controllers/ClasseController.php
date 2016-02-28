@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class ClasseController extends Controller
 {
@@ -17,16 +18,6 @@ class ClasseController extends Controller
     public function index()
     {
        return \Auth::user()->classes->toArray();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -42,6 +33,7 @@ class ClasseController extends Controller
         $class->subject = $newClass['subject'];
         $class->teacher = $newClass['teacher'];
         \Auth::user()->classes()->save($class);
+        return Redirect::back()->with('message', 'Class Created!'); // messgae is in session variable 
     }
 
     /**
@@ -50,10 +42,11 @@ class ClasseController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-    }
+        $class = new \App\Classe();
+        return $class->getClassList();
+    }    
 
     /**
      * Show the form for editing the specified resource.
@@ -85,7 +78,12 @@ class ClasseController extends Controller
      */
     public function destroy($id)
     {
-        $class = Classe::find($id);
+        $class = \App\Classe::find($id);
+        $class->delete();
+    }
+
+    public function remove($id){
+        $class = \App\Classe::find($id);
         $class->delete();
     }
 }

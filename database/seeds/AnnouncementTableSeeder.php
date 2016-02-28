@@ -13,19 +13,20 @@ class AnnouncementTableSeeder extends Seeder
     {
         \DB::table('announcements')->delete();
         \App\announcement::create(array(
-        	'class_id' => 1,
+        	'classe_id' => 1,
         	'teacher' => 2,
         	'announcement' => 'test 1',
         ));
         \App\announcement::create(array(
-        	'class_id' => 1,
+        	'classe_id' => 1,
         	'teacher' => 2,
         	'announcement' => 'test 2',
         ));
         \App\announcement::create(array(
-        	'class_id' => 2,
+        	'classe_id' => 2,
         	'teacher' => 2,
         	'announcement' => 'test 3',
         ));
+        $this->command->info('Announcement table seeded!');
     }
 }

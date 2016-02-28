@@ -17,7 +17,15 @@ class EventController extends Controller
      */
     public function index()
     {
-        return \Auth::user()->events->toArray();
+        $events = \Auth::user()->events->toArray();
+        $chEvents = array();
+        $l = count($events);
+        for($i = 0; $i < $l; $i++){
+            $ev = new \App\Event($events[$i]);
+            $className = $ev->classe->subject;
+            array_push($chEvents, $events[$i]);
+        }
+        return $chEvents;
 
     }
 

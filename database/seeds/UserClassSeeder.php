@@ -24,5 +24,6 @@ class UserClassSeeder extends Seeder
         	'is_teacher' => true,
 
         ));
+        $this->command->info('UserClass table seeded!');
     }
 }

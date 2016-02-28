@@ -9,24 +9,34 @@ use App\Http\Controllers\Controller;
 
 class DiscussionBoardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
+    public function __construct(){
+
+        $this->middleware('auth');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 
+     * @param class id of interest
+     * @return Array of disscussions that belong to $classId
      *
-     * @return Response
      */
-    public function create()
+    public function getDiscussions( $classId ) // Test this function
     {
-        //
+     $class = \App\Classe::find($classId); 
+     return $class->discussions->toArray();  
+    }
+
+    public function getCommentsForDiscussion($discussionId) {
+        $discussion = \App\discussion::find($discussionId);
+        return $$discussion->comments->toArray();
+    }
+
+    public function getDiscussion( $discussionId ){
+        return \App\discussion::find($discussionId);
+    }
+
+    public function getComment( $commentId ){
+        return \App\comment::find( $commentId );
     }
 
     /**
@@ -34,9 +44,13 @@ class DiscussionBoardController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function storeDiscussionPost()
     {
         //
+    }
+
+    public function storeDiscussionComment(){
+
     }
 
     /**

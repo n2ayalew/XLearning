@@ -9,4 +9,8 @@ class comment extends Model
     //
     protected $table = 'comments';
     protected $fillable = ['comment'];
+
+    public function discussion(){
+    	return $this->belongsTo('App\discussion');
+    }
 }

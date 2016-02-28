@@ -19,22 +19,24 @@ class AnnouncementController extends Controller
     {
         // Get All announcements for current user
         $classes = \Auth::user()->classes->toArray();
-        $ar = array();
-        foreach ($classes as $key) {
-            array_push($ar, strval($key['class_id']));
-        }
+        $cs = array();
         $announcements = array();
+        $announcements2 = array();
+        $a = 0;
+        for ($i = 0; $i < count($classes); $i++){
+            $c = new \App\Classe($classes[$i]);
+            array_push($cs, $c);
+            //array_push($announcements, $c->announcements);
+            for ($j = 0; $j < count($c->announcements); $j++){
+                array_push($announcements, $c->announcements[$j]);
 
-        foreach($ar as $key){
-            $announcements[$key] = \DB::table('announcements')->where('class_id', $key)->get();
-        }
-        $announList = array();
-        foreach ($announcements as $key => $value) {
-            foreach ($value as $annun => $text) {
-                array_push($announList, $text);
             }
         }
-        return $announList;
+
+        return array(
+            'classes' => $classes,
+            'announcements' => $announcements
+        );
     }
 
     /**
@@ -56,11 +58,10 @@ class AnnouncementController extends Controller
     {
         $fields = $request->except('_token');
         $fields['teacher'] = \Auth::user()->user_id;
-        $fields['class_id'] = 1; // temporary!!! remove soon
         $announcement = new \App\Announcement();
         $announcement->announcement = $fields['announcement'];
         $announcement->teacher = $fields['teacher'];
-        $announcement->class_id = $fields['class_id'];
+        $announcement->classe_id = $fields['class_id'];
         $announcement->save();
         $announId = \DB::table('announcements')->select('id')->orderBy('id', 'desc')->value('id');
         return $announId;
@@ -108,11 +109,17 @@ class AnnouncementController extends Controller
     public function destroy($id)
     {
         $announcement = \App\Announcement::find($id);
+        if ( \Auth::user()->user_id != $announcement->teacher){
+            return "Only the teacher that created this announcement may delete it!"; 
+        }
         $announcement->delete();
     }
 
     public function remove($id){
         $announcement = \App\Announcement::find($id);
+        if ( \Auth::user()->user_id != $announcement->teacher){
+            return "Only the teacher that created this announcement may delete it!"; 
+        }
         $announcement->delete();
     }
 }

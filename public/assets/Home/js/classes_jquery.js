@@ -28,7 +28,7 @@ function importNewClass(id) {
 }
 //=========================APPEND CLASS TO UI===================================//
 function createClassDOM(newClass,index) {
-	console.log('index2 : '+index);/////////////////////////////////////
+	//console.log('index2 : '+index);/////////////////////////////////////
 	var e = document.createElement('div');
 	e.setAttribute('id', newClass.classID +"-"+ newClass.name);
 	e.setAttribute('class','classElement');
@@ -38,7 +38,7 @@ function createClassDOM(newClass,index) {
 	deleteButton.setAttribute("onclick", "deleteClass("+index+","+newClass.classID+")");
 	e.appendChild(deleteButton);
 	var a = document.createElement('a');
-	a.setAttribute('href','http://api.jquery.com/jquery.post/');
+	a.setAttribute('href', '/home/'+ newClass.classID + '/');
 
 	a.setAttribute('class','className');
 
@@ -49,7 +49,7 @@ function createClassDOM(newClass,index) {
 }
 
 function appendClass(newClass, index) {
-	console.log('index1 : '+index);/////////////////////////////////////
+	//console.log('index1 : '+index);/////////////////////////////////////
 	var e = createClassDOM(newClass, index);
 	var classList = document.getElementById('classList');
 	classList.appendChild(e);
@@ -72,7 +72,6 @@ $(document).ready( function() {
 			var size = urClass.length;
 			for(var i=0; i<size; i++) {
 				appendClass(urClass[i],i);
-				console.log('i : '+i);/////////////////////////////////////
 			}
 		}
 	});
@@ -85,16 +84,32 @@ $(document).ready( function() {
 });
 //======================DELETE CLASS===================================//
 function deleteClass(index,classID) {
-	console.log('index in delete: '+index);////////////
-	if(confirm("Are you sure you you want to delete this class?")){
-		// $('#'+classID+'-'+className).slideUp();
+	
+	if (!deleteClassConfirmation){
+		confirmDelete("Are you sure you would like to delete this Class?\nAll events associtated with this class will also be deleted.", index, classID)
+	}
+	else{
 		$('#classList').empty();
 		urClass.splice(index,1);
 		for(var i=0; i < urClass.length; i++) {
-			console.log(urClass[i]);
 			appendClass(urClass[i],i);
 		}
-		console.log(urClass);
+
+		$.ajax({
+			method: 'GET',
+			url: 'class/remove/'+classID,
+			success: function(){
+				document.getElementById("bigAlert").innerHTML = "The class has been deleted!";
+				$('.overlay').css('visibility', 'visible');
+				$('#bigAlert-container').css('visibility', 'visible');
+				setTimeout( function() {
+					$('.overlay').fadeOut('fast');
+					$('#bigAlert-container').fadeOut('fast');
+				}, 2000);
+
+			}
+		});
+		deleteClassConfirmation = false;
 	}
 }
 
