@@ -6,7 +6,6 @@
 var  month_name = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 
-
 function commentClass() {
     this.message = '';
     this.postedByTeacher = false; // default will be false and will be changed only if was posted by a teacher.
@@ -40,6 +39,10 @@ function discussionClass() {
     this.posterID; //the one saved in DB
     this.posterName;
     this.detail;
+
+    this.getMonthName = function(monthIndex){
+        return month_name[monthIndex - 1];
+    }
 
     this.saveComment = function(newComment) {
         comments.push(newComment);

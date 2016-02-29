@@ -14,15 +14,21 @@ class CreateDiscussionsTable extends Migration
     {
         Schema::create('discussions', function (Blueprint $table) {
             $table->increments('post_id');
+            $table->integer('user_id')->unsigned();
             $table->integer('class_id')->unsigned();
+            $table->string('first_name');
             $table->integer('teacher'); // teacher's user id
-            $table->string('disscussion_post');
+            $table->string('discussion_post');
             $table->boolean('teacher_post');
             $table->timestamps();
         });
 
         Schema::table('discussions', function($table) {
             $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
+        });
+
+        Schema::table('discussions', function($table) {
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

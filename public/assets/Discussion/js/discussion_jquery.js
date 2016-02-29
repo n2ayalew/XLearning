@@ -4,6 +4,8 @@
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+//==============================HELPER FUNCTIONS====================================//
+
 
 //==============================GLOBAL VARIABLES===================================//
 var currentDiscIndex = 0;
@@ -13,6 +15,33 @@ var currentDiscIndex = 0;
 //==============================REFRESH THE DISCUSSION LIST===================================//
 function refreshDiscList() {
     $('#discussionList').empty();
+
+    // Fetch Discussions from server
+    /*
+    Discussions are saved as a discussionClass() object
+    */
+
+    $.ajax({
+        method: 'GET',
+        url: 'discussions',
+        success: function (result){
+            var newDiscussion = new discussionClass();
+            for (var i = 0; i < result.length; i++){
+                var newDis = new discussionClass();
+                newDis.discussionID = result[i].post_id;
+                //newDis.topic = result[i].discussion_post;
+                newDis.postedByTeacher = result[i].teacher_post;
+                var tempStr = result[i].date_created;
+                var tempLst = tempStr.split(' ');
+                tempLst = tempLst[0].split('-');
+                newDis.dateCreated = parseInt(newDis.getMonthName(tempLst[2])) + ' ' + parseInt(tempLst[1]) + ' ' + parseInt(tempLst[0]);
+                newDis.posterID = i;
+                newDis.detail = result[i].discussion_post;
+                newDis.posterName = result[i].first_name;
+            }
+            discussionList.saveDiscussion(newDis);
+        }
+    });
     if(discussionList.isEmpty()) {
         console.log('!!!!!!!!!!!!!!!!!discussionList EMPTY!!!!!!!!!!!!!!!!!!!');  /////////////////////////////////////////
         $('#discussionList').append('<div>NO DISCUSSIONS</div>');
