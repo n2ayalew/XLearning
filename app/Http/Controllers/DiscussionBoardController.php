@@ -22,8 +22,8 @@ class DiscussionBoardController extends Controller
      */
     public function getDiscussions( $classId ) // Test this function
     {
-     $class = \App\Classe::find($classId); 
-     return $class->discussions->toArray();  
+        $class = \App\Classe::find($classId);
+        return $class->discussions->toArray();  
     }
 
     public function getCommentsForDiscussion($discussionId) {

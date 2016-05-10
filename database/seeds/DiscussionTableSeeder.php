@@ -18,6 +18,7 @@ class DiscussionTableSeeder extends Seeder
             'user_id' => 2,
             "first_name" => "Nate",
         	'teacher' => 2,
+            'post_title' => 'test1',
         	'discussion_post' => 'Hello World',
         	'teacher_post' => true,
         ));
@@ -27,6 +28,7 @@ class DiscussionTableSeeder extends Seeder
             'user_id' => 2,
             "first_name" => "Nate",
         	'teacher' => 2,
+            'post_title' => 'test2',
         	'discussion_post' => 'Daaaaamn Daniel',
         	'teacher_post' => true,
         ));

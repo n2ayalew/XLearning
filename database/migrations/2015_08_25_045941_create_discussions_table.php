@@ -16,6 +16,7 @@ class CreateDiscussionsTable extends Migration
             $table->increments('post_id');
             $table->integer('user_id')->unsigned();
             $table->integer('class_id')->unsigned();
+            $table->string('post_title');
             $table->string('first_name');
             $table->integer('teacher'); // teacher's user id
             $table->string('discussion_post');
