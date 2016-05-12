@@ -69,9 +69,9 @@ body {
 	text-shadow: 0px 0px 40px rgba(0,0,0,0.7);
 	width: 300px;
 	height: 300px;
-	position: relative;
+	position: absolute;
 	margin-left: -150px;
-	margin-top: -200px;
+	margin-top: -150px;
 	top: 50%;
 	left: 50%;
 	font-size: 30pt;
@@ -230,6 +230,6 @@ input {
 }
 
 .failedCred{
-	position: relative;
+	position: absolute; /*All divs need to be relative if we wanna make this come out looking okay*/
 	bottom:-30px;
 }
