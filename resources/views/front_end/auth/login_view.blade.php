@@ -14,13 +14,6 @@
 
 	    <title>XLearning</title>
 </head>
-	@if ($errors->any())
-		<ul class="alert alert-danger">
-			@foreach ($errors->all() as $error)
-				<li>{{$error}}</li>
-			@endforeach
-		</ul>
-	@endif
 	<body>
 		 <!--Change log out message/ invalid crendtial message location-->
 		@if (Session::get('flash_message'))
@@ -39,11 +32,11 @@
 
 		<div id="logo">
 			<div id="icon">
-				<img src="assets/auth/img/xlogo.svg" width="100px">
+				<img src="/assets/auth/img/xlogo.svg" width="100px">
 			</div>
 		</div>
 		
-		<div id="menu">
+		<div id="menu" display="block">
 			<!--Change form to use blade templating so that we can prepopulate and stuff-->
 			<form id="loginForm" method="POST" action="/auth/login">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -53,6 +46,15 @@
 				<button id="button2" type="button">Register</button>
 				<a href="/password/email" id="forgotPassword">Forgot Your Password?</a>
 			</form>
+		</div>
+		<div class="failedCred">
+				@if ($errors->any())
+					<ul class="alert alert-danger">
+					@foreach ($errors->all() as $error)
+						<li>{{$error}}</li>
+					@endforeach
+					</ul>
+				@endif
 		</div>
 	</div>
 
