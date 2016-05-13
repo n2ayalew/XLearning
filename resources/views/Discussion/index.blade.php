@@ -118,12 +118,15 @@
 
 <!----------------------MAKE NEW ANNOUNCEMENT---------------------->
 	<div id="newDiscussion-container">
-		<button id="closeNewDiscussion" class="closeButton"></button>
-		<div class="modalHeader">NEW DISCUSSION</div>
-		TITLE: <input id="newDiscTitle" type="text"  maxlength="30"></input>
-		<div class="modalTitle">DETAILS</div>
-		<textarea id="newDiscDetail" cols="50" rows="7"></textarea>
-		<button id="submitNewDiscButton" class="but">SUBMIT NEW DISCUSSION</button>
+		<form id="createDiscussionForm">
+			<button id="closeNewDiscussion" class="closeButton"></button>
+			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" ></input>
+			<div class="modalHeader">NEW DISCUSSION</div>
+			TITLE: <input id="newDiscTitle" type="text"  maxlength="30" name="post_title"></input>
+			<div class="modalTitle">DETAILS</div>
+			<textarea id="newDiscDetail" cols="50" rows="7" name="discussion_post" type="text"></textarea>
+			<button id="submitNewDiscButton" class="but" type="submit">SUBMIT NEW DISCUSSION</button>
+		</form>
 	</div>
 
 

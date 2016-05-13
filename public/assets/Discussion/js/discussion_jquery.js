@@ -10,7 +10,10 @@
 //==============================GLOBAL VARIABLES===================================//
 var currentDiscIndex = 0;
 
-
+/*
+TODO: remove call to refresh discussion list when we add a discussion. 
+We should only append discussion
+*/
 //==============================REFRESH THE DISCUSSION LIST===================================//
 function refreshDiscList(asyncCall) { // First call is made syncron
     $('#discussionList').empty();
@@ -30,7 +33,7 @@ function refreshDiscList(asyncCall) { // First call is made syncron
                 if (discussionList.loadedPosts.indexOf(result[i].post_id) > -1) {continue;}
                 var newDis = new discussionClass();
                 newDis.discussionID = result[i].post_id;
-                console.log(result[i]);
+                //console.log(result[i]);
                 newDis.topic = "Post # " + count; // TEMP
                 //newDis.topic = result[i].topic;
                 newDis.postedByTeacher = result[i].teacher_post;
@@ -81,13 +84,25 @@ function openDisc(index) {
 // SET NEW DISCUSSION OBJECT DISCUSSION ID PROPERTY.
 // SAVE IT INTO THE CLIENT SIDE TEMPORARY DATABASE.
 
-function addDisc() {
+function addDisc(f) {
     newDisc = new discussionClass();
     newDisc.topic = $('#newDiscTitle').val();
     newDisc.postedByTeacher = true;
     // NEED TO SET POSTERNAME 
     // & POSTER ID
-
+    
+    $.ajax({
+        type: 'POST',
+        url: 'discussion',
+        data: f.serialize(),
+        success: function (result){
+            obj = $.parseJSON(result);
+            newDisc.posterName = obj['user_id'];
+            newDisc.posterID = obj['first_name'];
+        }
+    });
+    
+    //newDis.posterName = 
     newDisc.detail = $('#newDiscDetail').val();
 
     discussionList.saveDiscussion(newDisc);
@@ -331,8 +346,10 @@ $(document).ready( function() {
         $('.overlay').fadeOut('fast');
         $('#newDiscussion-container').fadeOut('fast');
     });
-    $('#submitNewDiscButton').click( function() {
-        addDisc();
+    $('#createDiscussionForm').on('submit', function(event) {
+        event.preventDefault();
+        // We should validate the form here....
+        addDisc( $(this) );
         $('#newDiscDetail').val('');
         $('#newDiscTitle').val('');
         $('.overlay').fadeOut('fast');

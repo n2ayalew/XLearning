@@ -31,6 +31,8 @@ Route::get('home/{classId}', function () { // home page of class page -- shows d
 Route::get('home/{classId}/discussions', 'DiscussionBoardController@getDiscussions'); // Get all discussion from this class
 Route::get('home/{classId}/discussions/comments/{disccusionId}', 'DiscussionBoardController@getCommentsForDiscussion'); // Get comments for discussion, disccusionId
 Route::get('home/{classId}/discussions/{disccusionId}', 'DiscussionBoardController@getDiscussion');
+Route::post('home/{classId}/discussion', 'DiscussionBoardController@createDiscussion');
+Route::post('home/{classId}/comment', 'DiscussionBoardController@createComment');
 
 Route::get('home/{classId}/grades', 'GradesController@index');
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
