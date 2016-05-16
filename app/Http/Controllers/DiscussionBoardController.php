@@ -26,17 +26,17 @@ class DiscussionBoardController extends Controller
         return $class->discussions->toArray();  
     }
 
-    public function getCommentsForDiscussion($discussionId) {
+    public function getCommentsForDiscussion($classid, $discussionId) {
         $discussion = \App\discussion::find($discussionId);
         return $discussion->comments->toArray();
     }
 
-    public function getDiscussion( $discussionId ){
-        return \App\discussion::find($discussionId);
+    public function getDiscussion($classid, $discussionId ){
+        return \App\discussion::find($discussionId)->toArray();
     }
 
-    public function getComment( $commentId ){
-        return \App\comment::find( $commentId );
+    public function getComment($classid, $discussionId, $commentId ){
+        return \App\comment::find( $commentId )->toArray();
     }
     /*
     Why is post title not being added to table???????
@@ -123,8 +123,9 @@ class DiscussionBoardController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($classId,$id)
     {
-        //
+        $discussion = \App\discussion::find($id);
+        $discussion->delete();
     }
 }

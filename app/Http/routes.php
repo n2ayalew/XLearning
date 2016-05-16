@@ -33,7 +33,7 @@ Route::get('home/{classId}/discussions/comments/{disccusionId}', 'DiscussionBoar
 Route::get('home/{classId}/discussions/{disccusionId}', 'DiscussionBoardController@getDiscussion');
 Route::post('home/{classId}/discussion', 'DiscussionBoardController@createDiscussion');
 Route::post('home/{classId}/comment', 'DiscussionBoardController@createComment');
-
+Route::delete('home/{classId}/discussion/{id}', 'DiscussionBoardController@destroy');
 Route::get('home/{classId}/grades', 'GradesController@index');
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
 Route::get('home/{classId}/contact_me', 'PagesController@getContactMe');

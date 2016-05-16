@@ -13,6 +13,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
+	    <meta name="csrf-token" type="hidden" content="{{ csrf_token() }}">
 		<link href="/assets/Discussion/css/bootstrap.css" rel="stylesheet">
 		<link href="/assets/Discussion/css/animate.css" rel="stylesheet" > 
 	    <link href="/assets/Discussion/css/discussion_style.css" rel="stylesheet">

@@ -31,6 +31,7 @@ function refreshDiscList(asyncCall) { // First call is made syncron
             for (var i = 0, count = 1; i < result.length; i++, count = 1){
                 
                 if (discussionList.loadedPosts.indexOf(result[i].post_id) > -1) {continue;}
+                //console.log(result[i].post_id);
                 var newDis = new discussionClass();
                 newDis.discussionID = result[i].post_id;
                 //console.log(result[i]);
@@ -177,8 +178,20 @@ function appendDiscDOM(newDiscussion, index) {
 //===========================================DELETE DISCUSSION===================================//
 function deleteDisc(iDisc,discussionID) {
     discussionList.deleteDiscussion(iDisc);
-    /////////////REQUEST SERVER TO DELETE ///////////
-    ////////////////SEND ID TO SERVER////////////////////////
+    
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    ////////////////REQUEST SERVER TO DELETE////////////////////////
+    
+    $.ajax({
+        method: "DELETE",
+        url: 'discussion/' + discussionID,
+        data: discussionID + "&" + "_token=" + csrf_token,
+        success: function (response) {
+            console.log("discussion deleted");
+        }
+
+    });
+
     //////////////DELETE IN LOCAL DB//////////////
     $('#disc-'+iDisc).slideUp();
     setTimeout( function() {
