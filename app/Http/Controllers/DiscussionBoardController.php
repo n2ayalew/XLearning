@@ -26,10 +26,6 @@ class DiscussionBoardController extends Controller
         return $class->discussions->toArray();  
     }
 
-    public function getCommentsForDiscussion($classid, $discussionId) {
-        $discussion = \App\discussion::find($discussionId);
-        return $discussion->comments->toArray();
-    }
 
     public function getDiscussion($classid, $discussionId ){
         return \App\discussion::find($discussionId)->toArray();
@@ -38,6 +34,11 @@ class DiscussionBoardController extends Controller
     public function getComment($classid, $discussionId, $commentId ){
         return \App\comment::find( $commentId )->toArray();
     }
+    public function getCommentsForDiscussion($classid, $discussionId) {
+        $discussion = \App\discussion::find($discussionId);
+        return $discussion->comments->toArray();
+    }
+
     /*
     Why is post title not being added to table???????
     */
@@ -64,11 +65,39 @@ class DiscussionBoardController extends Controller
         $a = array();
         $a['user_id'] = \Auth::user()->user_id;
         $a['first_name'] = \Auth::user()->first_name;
+        $a['post_id'] = $post_id;
+        $a['postedByTeacher'] = $teacher_post;
         return json_encode( $a);
     }
 
     public function createComment(Request $request){
         $fields = $request->except('_token');
+        $urlSplit = explode('/',$request->path());
+        $class_id = $urlSplit[1];
+        $post_id = $urlSplit[3];
+        $class = \App\Classe::find( $class_id );
+        $comment = new \App\comment();
+        $comment->user_id = \Auth::user()->user_id;
+        $comment->first_name = \Auth::user()->first_name;
+        $comment->class_id = $class_id;
+        $comment->teacher = $class->teacher;
+        $comment->comment = $fields['comment'];
+        $comment->teacher_comment = ( ($class->teacher == \Auth::user()->user_id) ? true : false );
+        \App\discussion::find($urlSplit[3])->comments()->save($comment);
+
+        // Response;
+        $response = array();
+        $response['poster_id'] = $comment->user_id;
+        $response['first_name'] = \Auth::user()->first_name;
+        $response['postedByTeacher'] = $comment->teacher_comment;
+        $response['comment_id'] = \DB::table('comments')->select('id')->orderBy('id', 'desc')->pluck('id');
+
+        return json_encode($response);
+    }
+
+    public function deleteComment($classId,$disscusionId,$commentId) {
+        $comment = \App\comment::find($commentId);
+        $comment->delete();
     }
     /**
      * Store a newly created resource in storage.
@@ -80,9 +109,6 @@ class DiscussionBoardController extends Controller
         //
     }
 
-    public function storeDiscussionComment(){
-
-    }
 
     /**
      * Display the specified resource.

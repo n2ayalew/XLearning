@@ -17,7 +17,7 @@
 	<body>
 		 <!--Change log out message/ invalid crendtial message location-->
 		@if (Session::get('flash_message'))
-			<div class="title" color="red">
+			<div color="red">
 				{{Session::get('flash_message')}}
 			</div>
 		@endif
@@ -40,21 +40,15 @@
 			<!--Change form to use blade templating so that we can prepopulate and stuff-->
 			<form id="loginForm" method="POST" action="/auth/login">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-				Student ID:<br> <input type="text" id="student_id" name="student_id"><br>
-				Password:<br> <input type="password" id="password" name="password"><br>
+				Student ID/Email:<br> <input type="text" id="student_id" name="id" required><br>
+				Password:<br> <input type="password" id="password" name="password" required><br>
 				<button id="button1" type="submit">Login</button>
 				<button id="button2" type="button">Register</button>
+				<!--<div id="remember">
+					<input type="checkbox" name="remember"> Remember Me TODO: add remember boolean to
+				</div>-->
 				<a href="/password/email" id="forgotPassword">Forgot Your Password?</a>
 			</form>
-		</div>
-		<div class="failedCred">
-				@if ($errors->any())
-					<ul class="alert alert-danger">
-					@foreach ($errors->all() as $error)
-						<li>{{$error}}</li>
-					@endforeach
-					</ul>
-				@endif
 		</div>
 	</div>
 
@@ -84,22 +78,22 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="is_teacher">
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Student ID: </p>
-				<input type="text" id="student_id" name="student_id" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="student_id" name="student_id" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">First Name: </p>
-				<input type="text" id="first_name" name="first_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="first_name" name="first_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Last Name: </p>
-				<input type="text" id="last_name" name="last_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="last_name" name="last_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<!--<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Email: </p>
 				<input type="text" id="emailS" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">-->
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Password: </p>
-				<input type="password" id="password" name="password" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="password" id="password" name="password" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Comfirm Password: </p>
-				<input type="password" id="password_confirmation" name="password_confirmation" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="password" id="password_confirmation" name="password_confirmation" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<button id="button3" type="submit">Done</button>
 			</form>
@@ -114,19 +108,19 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" id="is_teacher" name="is_teacher" value="true">
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">First Name: </p>
-				<input type="text" id="first_name" name="first_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="first_name" name="first_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Last Name: </p>
-				<input type="text" id="last_name" name="last_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="last_name" name="last_name" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Email: </p>
-				<input type="text" id="email" name="email" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="text" id="email" name="email" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Password: </p>
-				<input type="password" id="password" name="password" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="password" id="password" name="password" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">Comfirm Password: </p>
-				<input type="password" id="password_confirmation" name="password_confirmation" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc">
+				<input type="password" id="password_confirmation" name="password_confirmation" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 desc" required>
 
 				<button id="button4" type="submit">Done</button>
 			</form>

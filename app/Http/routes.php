@@ -23,7 +23,7 @@ Route::get('home', 'HomeController@index'); // home Page
 
 Route::get('home/{classId}', function () { // home page of class page -- shows discussion
 	if (!\Auth::user()){
-		return redirect('front_end/auth/login_view');
+		return redirect('/');
 	}
 	return view('Discussion/index');
 });
@@ -32,8 +32,14 @@ Route::get('home/{classId}/discussions', 'DiscussionBoardController@getDiscussio
 Route::get('home/{classId}/discussions/comments/{disccusionId}', 'DiscussionBoardController@getCommentsForDiscussion'); // Get comments for discussion, disccusionId
 Route::get('home/{classId}/discussions/{disccusionId}', 'DiscussionBoardController@getDiscussion');
 Route::post('home/{classId}/discussion', 'DiscussionBoardController@createDiscussion');
-Route::post('home/{classId}/comment', 'DiscussionBoardController@createComment');
 Route::delete('home/{classId}/discussion/{id}', 'DiscussionBoardController@destroy');
+
+Route::post('home/{classId}/discussion/{disccusionId}/comment', 'DiscussionBoardController@createComment');
+Route::delete('home/{classId}/discussion/{disscusionId}/comment/{commentId}','DiscussionBoardController@deleteComment');
+Route::get('home/{classId}/discussion/{disccusionId}/comment/{commentId}', 'DiscussionBoardController@getComment');
+Route::get('home/{classId}/discussion/{disccusionId}/comments', "DiscussionBoardController@getCommentsForDiscussion");
+
+
 Route::get('home/{classId}/grades', 'GradesController@index');
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
 Route::get('home/{classId}/contact_me', 'PagesController@getContactMe');
@@ -43,6 +49,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 
 ]);
+
 
 Route::resource('event', 'EventController');
 Route::get('event/remove/{id}', 'EventController@remove');

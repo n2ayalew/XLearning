@@ -91,12 +91,15 @@
 	</div>
 
 	<div id="bottomDisc">
+		<form id="createNewComment">
+			<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" ></input>
 			<div id="commentBox-container">
-				<textarea id="commentBox" ></textarea>
+				<textarea id="commentBox" type="text" name="comment" ></textarea>
 			</div>
 			<div id="submitButton-container">
-				<button id="submitComment" class="but">COMMENT</button>
+				<button id="submitComment" class="but" type="submit">COMMENT</button>
 			</div>
+		</form>
 	</div>
 	
 	</div>
@@ -117,7 +120,7 @@
  
 
 
-<!----------------------MAKE NEW ANNOUNCEMENT---------------------->
+<!----------------------MAKE NEW Discussion---------------------->
 	<div id="newDiscussion-container">
 		<form id="createDiscussionForm">
 			<button id="closeNewDiscussion" class="closeButton"></button>

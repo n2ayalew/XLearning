@@ -65,6 +65,12 @@ function discussionClass() {
         return;
     };
 
+    this.deleteComments = function() {
+        comments = [];
+
+        return;
+    }
+
     this.getComments = function() {
 
         //console.log(comments); /////////////////////////////////////////
@@ -90,7 +96,7 @@ function discussionList() {
             list.push(newDiscussion);
             
             //console.log('------------------------First discussion saved------------------------'); /////////////////////////////////////////
-            console.log(newDiscussion); /////////////////////////////////////////
+            //console.log(newDiscussion); /////////////////////////////////////////
         }
         else {
             list.splice(0,0, newDiscussion);

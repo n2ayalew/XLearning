@@ -37,6 +37,16 @@ body {
 
 }
 
+#remember{
+	font-family: "JosefinBold";
+	font-size: 18px;
+	/*color: #FE6356;*/
+	text-shadow: 0px 0px 10px rgba(0,0,0,1);
+	position: relative;
+	bottom: 8%;
+
+}
+
 #title {
 	font-family: "JosefinBold", sans-serif;
 	color: #fff;
@@ -84,7 +94,7 @@ body {
 	text-shadow: 0px 0px 40px rgba(0,0,0,0.9);
 	font-size: 20pt;
 	color: #fff;
-	z-index: 0;
+	z-index: 1;
 	font-family: JosefinBold;
 }
 #button1, #button2 {
@@ -229,7 +239,3 @@ input {
 	visibility: hidden;
 }
 
-.failedCred{
-	position: absolute; /*All divs need to be relative if we wanna make this come out looking okay*/
-	bottom:-30px;
-}

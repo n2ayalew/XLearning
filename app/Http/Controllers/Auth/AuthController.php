@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+use Auth;
+use Illuminate\Http\Request;
+
 class AuthController extends Controller
 {
     /*
@@ -83,5 +86,27 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
         
+    }
+    //TODO: add remmeber me token
+    public function postLogin(Request $request)
+    {
+    	$form = $request->except('_token');
+    	$id = $form['id'];
+    	$password = $form['password'];
+    	if( strpos($id, '@') ) {
+    		if (Auth::attempt(['email' => $id, 'password' => $password, 'is_teacher' => 1])) {
+            	return redirect()->intended('home');
+        	}
+        	
+        	return redirect('/')->with('flash_message', 'The entered credentials are nowhere to be found :(');
+        	
+    	}
+        else {
+        	if ( Auth::attempt(['student_id' => $id, 'password' => $password, 'is_teacher' => 0]) ) {
+        		return redirect()->intended('home');
+        	}
+        	return redirect('/')->with('flash_message', 'The entered credentials are nowhere to be found :(');
+        }
+        	
     }
 }

@@ -9,6 +9,7 @@
 
 //==============================GLOBAL VARIABLES===================================//
 var currentDiscIndex = 0;
+var emptyDisc = false;
 
 /*
 TODO: remove call to refresh discussion list when we add a discussion. 
@@ -39,9 +40,10 @@ function refreshDiscList(asyncCall) { // First call is made syncron
                 //newDis.topic = result[i].topic;
                 newDis.postedByTeacher = result[i].teacher_post;
                 var tempStr = result[i].created_at;
+                console.log(tempStr);
                 var tempLst = tempStr.split(' ');
                 tempLst = tempLst[0].split('-');
-                newDis.dateCreated = parseInt(newDis.getMonthName(tempLst[2])) + ' ' + parseInt(tempLst[1]) + ' ' + parseInt(tempLst[0]);
+                newDis.dateCreated = newDis.getMonthName(tempLst[1]) + ' ' + parseInt(tempLst[2]) + ' ' + parseInt(tempLst[0]);
                 newDis.posterID = i;
                 newDis.detail = result[i].discussion_post;
                 newDis.posterName = result[i].first_name;
@@ -54,6 +56,8 @@ function refreshDiscList(asyncCall) { // First call is made syncron
     if(discussionList.isEmpty()) {
         console.log('!!!!!!!!!!!!!!!!!discussionList EMPTY!!!!!!!!!!!!!!!!!!!');  /////////////////////////////////////////
         $('#discussionList').append('<div>NO DISCUSSIONS</div>');
+        emptyDisc = true;
+        currentDiscIndex = 0;
     }
     else {
         var discArray = [];
@@ -88,7 +92,7 @@ function openDisc(index) {
 function addDisc(f) {
     newDisc = new discussionClass();
     newDisc.topic = $('#newDiscTitle').val();
-    newDisc.postedByTeacher = true;
+    //newDisc.postedByTeacher = true;
     // NEED TO SET POSTERNAME 
     // & POSTER ID
     
@@ -100,16 +104,16 @@ function addDisc(f) {
             obj = $.parseJSON(result);
             newDisc.posterName = obj['user_id'];
             newDisc.posterID = obj['first_name'];
+            newDisc.discussionID = obj['post_id'];
+            newDisc.postedByTeacher = obj['postedByTeacher'];
+            emptyDisc = false;
+            newDisc.detail = $('#newDiscDetail').val();
+            discussionList.saveDiscussion(newDisc);
+            refreshDiscList(true);
+            refreshFullDetail();
+            refreshCommList();
         }
     });
-    
-    //newDis.posterName = 
-    newDisc.detail = $('#newDiscDetail').val();
-
-    discussionList.saveDiscussion(newDisc);
-    refreshDiscList(true);
-    refreshFullDetail();
-    refreshCommList();
 }
 
 
@@ -188,6 +192,13 @@ function deleteDisc(iDisc,discussionID) {
         data: discussionID + "&" + "_token=" + csrf_token,
         success: function (response) {
             console.log("discussion deleted");
+            if (discussionList.isEmpty()) {
+                emptyDisc = true;
+            }
+            else {
+                emptyDisc = false;
+            }
+            console.log(discussionList);
         }
 
     });
@@ -196,7 +207,8 @@ function deleteDisc(iDisc,discussionID) {
     $('#disc-'+iDisc).slideUp();
     setTimeout( function() {
     refreshDiscList(true);
-    },500);    
+    },500);
+    refreshCommList();    
 }
 
 //===========================================ADD COMMENT===================================//
@@ -206,15 +218,29 @@ function deleteDisc(iDisc,discussionID) {
 // SET NEW COMMENT OBJECT COMMENT ID PROPERTY.
 // SAVE IT INTO THE CLIENT SIDE TEMPORARY DATABASE.
 
-function addComm() {
+function addComm(f) {
     newComm = new commentClass();
     newComm.message = $('#commentBox').val();
-    newComm.postedByTeacher = true;
+    //newComm.postedByTeacher = true;
     // NEED TO SET POSTER ID AND POSTER NAME LATER.
     // NOW POST TP SERVER AND GET COMMENT ID.
-    // SET THE ID OF THE COMMENT AND PUSH IT IN THE CLIENT SIDE DB.    
-    discussionList.saveComment(currentDiscIndex, newComm);
-    refreshCommList();
+    
+    $.ajax({
+        type: 'POST',
+        url: 'discussion/' + (discussionList.getDiscussion(currentDiscIndex)).discussionID + '/comment',
+        data: f.serialize(),
+        success: function (result){
+            var response = $.parseJSON(result);
+            newComm.postedByTeacher = response['postedByTeacher'];
+            newComm.posterName = response['first_name'];
+            newComm.commentID = response['comment_id'];
+            newComm.posterID = response['poster_id'];
+            
+            // SET THE ID OF THE COMMENT AND PUSH IT IN THE CLIENT SIDE DB.    
+            discussionList.saveComment(currentDiscIndex, newComm);
+            refreshCommList();
+        }
+    });
 }
 
 
@@ -274,22 +300,40 @@ function appendCommDOM(newComment,index) {
 //==============================REFRESH THE COMMENT LIST===================================//
 function refreshCommList() {
     $('#commentList').empty();
-    if(discussionList.isCommEmpty(currentDiscIndex)) {
-        //console.log('NO COMMENTS');
-        $('#commentList').append('<div>NO COMMENTS</div>');
-    }
-    else {
-        var commList = [];
-        commList = discussionList.getComments(currentDiscIndex);
-
-        //console.log('HERE IS COMMLIST: ---');
-        //console.log(commList);
-
-        var size = commList.length;
-        for (var i=0; i<size; i++) {
-            appendCommDOM(commList[i],i);
+    // Get from server
+    var currentDisc = discussionList.getDiscussion(currentDiscIndex);
+    currentDisc.deleteComments();
+    $.ajax({
+        type: 'GET',
+        url: 'discussion/' + currentDisc.discussionID + '/comments',
+        success: function(result) {
+            
+            // we gotta loop through comment list and save each one
+            for (var i = 0, count = 1; i < result.length; i++, count = 1) {
+                var comment = new commentClass();
+                comment.message = result[i]['comment'];
+                comment.postedByTeacher = result[i]['teacher_comment'];
+                comment.posterID = result[i]['user_id'];
+                comment.posterName = result[i]['first_name'];
+                comment.commentID = result[i]['id'];
+                currentDisc.saveComment(comment);
+            }
+            if(discussionList.isCommEmpty(currentDiscIndex)) {
+                //console.log('NO COMMENTS');
+                $('#commentList').append('<div>NO COMMENTS</div>');
+            }
+            else {
+                var commList = [];
+                commList = discussionList.getComments(currentDiscIndex);
+                //console.log('HERE IS COMMLIST: ---');
+                //console.log(commList);
+                var size = commList.length;
+                for (var i=0; i<size; i++) {
+                    appendCommDOM(commList[i],i);
+                }
+            }
         }
-    }
+    });
 }
 
 //========================APPEND FULL DETAIL OF DISCUSSION TO COMMENT SECTION===================================//
@@ -325,14 +369,25 @@ function refreshFullDetail() {
 
 //===========================================DELETE COMMENT===================================//
 function deleteComm(iDisc, iComm, commentID) {
-    discussionList.deleteComment(iDisc, iComm);
+    
     /////////////REQUEST SERVER TO DELETE ///////////
     ////////////////SEND ID TO SERVER////////////////////////
-    //////////////DELETE IN LOCAL DB//////////////
-    $('#comm-'+iComm).slideUp();
-    setTimeout( function() {
-    refreshCommList();
-    },500);    
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        method: "DELETE",
+        url: 'discussion/' + discussionList.getDiscussion(iDisc).discussionID + '/comment/' + commentID,
+        data: commentID + "&" + "_token=" + csrf_token,
+        success: function (response) {
+            console.log("discussion deleted");
+            discussionList.deleteComment(iDisc, iComm);
+
+            //////////////DELETE IN LOCAL DB//////////////
+            $('#comm-'+iComm).slideUp();
+            setTimeout( function() {
+            refreshCommList();
+            },500); 
+        }
+    });
 }
 
 
@@ -344,12 +399,15 @@ $(document).ready( function() {
         $('#newDiscussion-container').css('visibility', 'visible').hide().fadeIn('fast');
     });
 
-    $('#submitComment').click( function() {
-        addComm();
+    $('#createNewComment').on( 'submit', function() {
+        event.preventDefault();
+        addComm( $(this) );
         $('#commentBox').val('');
     });
-    refreshFullDetail();
-    refreshCommList();
+    if (!emptyDisc) {
+        refreshFullDetail();
+        refreshCommList();
+    }
 });
 
 //======================================SETTING NEW DISCUSSION MODAL===================================//

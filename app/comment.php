@@ -13,4 +13,8 @@ class comment extends Model
     public function discussion(){
     	return $this->belongsTo('App\discussion');
     }
+
+    public function user(){
+    	return $this->belongsTo('App\User');
+    }
 }
