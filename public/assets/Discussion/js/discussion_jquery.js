@@ -13,8 +13,6 @@ var emptyDisc = true;
 
 /*
 TODO: 
-- remove call to refresh discussion list when we add a discussion. 
-We should only append discussion
 - On page load the first disscusion's details should be loaded
 */
 //==============================REFRESH THE DISCUSSION LIST===================================//
@@ -35,18 +33,14 @@ function refreshDiscList(send) { // First call is made syncron
         $.ajax({
             method: 'GET',
             url: 'discussions',
-            //async: asyncCall,
             success: function (result){
                 
                 for (var i = 0, count = 1; i < result.length; i++, count = 1){
                     
                     if (discussionList.loadedPosts.indexOf(result[i].post_id) > -1) {continue;}
-                    //console.log(result[i].post_id);
                     var newDis = new discussionClass();
                     newDis.discussionID = result[i].post_id;
-                    //console.log(result[i]);
-                    newDis.topic = "Post # " + count; // TEMP
-                    //newDis.topic = result[i].topic;
+                    newDis.topic = result[i].post_title;
                     newDis.postedByTeacher = result[i].teacher_post;
                     var tempStr = result[i].created_at;
                     console.log(tempStr);

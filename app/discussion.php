@@ -12,10 +12,6 @@ class discussion extends Model
     protected $fillable = ['disscussion_post', 'post_title'];
     private $postTitle;
     
-    // public function _construct(String $pt){
-    //     //$this->postTitle = DB::table('discussions')->where('post_id', $this->primaryKey)->pluck('post_title');
-    //     $this->postTitle = $pt
-    // }
     public function comments(){
     	return $this->hasMany('App\comment', 'post_id', 'post_id');
     }
@@ -26,11 +22,6 @@ class discussion extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
-    }
-
-    public function getPostTitle(){
-        //$this->postTitle = DB::table('discussions')->where('post_id', $this->primaryKey)->pluck('post_title');
-        return \DB::table('discussions')->where('post_id', $this->primaryKey)->pluck('post_title');
     }
 
     public function setPostTitle($pt){

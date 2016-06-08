@@ -39,9 +39,6 @@ class DiscussionBoardController extends Controller
         return $discussion->comments->toArray();
     }
 
-    /*
-    Why is post title not being added to table???????
-    */
     public function createDiscussion(Request $request) {
         $fields = $request->except('_token');
         $user_id = \Auth::user()->user_id;
@@ -59,9 +56,9 @@ class DiscussionBoardController extends Controller
         $discussion->first_name = \Auth::user()->first_name;
         //$discussion->classe()->associate($class);
         $discussion->class_id = $class->class_id;
+        $discussion->post_title = $fields['post_title'];
         \Auth::user()->discussions()->save($discussion);
         $post_id = \DB::table('discussions')->select('post_id')->orderBy('post_id', 'desc')->pluck('post_id');
-        //$discussion->setPostTitle($post_title);
         $a = array();
         $a['user_id'] = \Auth::user()->user_id;
         $a['first_name'] = \Auth::user()->first_name;
