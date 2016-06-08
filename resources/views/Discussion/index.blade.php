@@ -26,7 +26,7 @@
 
 	<div class="pageHeader">
 		<div id="xlogo"><img src="/assets/Discussion/img/xlogo.svg" width="40px"> DISCUSSION</div>
-		<button href="/auth/logout" id="logOut" class="but">LOG OUT</button>
+		<a href="/auth/logout" ><button id="logOut" class="but">LOG OUT</button></a>
 	</div>
 	
 
@@ -39,19 +39,19 @@
 	<div id="left-container">
 		<div id="sideBar-container">
 		<div id="sideBar">
-		<div id="sideBarHome" class="sideBarItem" onclick="location.href='http://www.w3schools.com/cssref/sel_element_gt.asp';">
+		<div id="sideBarHome" class="sideBarItem" onclick="location.href='/home';">
 			HOME
 		</div>
-		<div id="home" class="sideBarItem" onclick="location.href='http://www.w3schools.com/cssref/sel_element_gt.asp';">
+		<div id="home" class="sideBarItem" onclick="location.href='#';">
 			DISCUSSION<img id="pointer" src="/assets/Discussion/img/pointer.svg" height="20px">
 		</div>
-		<div id="grades" class="sideBarItem" onclick="location.href='http://www.w3schools.com/cssref/sel_element_gt.asp';">
+		<div id="grades" class="sideBarItem" onclick="location.href='#';">
 			GRADES
 		</div>
-		<div id="assignments" class="sideBarItem" onclick="location.href='http://www.w3schools.com/cssref/sel_element_gt.asp';">
+		<div id="assignments" class="sideBarItem" onclick="location.href='#';">
 			ASSIGNMENTS
 		</div>
-		<div id="contact" class="sideBarItem" onclick="location.href='http://www.w3schools.com/cssref/sel_element_gt.asp';">
+		<div id="contact" class="sideBarItem" onclick="location.href='#';">
 			CONTACT ME
 		</div>
 		</div>
