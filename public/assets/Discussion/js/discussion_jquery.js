@@ -9,66 +9,97 @@
 
 //==============================GLOBAL VARIABLES===================================//
 var currentDiscIndex = 0;
-var emptyDisc = false;
+var emptyDisc = true;
 
 /*
-TODO: remove call to refresh discussion list when we add a discussion. 
+TODO: 
+- remove call to refresh discussion list when we add a discussion. 
 We should only append discussion
+- On page load the first disscusion's details should be loaded
 */
 //==============================REFRESH THE DISCUSSION LIST===================================//
-function refreshDiscList(asyncCall) { // First call is made syncron
+function refreshDiscList(send) { // First call is made syncron
     $('#discussionList').empty();
-
+    
     // Fetch Discussions from server
     /*
     Discussions are saved as a discussionClass() object
+
+    /*
+        We should delete all discussions then load them all to the page after each refresh... for now.
+        We should move the rest of the function inside the success callback 
     */
-    $.ajax({
-        method: 'GET',
-        url: 'discussions',
-        async: asyncCall,
-        success: function (result){
-            
-            for (var i = 0, count = 1; i < result.length; i++, count = 1){
+    //discussionList.deleteDiscussions();
+    if (send) {
+
+        $.ajax({
+            method: 'GET',
+            url: 'discussions',
+            //async: asyncCall,
+            success: function (result){
                 
-                if (discussionList.loadedPosts.indexOf(result[i].post_id) > -1) {continue;}
-                //console.log(result[i].post_id);
-                var newDis = new discussionClass();
-                newDis.discussionID = result[i].post_id;
-                //console.log(result[i]);
-                newDis.topic = "Post # " + count; // TEMP
-                //newDis.topic = result[i].topic;
-                newDis.postedByTeacher = result[i].teacher_post;
-                var tempStr = result[i].created_at;
-                console.log(tempStr);
-                var tempLst = tempStr.split(' ');
-                tempLst = tempLst[0].split('-');
-                newDis.dateCreated = newDis.getMonthName(tempLst[1]) + ' ' + parseInt(tempLst[2]) + ' ' + parseInt(tempLst[0]);
-                newDis.posterID = i;
-                newDis.detail = result[i].discussion_post;
-                newDis.posterName = result[i].first_name;
-                discussionList.loadedPosts.push(result[i].post_id);
-                discussionList.saveDiscussion(newDis);
+                for (var i = 0, count = 1; i < result.length; i++, count = 1){
+                    
+                    if (discussionList.loadedPosts.indexOf(result[i].post_id) > -1) {continue;}
+                    //console.log(result[i].post_id);
+                    var newDis = new discussionClass();
+                    newDis.discussionID = result[i].post_id;
+                    //console.log(result[i]);
+                    newDis.topic = "Post # " + count; // TEMP
+                    //newDis.topic = result[i].topic;
+                    newDis.postedByTeacher = result[i].teacher_post;
+                    var tempStr = result[i].created_at;
+                    console.log(tempStr);
+                    var tempLst = tempStr.split(' ');
+                    tempLst = tempLst[0].split('-');
+                    newDis.dateCreated = newDis.getMonthName(tempLst[1]) + ' ' + parseInt(tempLst[2]) + ' ' + parseInt(tempLst[0]);
+                    newDis.posterID = i;
+                    newDis.detail = result[i].discussion_post;
+                    newDis.posterName = result[i].first_name;
+                    discussionList.loadedPosts.push(result[i].post_id);
+                    discussionList.saveDiscussion(newDis);
+                
+                }
+                if(discussionList.isEmpty()) {
+                    console.log('!!!!!!!!!!!!!!!!!discussionList EMPTY!!!!!!!!!!!!!!!!!!!');  /////////////////////////////////////////
+                    $('#discussionList').append('<div>NO DISCUSSIONS</div>');
+                    emptyDisc = true;
+                    //currentDiscIndex = 0;
+                }
+                        else {
+                            emptyDisc = false;
+                            var discArray = [];
+                            discArray = discussionList.getList();
+
+                            //console.log('++++++++++++++++++++REFRESHING+++++++++++++++++');  /////////////////////////////////////////
+                            //console.log(discArray);  /////////////////////////////////////////
+
+                            var size = discArray.length;
+                            for (var i=0; i <size; i++) {
+                                appendDiscDOM(discArray[i],i);
+                            }
+                        }                
             }
-        }
-    });
-    
-    if(discussionList.isEmpty()) {
-        console.log('!!!!!!!!!!!!!!!!!discussionList EMPTY!!!!!!!!!!!!!!!!!!!');  /////////////////////////////////////////
-        $('#discussionList').append('<div>NO DISCUSSIONS</div>');
-        emptyDisc = true;
-        currentDiscIndex = 0;
-    }
-    else {
-        var discArray = [];
-        discArray = discussionList.getList();
+        });
+    } else {
+        console.log( discussionList.getList() );
+        if(discussionList.isEmpty()) {
+            console.log('!!!!!!!!!!!!!!!!!discussionList EMPTY!!!!!!!!!!!!!!!!!!!');  /////////////////////////////////////////
+            $('#discussionList').append('<div>NO DISCUSSIONS</div>');
+            emptyDisc = true;
+            currentDiscIndex = 0;
+        } else {
+            emptyDisc = false;
+            var discArray = [];
+            discArray = discussionList.getList();
 
-        //console.log('++++++++++++++++++++REFRESHING+++++++++++++++++');  /////////////////////////////////////////
-        //console.log(discArray);  /////////////////////////////////////////
+                //console.log('++++++++++++++++++++REFRESHING+++++++++++++++++');  /////////////////////////////////////////
+                //console.log(discArray);  /////////////////////////////////////////
 
-        var size = discArray.length;
-        for (var i=0; i <size; i++) {
-            appendDiscDOM(discArray[i],i);
+            var size = discArray.length;
+            for (var i=0; i <size; i++) {
+                appendDiscDOM(discArray[i],i);
+            }
         }
     }
 }
@@ -92,6 +123,7 @@ function openDisc(index) {
 function addDisc(f) {
     newDisc = new discussionClass();
     newDisc.topic = $('#newDiscTitle').val();
+    newDisc.detail = $('#newDiscDetail').val();
     //newDisc.postedByTeacher = true;
     // NEED TO SET POSTERNAME 
     // & POSTER ID
@@ -102,18 +134,23 @@ function addDisc(f) {
         data: f.serialize(),
         success: function (result){
             obj = $.parseJSON(result);
-            newDisc.posterName = obj['user_id'];
-            newDisc.posterID = obj['first_name'];
+            newDisc.posterName = obj['first_name'];
+            newDisc.posterID = obj['user_id'];
             newDisc.discussionID = obj['post_id'];
             newDisc.postedByTeacher = obj['postedByTeacher'];
             emptyDisc = false;
-            newDisc.detail = $('#newDiscDetail').val();
             discussionList.saveDiscussion(newDisc);
-            refreshDiscList(true);
-            refreshFullDetail();
-            refreshCommList();
+            refreshDiscList(false);
+            //refreshDiscList(true);
+            //refreshFullDetail();
+            //refreshCommList();
+            //refreshDiscList(true);
         }
     });
+    if(!emptyDisc) {
+        refreshFullDetail();
+        refreshCommList();
+    }
 }
 
 
@@ -179,6 +216,11 @@ function appendDiscDOM(newDiscussion, index) {
     discList.appendChild(e);
 }
 
+/*
+    BUGS:
+    - If a disscussion w/o comments is deleted we get error: discussion_jquery.js:385 Uncaught TypeError: Cannot read property 'detail' of undefined
+    - If a discussion w/ comments is deleted we get error: discussion_jquery.js:344 Uncaught TypeError: Cannot read property 'deleteComments' of undefined
+*/
 //===========================================DELETE DISCUSSION===================================//
 function deleteDisc(iDisc,discussionID) {
     discussionList.deleteDiscussion(iDisc);
@@ -198,17 +240,16 @@ function deleteDisc(iDisc,discussionID) {
             else {
                 emptyDisc = false;
             }
-            console.log(discussionList);
+            
+            //////////////DELETE IN LOCAL DB//////////////
+            $('#disc-'+iDisc).slideUp();
+            setTimeout( function() {
+            refreshDiscList(false);
+            //refreshCommList();
+            },500);
         }
 
-    });
-
-    //////////////DELETE IN LOCAL DB//////////////
-    $('#disc-'+iDisc).slideUp();
-    setTimeout( function() {
-    refreshDiscList(true);
-    },500);
-    refreshCommList();    
+    });    
 }
 
 //===========================================ADD COMMENT===================================//
@@ -301,8 +342,12 @@ function appendCommDOM(newComment,index) {
 function refreshCommList() {
     $('#commentList').empty();
     // Get from server
+    if ( discussionList.isEmpty() ) {
+        return;
+    }
     var currentDisc = discussionList.getDiscussion(currentDiscIndex);
     currentDisc.deleteComments();
+
     $.ajax({
         type: 'GET',
         url: 'discussion/' + currentDisc.discussionID + '/comments',
@@ -379,13 +424,13 @@ function deleteComm(iDisc, iComm, commentID) {
         data: commentID + "&" + "_token=" + csrf_token,
         success: function (response) {
             console.log("discussion deleted");
-            discussionList.deleteComment(iDisc, iComm);
 
             //////////////DELETE IN LOCAL DB//////////////
             $('#comm-'+iComm).slideUp();
             setTimeout( function() {
             refreshCommList();
-            },500); 
+            },500);
+            discussionList.deleteComment(iDisc, iComm); 
         }
     });
 }
@@ -393,7 +438,7 @@ function deleteComm(iDisc, iComm, commentID) {
 
 //===========================================SETTING DISCUSSION LIST===================================//
 $(document).ready( function() {
-    refreshDiscList(false);
+    refreshDiscList(true);
     $('#createDiscButton').click( function() {
         $('.overlay').css('visibility', 'visible').hide().fadeIn('fast');
         $('#newDiscussion-container').css('visibility', 'visible').hide().fadeIn('fast');

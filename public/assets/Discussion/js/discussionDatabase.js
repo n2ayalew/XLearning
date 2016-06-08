@@ -125,6 +125,11 @@ function discussionList() {
         return;
     };
 
+    this.deleteDiscussions = function() {
+        list = [];
+        return;
+    };
+
     this.getList = function() {
 
         //console.log("Returning list of discussions========["); /////////////////////////////////////////
