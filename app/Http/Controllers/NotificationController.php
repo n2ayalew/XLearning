@@ -118,7 +118,8 @@ class NotificationController extends Controller
         
         return $joinClassList;
     }
-
+    // Should use this in future!!!
+    // $class->users()->attach(user index);
     /**
     *   @param notification id
     *   @return id of new Notification
@@ -140,9 +141,8 @@ class NotificationController extends Controller
         $user_class = new \App\user_class();
         $user_class->user_id = $acceptJoinClassRequest->join_request_owner;
         $user_class->classe_id = $acceptJoinClassRequest->class_id;
-        $user_class->is_teacher = false;
         $user_class->save();
-
+        
         // Delete the original 'join Class Notification'
         $joinNotification->delete();
 

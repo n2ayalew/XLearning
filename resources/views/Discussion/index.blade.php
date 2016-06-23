@@ -25,7 +25,8 @@
 	<div class="overlay"></div>
 
 	<div class="pageHeader">
-		<div id="xlogo"><img src="/assets/Discussion/img/xlogo.svg" width="40px"> DISCUSSION</div>
+		<div id="xlogo"><img src="/assets/Home/img/xlogo.svg" width="40px"> DISCUSSION</div>
+		<!--<div id="xlogo"><img src="/assets/Discussion/img/xlogo.svg" width="40px"> DISCUSSION</div>-->
 		<a href="/auth/logout" ><button id="logOut" class="but">LOG OUT</button></a>
 	</div>
 	
@@ -45,13 +46,13 @@
 		<div id="home" class="sideBarItem" onclick="location.href='#';">
 			DISCUSSION<img id="pointer" src="/assets/Discussion/img/pointer.svg" height="20px">
 		</div>
-		<div id="grades" class="sideBarItem" onclick="location.href='#';">
+		<div id="grades" class="sideBarItem" onclick="location.href='/home/{{$classId}}/grades';">
 			GRADES
 		</div>
 		<div id="assignments" class="sideBarItem" onclick="location.href='#';">
 			ASSIGNMENTS
 		</div>
-		<div id="contact" class="sideBarItem" onclick="location.href='#';">
+		<div id="contact" class="sideBarItem" onclick="location.href='/home/{{$classId}}/contact_me';">
 			CONTACT ME
 		</div>
 		</div>

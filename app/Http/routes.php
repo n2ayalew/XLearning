@@ -21,12 +21,8 @@ Route::get('/', function () {
 
 Route::get('home', 'HomeController@index'); // home Page
 
-Route::get('home/{classId}', function () { // home page of class page -- shows discussion
-	if (!\Auth::user()){
-		return redirect('/');
-	}
-	return view('Discussion/index');
-});
+
+Route::get('home/{classId}','DiscussionBoardController@index');
 
 Route::get('home/{classId}/discussions', 'DiscussionBoardController@getDiscussions'); // Get all discussion from this class
 Route::get('home/{classId}/discussions/comments/{disccusionId}', 'DiscussionBoardController@getCommentsForDiscussion'); // Get comments for discussion, disccusionId
@@ -41,6 +37,9 @@ Route::get('home/{classId}/discussion/{disccusionId}/comments', "DiscussionBoard
 
 
 Route::get('home/{classId}/grades', 'GradesController@index');
+Route::get('home/{classId}/grades/gradeId', 'GradesController@getGrade');
+Route::post('home/{classId}/grades', 'GradesController@postGrade');
+
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
 Route::get('home/{classId}/contact_me', 'PagesController@getContactMe');
 

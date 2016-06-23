@@ -14,6 +14,12 @@ class DiscussionBoardController extends Controller
         $this->middleware('auth');
     }
 
+    public function index( $classId ) {
+        if (!\Auth::user()){
+            return redirect('/');
+        }
+        return view('Discussion/index')->with(['classId' => $classId]);
+    }
     /**
      * 
      * @param class id of interest

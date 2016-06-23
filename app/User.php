@@ -41,7 +41,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\user_class');
     }*/
     public function classes(){
-        return $this->belongsToMany('App\Classe', 'user_class');
+        return $this->belongsToMany('App\Classe', 'user_class', 'user_id', 'class_id')->withTimestamps();
     }
     public function events(){
         return $this->hasMany('App\Event');
@@ -64,5 +64,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function comments() {
         return $this->hasMany('App\comment');
+    }
+
+    public function grades(){
+        return $this->hasMany('App\grade');
     }
 }

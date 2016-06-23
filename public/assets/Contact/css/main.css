@@ -1,0 +1,215 @@
+/*============================================================================*/
+								/*FONTS*/
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
+@font-face { font-family: Josefin; src: url(../fonts/josefin-sans/JosefinSans-Light.ttf); } 
+@font-face { font-family: JosefinBold; src: url(../fonts/josefin-sans/JosefinSans-Regular.ttf); } 
+/*============================================================================*/
+
+body {
+	background: #E5E5E5;
+	text-align:center;
+	background-attachment: fixed;
+	background-position: center center;
+	min-height:100%;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+input {
+	border-radius: 5px;
+	border: 0px;
+	padding-left: 5px;
+	margin-bottom: 10px;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+textarea {
+	padding: 5px;
+	resize: none;
+	border: 0px;
+	border-radius: 10px;
+	width: 95%;
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+textarea:focus, input:focus{
+    outline: 0px;
+}
+button {
+	outline: 0px;
+	border: 0px;
+}
+a:hover {
+	text-decoration: none;
+	text-transform: none;
+}
+select {
+	width: 40%;
+	margin: 10px;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0,0,0,0.3);
+  visibility: hidden;
+}
+
+.pageHeader {
+	width: 100%;
+	background: #1D718D;
+	height: 50px;
+	z-index: 9;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	border-bottom: solid 1px #62A39D; 
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	overflow: none;
+}
+
+.but {
+	margin: 10px;
+	color: #fff;
+	font-family: Josefin;
+	background-color: #245666;
+	border-radius: 5px;
+	box-shadow:  inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+}
+.but:hover {
+	background-color: #121415;
+}
+#logOut {
+	height: 30px;
+	width: auto;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	float: right;	
+}
+
+#left-container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100vh;
+	width: 19.0625%;
+	background-color: #37525C;
+	overflow-y: auto;
+	z-index: 4;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}
+
+#sideBar {
+	padding-top: 50px;
+}
+#sideBar > div {
+	height: 100px;
+	width: 100%;
+	padding-top: 35px;
+}
+/*#sideBarHome {
+	/*background-color: #50A4AF;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}*/
+#contact {
+	background-color: #50A4AF;
+}
+#sideBar > div:hover {
+	background: #FE6356;
+	cursor: pointer;
+	color: #fff;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}
+.sideBarItem {
+	color: #fff;
+	font-family: Josefin;
+	font-size: 25px;
+}
+#pointer {
+	position:absolute;
+	right: 0px;
+}
+
+#xlogo {
+	color: #fff;
+	font-family: JosefinBold;
+	font-size: 20px;
+	position: absolute;
+	left: 15px;
+	top: 8px;
+}
+
+#main-container {
+	width: auto;
+	max-width: 1280px;
+	height: 100vh;
+	position: fixed;
+	right: 0px;
+	left: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	background: #fff; 
+}
+#left-container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100vh;
+	width: 19.0625%;
+	background-color: #37525C;
+	overflow-y: auto;
+	z-index: 4;
+	box-shadow:  inset -1px 0px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset -1px 0px 24x rgba(0,0,0,0.5);
+	-moz-box-shadow: inset -1px 0px 4px rgba(0,0,0,0.5);
+}
+
+#right-container {
+	position: absolute;
+	left: 19.0625%;
+	top: 50px;
+	width: 80.9375%;
+	height: 100vh;
+	margin-right: auto;
+	margin-left: 0px;
+	z-index: 2;
+	padding-right: 2em;
+	text-align: center;
+}
+
+#content {
+	font-family: Josefin;
+	left:35%;
+	position: absolute;
+  	top:30%;
+}
+
+h3 {
+	font-family: Josefin;
+	float: left;
+	margin-left: 15px;
+}

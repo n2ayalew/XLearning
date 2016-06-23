@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ClassTableSeeder');
         $this->call('EventTableSeeder');
         $this->call('UserClassSeeder');
+        $this->call('GradeTableSeeder');
         $this->call('NotificationTableSeeder');
         $this->call('AnnouncementTableSeeder');
         $this->call('DiscussionTableSeeder');

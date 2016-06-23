@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {
+    public function getContactMe($classId) {
+        $class = \App\Classe::find($classId);
+        $teacher = \App\User::find($class->teacher);
+
+        return view('Contact/index')->with([
+            'class' => $class->toArray(),
+            'teacher' => $teacher->toArray(),
+            'classId' => $classId
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *

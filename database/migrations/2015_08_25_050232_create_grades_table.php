@@ -14,12 +14,21 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('test_id');
-            $table->integer('class_id');
+            $table->integer('test_id')->unsigned();
+            $table->integer('class_id')->unsigned();
             $table->integer('teacher'); // teacher's user id
             $table->string('title');
-            $table->string('student_id');
+            $table->string('grade');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('grades', function($table) {
+            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
+        });
+
+        Schema::table('grades', function($table) {
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

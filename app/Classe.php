@@ -12,7 +12,7 @@ class Classe extends Model
     protected $fillable = ['subject', 'class_id', 'teacher'];
 
     public function users(){
-    	return $this->belongsToMany('App\User', 'user_class');
+    	return $this->belongsToMany('App\User', 'user_class', 'class_id', 'user_id')->withTimestamps();
     }
 
     public function announcements(){
@@ -33,5 +33,9 @@ class Classe extends Model
 
     public function discussions(){
         return $this->hasMany('App\discussion', 'class_id', 'class_id');
+    }
+
+    public function grades() {
+        return $this->hasMany('App\grade', 'class_id', 'class_id');
     }
 }
