@@ -46,7 +46,10 @@
 			<div id="right-container">
 				<div class="container-fluid">
 					<h3 class="className">{{$class['subject']}}</h3><button type="button" data-toggle="modal" data-target="#addTestModal" id="addTest">Add Assessment</button>
-					<table class="table table-hover">
+					@if (!$user_with_most_grades)
+						<div id="noGrades"><p>No Grades</p></div>
+					@else
+						<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Name</th>
@@ -73,6 +76,8 @@
 						</tbody>
 					</table>
 					<button id="saveChangesBtn">Save</button>
+					@endif
+					
 					<div id="ajaxLoader"><p class="lead">Saving Changes...</p></div>
 				</div>
 			</div>

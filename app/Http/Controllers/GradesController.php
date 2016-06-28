@@ -34,6 +34,7 @@ class GradesController extends Controller
             $users = $class->users->toArray();
             $maxGrade = 0;
             $newUsers = array();
+            $user_with_most_grades = null;
             foreach ($users as $user) {
                 $tmp_grades = \DB::select('select * from grades where user_id=? AND class_id=? ORDER BY id', [$user['user_id'],$classId]);
                 if ($tmp_grades) {

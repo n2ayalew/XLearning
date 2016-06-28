@@ -253,3 +253,15 @@ td {
 	height: 100%;
 	/*background-color: #fff;*/
 }
+
+#noGrades
+{
+	font-family: Josefin;
+	text-align: center;
+	font-size: 34px;
+	display: block;
+	z-index: 10;
+	width: 100%;
+	position: absolute;
+	top:45%;
+}
