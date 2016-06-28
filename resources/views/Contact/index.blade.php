@@ -27,7 +27,7 @@
 				<div id="sideBarHome" class="sideBarItem" onclick="location.href='/home';">
 					HOME
 				</div>
-				<div id="home" class="sideBarItem" onclick="location.href='/home/{{$classId}}';">
+				<div id="home" class="sideBarItem" onclick="location.href='/home/{{$classId}}/';">
 					DISCUSSION
 				</div>
 				<div id="grades" class="sideBarItem" onclick="location.href='/home/{{$classId}}/grades';">

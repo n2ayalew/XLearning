@@ -22,6 +22,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
 input {
 	border-radius: 5px;
 	border: 0px;
@@ -63,7 +64,7 @@ select {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 6;
   background: rgba(0,0,0,0.3);
   visibility: hidden;
 }
@@ -72,7 +73,7 @@ select {
 	width: 100%;
 	background: #1D718D;
 	height: 50px;
-	z-index: 9;
+	z-index: 5;
 	position: absolute;
 	left: 0px;
 	right: 0px;
@@ -174,6 +175,7 @@ select {
 	margin-left: auto;
 	background: #fff; 
 }
+
 #left-container {
 	position: absolute;
 	top: 0px;
@@ -198,6 +200,7 @@ select {
 	margin-left: 0px;
 	z-index: 2;
 	overflow-y: auto;
+	overflow-x: scroll; 
 	padding-right: 2em;
 }
 
@@ -235,4 +238,18 @@ td {
 }
 #saveChangesBtn:hover {
 	background-color: #121415;
+}
+
+
+#ajaxLoader
+{	
+	top:10px;
+	text-align: center;
+	font-size: 18px;
+	display: none;
+	z-index: 10;
+	width: 100%;
+	position: absolute;
+	height: 100%;
+	/*background-color: #fff;*/
 }

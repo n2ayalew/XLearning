@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 
 class GradesController extends Controller
 {
@@ -65,6 +67,35 @@ class GradesController extends Controller
         }
     }
 
+    public function createTest($classId, Request $request) {
+        $form = $request->except('_token');
+        $class = \App\Classe::find($classId);
+        $users = $class->users;
+        $title = $form['title'];
+        foreach ($users as $user) {
+            if($user->is_teacher){
+                continue;
+            }
+            $grade = new \App\grade();
+            $grade->title = $title;
+            $grade->class_id = $classId;
+            $grade->grade = "N/A";
+            $user->grades()->save($grade);
+        }
+        return Redirect::back()->with('flash_message', 'Assesment Saved Successfully');
+    }
+
+    public function postGrades($classId, Request $request) {
+        $grades = json_decode($request->grades);
+        //return $grades;
+        for ($i = 0; $i < count($grades); $i += 1) {
+            $g = \App\grade::find($grades[$i]->id);
+            $g->grade = $grades[$i]->grade;
+            $g->save();
+        }
+
+        return "Grades Saved Successfully";
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -124,8 +155,9 @@ class GradesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroyTest($classId, $testTitle)
     {
-        //
+        $grades = \DB::table('grades')->select('*')->where('title', $testTitle)->where('class_id', $classId);
+        $grades->delete();
     }
 }

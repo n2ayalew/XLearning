@@ -121,7 +121,7 @@ function addDisc(f) {
     //newDisc.postedByTeacher = true;
     // NEED TO SET POSTERNAME 
     // & POSTER ID
-    
+    console.log(f);
     $.ajax({
         type: 'POST',
         url: 'discussion',
@@ -452,7 +452,8 @@ $(document).ready( function() {
 //======================================SETTING NEW DISCUSSION MODAL===================================//
 $(document).ready( function() {
     
-    $('#closeNewDiscussion').click( function() {
+    $('#closeNewDiscussion').click( function(event) {
+        event.preventDefault();
         $('.overlay').fadeOut('fast');
         $('#newDiscussion-container').fadeOut('fast');
     });

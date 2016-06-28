@@ -38,7 +38,9 @@ Route::get('home/{classId}/discussion/{disccusionId}/comments', "DiscussionBoard
 
 Route::get('home/{classId}/grades', 'GradesController@index');
 Route::get('home/{classId}/grades/gradeId', 'GradesController@getGrade');
-Route::post('home/{classId}/grades', 'GradesController@postGrade');
+Route::post('home/{classId}/grades/postGrades', 'GradesController@postGrades');
+Route::post('home/{classId}/grades/createTest', 'GradesController@createTest');
+Route::delete('home/{classId}/grades/deleteTest', 'GradesController@destroyTest');
 
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
 Route::get('home/{classId}/contact_me', 'PagesController@getContactMe');
