@@ -49,8 +49,8 @@
 		<div id="grades" class="sideBarItem" onclick="location.href='/home/{{$classId}}/grades';">
 			GRADES
 		</div>
-		<div id="assignments" class="sideBarItem" onclick="location.href='#';">
-			ASSIGNMENTS
+		<div id="assignments" class="sideBarItem" onclick="location.href='/home/{{$classId}}/assignments';">
+			DOCUMENTS
 		</div>
 		<div id="contact" class="sideBarItem" onclick="location.href='/home/{{$classId}}/contact_me';">
 			CONTACT ME

@@ -38,4 +38,8 @@ class Classe extends Model
     public function grades() {
         return $this->hasMany('App\grade', 'class_id', 'class_id');
     }
+
+    public function documents() {
+        return $this->hasMany('App\document', 'class_id', 'class_id');
+    }
 }

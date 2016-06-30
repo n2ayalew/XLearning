@@ -32,8 +32,8 @@
 				<div id="grades" class="sideBarItem" onclick="location.href='#';">
 					GRADES<img id="pointer" src="/assets/Discussion/img/pointer.svg" height="20px">
 				</div>
-				<div id="assignments" class="sideBarItem" onclick="location.href='#';">
-					ASSIGNMENTS
+				<div id="assignments" class="sideBarItem" onclick="location.href='/home/{{$classId}}/assignments';">
+					DOCUMENTS
 				</div>
 				<div id="contact" class="sideBarItem" onclick="location.href='/home/{{$classId}}/contact_me/';">
 					CONTACT ME
@@ -54,7 +54,7 @@
 							<tr>
 								<th>Name</th>
 								@foreach ($user_with_most_grades['class_grades'] as $grade) 
-									<th class="gradeTitle" data-title="{{$grade->title}}">{{$grade->title}}</th> 
+									<th class="gradeTitle" data-title="{{$grade->title}}">{{$grade->title}}<div class="testDeleteOverlay"><button class="testDeleteButton">Delete</button></div></th> 
 								@endforeach
 								<th></th>
 								<th></th>

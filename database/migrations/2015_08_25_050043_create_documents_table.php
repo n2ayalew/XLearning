@@ -14,10 +14,14 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('class_id');
+            $table->integer('class_id')->unsigned();
             $table->integer('teacher'); // teacher's user id
             $table->string('doc_link'); // link to document
+            $table->string('doc_title');
             $table->timestamps();
+        });
+        Schema::table('documents', function($table) {
+            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
         });
     }
 

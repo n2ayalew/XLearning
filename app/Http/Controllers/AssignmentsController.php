@@ -14,19 +14,20 @@ class AssignmentsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($classId)
     {
-        //
+        $class = \App\Classe::find($classId);
+        $documents = $class->documents->toArray();
+        return view('Assignments/index')->with([
+            'classId' => $classId,
+            'class' => $class,
+            'documents' => $documents
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function update($classId, $id)
     {
-        //
+
     }
 
     /**
@@ -34,42 +35,9 @@ class AssignmentsController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store($classId, Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
+        $class = \App\Classe::find($classId);
     }
 
     /**
@@ -78,8 +46,9 @@ class AssignmentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($classId, $id)
     {
-        //
+        $doc = \App\document::find($id);
+        $doc->delete();
     }
 }
