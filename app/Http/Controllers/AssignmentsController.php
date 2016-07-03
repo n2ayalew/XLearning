@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 
 class AssignmentsController extends Controller
 {
@@ -18,6 +20,7 @@ class AssignmentsController extends Controller
     {
         $class = \App\Classe::find($classId);
         $documents = $class->documents->toArray();
+
         return view('Assignments/index')->with([
             'classId' => $classId,
             'class' => $class,
@@ -38,6 +41,17 @@ class AssignmentsController extends Controller
     public function store($classId, Request $request)
     {
         $class = \App\Classe::find($classId);
+        $file = Input::file('fileUpload');
+        $path = public_path() . '/documents/';
+        $file->move($path, $file->getClientOriginalName());
+        $doc = new \App\document();
+        $doc->teacher = \Auth::user()->user_id;
+        $doc->doc_link = '/documents/' . $file->getClientOriginalName();
+        $doc->doc_title = $request->doc_title; //$file->getClientOriginalName();
+        $class->documents()->save($doc);
+
+        return Redirect::back()->with('flash_message', 'File Successfully Uploaded');
+
     }
 
     /**
@@ -49,6 +63,7 @@ class AssignmentsController extends Controller
     public function destroy($classId, $id)
     {
         $doc = \App\document::find($id);
+        unlink(public_path() . $doc->doc_link);
         $doc->delete();
     }
 }

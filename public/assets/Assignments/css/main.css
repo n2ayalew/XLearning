@@ -50,6 +50,7 @@ button {
 a:hover {
 	text-decoration: none;
 	text-transform: none;
+	cursor: pointer;
 }
 select {
 	width: 40%;
@@ -218,6 +219,8 @@ td {
 	border-radius: 5px;
 	color:white;
 	background-color: #1D718D;
+	margin-top:20px;
+	float: right;
 }
 #addDoc:hover {
 	background-color: #121415;
@@ -235,7 +238,23 @@ td {
 	top:45%;
 }
 
-#fileUpLoad {
-	margin-top:20px;
-	float: right;
+.modal-content {
+	padding-bottom: 10px;
+}
+#fileUpload {
+
+	margin-top: 15px;
+	width:100%;
+	margin-left: 10px;
+	margin-right: 10px;
+	outline: none;
+	border: 0px;
+}
+
+#assignment_submit {
+	margin-top:15px;
+}
+
+.modal-header {
+	padding:10px;
 }

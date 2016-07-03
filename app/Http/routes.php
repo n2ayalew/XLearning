@@ -44,7 +44,7 @@ Route::delete('home/{classId}/grades/deleteTest', 'GradesController@destroyTest'
 
 Route::get('home/{classId}/assignments', 'AssignmentsController@index');
 Route::post('home/{classId}/assignments/upload_file', 'AssignmentsController@store');
-Route::delete('home/{classId}/assignments/delete_file/id', 'AssignmentsController@destroy');
+Route::delete('home/{classId}/assignments/delete_file/{id}', 'AssignmentsController@destroy');
 Route::post('home/{classId}/assignments/update_file/id', 'AssignmentsController@update');
 
 Route::get('home/{classId}/contact_me', 'PagesController@getContactMe');
