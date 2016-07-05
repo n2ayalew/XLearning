@@ -1,4 +1,5 @@
 
+var is_teacher;
 //==========================IMPORTING DUMMY CLASSES===================================//
 function generateAllClassPicker(classArray) {
 	createClassPicker(classArray,'newNoticeClassPicker');
@@ -33,10 +34,13 @@ function createClassDOM(newClass,index) {
 	e.setAttribute('id', newClass.classID +"-"+ newClass.name);
 	e.setAttribute('class','classElement');
 	
-	var deleteButton = document.createElement('button');
-	deleteButton.setAttribute("class", "deleteButton");
-	deleteButton.setAttribute("onclick", "deleteClass("+index+","+newClass.classID+")");
-	e.appendChild(deleteButton);
+	if (is_teacher){
+		var deleteButton = document.createElement('button');
+		deleteButton.setAttribute("class", "deleteButton");
+		deleteButton.setAttribute("onclick", "deleteClass("+index+","+newClass.classID+")");
+		e.appendChild(deleteButton);
+	}
+
 	var a = document.createElement('a');
 	a.setAttribute('href', '/home/'+ newClass.classID + '/');
 
@@ -57,6 +61,7 @@ function appendClass(newClass, index) {
 
 
 $(document).ready( function() {
+	is_teacher = $('meta[name="is_teacher"]').attr('content');
 	$.ajax({
 		method: 'GET',
 		url: '/class',
@@ -68,7 +73,13 @@ $(document).ready( function() {
 				temp.name = result[i].subject;
 				urClass.push(temp);
 			}
-			generateAllClassPicker(urClass);
+			//console.log(urClass);
+			
+			//console.log(is_teacher);
+			if (is_teacher){
+
+				generateAllClassPicker(urClass);
+			}
 			var size = urClass.length;
 			for(var i=0; i<size; i++) {
 				appendClass(urClass[i],i);
@@ -148,9 +159,11 @@ function createJRDOM(newRequest, index) {
 }
 
 function appendRequest(newRequest, index) {
-	var e = createJRDOM(newRequest, index);
-	var joinRequestList = document.getElementById('joinRequestList');
-	joinRequestList.appendChild(e);
+	if (is_teacher) {
+		var e = createJRDOM(newRequest, index);
+		var joinRequestList = document.getElementById('joinRequestList');
+		joinRequestList.appendChild(e);
+	}
 }
 
 //=========================DECLINE REQUEST===================================//
@@ -159,6 +172,14 @@ function appendRequest(newRequest, index) {
 function decline(requestID,index) {  
 	// send to back end....
 	//console.log('deleting request with index: '+index);
+
+	$.ajax({ 
+		method: 'GET',
+		url: 'notification/decline_join_class_request/' + requestID,
+		success: function (result){
+			console.log('request declined');
+		}
+	});
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');
@@ -173,6 +194,13 @@ function decline(requestID,index) {
 function accept(requestID,index) {  
 	// send to back end....
 	//console.log('deleting request with index: '+index);
+	$.ajax({
+		method: 'GET',
+		url: 'notification/accept_join_class_request/' + requestID,
+		success: function (result) {
+			console.log('request accepted');
+		}
+	});
 	requestList.deleteRequest(index);
 	refreshCounter(requestList.getList());
 	$('#'+requestID).slideUp('fast');
@@ -190,17 +218,39 @@ function importRequests(requestList) {
 }
 
 $(document).ready( function() {
-	importRequests(requestList.getList());
-	refreshCounter(requestList.getList());
+	if (is_teacher){
+		$.ajax({
+			method: 'GET',
+			url: '/notification/join_class_requests',
+			success: function (result) {
+				for(var i = 0; i < result.length; i++) {
+					for(var j = 0; j < result[i].length; j++) {
+						var jr = new joinRequest();
+						jr.requestID = result[i][j].id;
+						jr.studentID = result[i][j].user_id_creator;
+						jr.studentName = result[i][j].user['first_name'] + ' ' + result[i][j].user['last_name'];
+						jr.classID = result[i][j].class_id;
+						jr.className = result[i][j].classe.subject;
+						requestList.saveRequest(jr);
+						
+					}
+				}
+				importRequests(requestList.getList());
+				refreshCounter(requestList.getList());
+			} 
+		});
+	}
 });
 
 
 //====================SETTING COUNTER==================================//
 
 function refreshCounter(requestList) {
-	var rem =requestList.length;
-	counter = document.getElementById('joinRequest-counter');
-	counter.innerHTML = rem.toString();
+	if (is_teacher) {
+		var rem =requestList.length;
+		counter = document.getElementById('joinRequest-counter');
+		counter.innerHTML = rem.toString();
+	}
 }
 
 //=========================REFRESH REQUEST LIST===================================//

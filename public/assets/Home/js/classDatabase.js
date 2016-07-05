@@ -61,7 +61,7 @@ for(var i =0; i<20; i++) {
 //========================JOIN REQUESTS ARRAY======================//
 
 function joinRequest() {
-	this.requestID = (Math.floor((Math.random() * 100000) + 1)).toString();
+	this.requestID; //= (Math.floor((Math.random() * 100000) + 1)).toString();
 	this.studentID;
 	this.studentName;
 	this.classID;
@@ -93,36 +93,36 @@ function requestList() {
 
 var requestList = new requestList();
 
-var join1 = new joinRequest();
-var join2 = new joinRequest();
-var join3 = new joinRequest();
+// var join1 = new joinRequest();
+// var join2 = new joinRequest();
+// var join3 = new joinRequest();
 
-join1.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
-join1.studentName = 'John Liu';
-join1.classID = '5251';
-join1.className = 'ECO1';
-requestList.saveRequest(join1);
+// join1.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
+// join1.studentName = 'John Liu';
+// join1.classID = '5251';
+// join1.className = 'ECO1';
+// requestList.saveRequest(join1);
 
-join2.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
-join2.studentName = 'Suzy Chan';
-join2.classID = '4512';
-join2.className = 'PHY3';
-requestList.saveRequest(join2);
+// join2.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
+// join2.studentName = 'Suzy Chan';
+// join2.classID = '4512';
+// join2.className = 'PHY3';
+// requestList.saveRequest(join2);
 
-join3.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
-join3.studentName = 'ken Davis'
-join3.classID = '7910';
-join3.className = 'MTE4';
-requestList.saveRequest(join3);
+// join3.studentID = (Math.floor((Math.random() * 1000) + 1)).toString();
+// join3.studentName = 'ken Davis'
+// join3.classID = '7910';
+// join3.className = 'MTE4';
+// requestList.saveRequest(join3);
 
 
 
-for(var i=0; i<30; i++) {
-	var join = new joinRequest();
-	join.studentName = "Stuent" + i;
-	join.className = "class" + i;
-	requestList.saveRequest(join);
-}
+// for(var i=0; i<30; i++) {
+// 	var join = new joinRequest();
+// 	join.studentName = "Stuent" + i;
+// 	join.className = "class" + i;
+// 	requestList.saveRequest(join);
+// }
 
 
 

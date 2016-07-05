@@ -85,6 +85,12 @@
 	overflow: auto;
 
 }
+
+#joinClassList {
+	max-height: 500px;
+	overflow: auto;
+}
+
 #joinRequestMini-header {
 	font-family: Josefin;
 	font-size: 14pt;

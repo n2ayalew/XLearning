@@ -55,7 +55,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     public function notifications(){
-        return $this->hasMany('App\notification');
+        return $this->hasMany('App\notification', 'user_id_creator', 'user_id');
     }
 
     public function discussions(){

@@ -1,7 +1,8 @@
-
+var is_teacher;
 
 //===============SETTING INTERRACTIVE PROFILE=======================================//
 $(document).ready( function () {
+    is_teacher = $('meta[name="is_teacher"]').attr('content');
     $('#settingButton').click( function() {
         $('.overlay').css('visibility','visible').hide().fadeIn('fast');
         $('#settings-container').css('visibility','visible').hide().fadeIn('fast');

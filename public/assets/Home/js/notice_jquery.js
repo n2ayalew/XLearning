@@ -1,3 +1,4 @@
+var is_teacher;
 //======ADDING NOTICE TO LOCAL DATABASE AND THEN REFRESHING UI===========================//
 function addNotice(f) {
   var form = f;
@@ -95,11 +96,13 @@ function createNoticeDOM (newNotice, index) {// index in array NOT IN BACKEND DA
   e.setAttribute('id', 'notice-'+index);
   e.setAttribute('class', 'noticeElement');
 
-  var deleteButton = document.createElement('button');
-  deleteButton.setAttribute('onclick', 'deleteNotice('+index+','+newNotice.noticeID+')');
-  deleteButton.setAttribute('class', 'deleteButton');
+  if (is_teacher) {
+    var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('onclick', 'deleteNotice('+index+','+newNotice.noticeID+')');
+    deleteButton.setAttribute('class', 'deleteButton');
 
-  e.appendChild(deleteButton);
+    e.appendChild(deleteButton);
+  }
 
   var date = document.createElement('div');
   date.setAttribute('class', 'noticeDate');
@@ -146,6 +149,7 @@ function correctInputNewNotice() {
 }
 //============================SETTING INTERACTIVE NOTICE CREATOR===================//
 $(document).ready( function () {
+  is_teacher = $('meta[name="is_teacher"]').attr('content');
   $.ajax({
     method: 'GET',
     url: '/announcement',
@@ -153,8 +157,8 @@ $(document).ready( function () {
       var str, lst;
       var announs = result['announcements'];
       var classes = result['classes'];
-      console.log(announs);
-      console.log(classes);
+      //console.log(announs);
+      //console.log(classes);
       for (var i = 0; i < announs.length; i++){
         var temp = new notice();
         lst = announs[i].created_at.split(' ');

@@ -17,7 +17,7 @@ var eventList = $('#eventList');
 var eventRecord = new yearEvents();
 var yearIndex = year_;
 var yearLoop = new yearLoopClass();
-
+var is_teacher;
 
 // for(var i =0; i<20; i++) {
 // 	var newEvent = new eventClass();
@@ -355,7 +355,7 @@ function deleteEvent(form,e,index,date,month,year,eventID){
 
 //===============SETTING INTERRACTIVE CALENDAR=======================================//
 $(document).ready( function () {
-
+	is_teacher = $('meta[name="is_teacher"]').attr('content');
     var calendar = generateCalendarTable(first_day_index, no_days, month_+1, year_);
     var rowDays = generateDayRow();
     document.getElementById("calendar-month-year").innerHTML = month_name[month_]+" "+year_;

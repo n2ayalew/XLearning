@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Routing\Redirector;
 
 class NotificationController extends Controller
 {
@@ -86,15 +89,21 @@ class NotificationController extends Controller
     }
 
     public function createJoinClassRequest($id){
-
         $currentUser = \Auth::user();
+        $joins = \App\notification::where('class_id', $id)->where('notification_type', 'join_request')->where('user_id_creator', $currentUser->user_id)->get()->toArray();
+        
+        if (count($joins) > 0){
+            return  Redirect::back();
+        }
+    
         $joinClassRequest = new \App\notification();
         $joinClassRequest->user_id_creator = $currentUser->user_id;
         $joinClassRequest->class_id = $id;
         $joinClassRequest->notification_type = "join_request";
         $joinClassRequest->save();
 
-        return \DB::table('notifications')->select('id')->orderBy('id', 'desc')->value('id'); // Return statement is temporary
+        return redirect()->action('HomeController@index');
+        //return \DB::table('notifications')->select('id')->orderBy('id', 'desc')->value('id'); // Return statement is temporary
     }
 
     public function getJoinClassRequests(){
@@ -113,9 +122,14 @@ class NotificationController extends Controller
         $joinClassList = array();
         for ($i = 0; $i < count($classes); $i++){
             $class = new \App\Classe($classes[$i]);
-            array_push($joinClassList, $class->joinNotifications);
+            $nots = $class->joinNotifications;
+            foreach ($nots as $n) {
+                $n['studentName'] = $n->user->first_name . ' ' . $n->user->last_name;
+                $n['className'] = $n->classe->subject;
+            }
+            array_push($joinClassList, $nots);
         }
-        
+        //dd($joinClassList);
         return $joinClassList;
     }
     // Should use this in future!!!
@@ -125,29 +139,39 @@ class NotificationController extends Controller
     *   @return id of new Notification
     */
     public function acceptJoinClassRequest($id) {
+        $currentUser = \Auth::user();
+        if ( !$currentUser->isTeacher() ){
+            return Response::make('Forbidden', 403);
+        }
 
         $joinNotification = \App\notification::find($id);
 
         // Create accpeted join request notification
 
-        $acceptJoinClassRequest = new \App\notification();
-        $acceptJoinClassRequest->user_id_creator = \Auth::user()->user_id;
-        $acceptJoinClassRequest->class_id = $joinNotification->class_id;
-        $acceptJoinClassRequest->notification_type = "join_accept";
-        $acceptJoinClassRequest->join_request_owner = $joinNotification->user_id_creator;
-        $acceptJoinClassRequest->save();
+        // $acceptJoinClassRequest = new \App\notification();
+        // $acceptJoinClassRequest->user_id_creator = \Auth::user()->user_id;
+        // $acceptJoinClassRequest->class_id = $joinNotification->class_id;
+        // $acceptJoinClassRequest->notification_type = "join_accept";
+        // $acceptJoinClassRequest->join_request_owner = $joinNotification->user_id_creator;
+        // $acceptJoinClassRequest->save();
 
         // Enroll the requesting user into the respective class
         $user_class = new \App\user_class();
-        $user_class->user_id = $acceptJoinClassRequest->join_request_owner;
-        $user_class->classe_id = $acceptJoinClassRequest->class_id;
+        $user_class->user_id = $joinNotification->user_id_creator;
+        $user_class->class_id = $joinNotification->class_id;
         $user_class->save();
         
         // Delete the original 'join Class Notification'
         $joinNotification->delete();
 
         // Return the new notification ********* TEMPOARY ********
-        return \DB::table('notifications')->select('id')->orderBy('id', 'desc')->value('id');
+        return "Success";
+        //return \DB::table('notifications')->select('id')->orderBy('id', 'desc')->value('id');
+    }
+
+    public function declineJoinClassRequest($id) {
+        $notification = \App\notification::find($id);
+        $notification->delete();
     }
 
     public function getAcceptedJoinClassRequest() {

@@ -16,7 +16,7 @@
 	    <link href="/assets/Home/css/profile_style.css" rel="stylesheet">
 	    <link href="/assets/Home/css/notice_style.css" rel="stylesheet">
 	    <link href="/assets/Home/css/common_style.css" rel="stylesheet">	    
-	   	<title>calendar</title>
+	   	<title>Home</title>
 	</head>
 	<body>
 
@@ -44,7 +44,7 @@
 
 		<div id="noticeBoard-container">
 			<div id="noticeBoard-header" class="container-header">ANNOUNCEMENTS
-				<button id="newNoticeButton" class="but">+</button>
+				<!-- <button id="newNoticeButton" class="but">+</button> -->
 			</div>
 			<div id="noticeList">
 				<!-- @foreach ($announcements as $announ)
@@ -63,19 +63,26 @@
 		<div id="classList-container">
 			<div id="classList-header" class="container-header">YOUR CLASSES</div>
 			<div id="classList"></div>
-			<div id="classList-footer">
+			<!-- <div id="classList-footer">
 				<button id="createNewClassButton" class="but">CREATE NEW CLASS</button>
-			</div>
+			</div> -->
 		</div>
 
 		<div id="joinRequestMini-container">
 			
 			<div id="joinRequestMini-header" class="container-header">
-				<div id="joinRequest-counter" class="counter"></div>
-				JOIN REQUESTS
+				<div id="joinRequest-counter" class="counter">{{count($class_list)}}</div>
+				JOIN A CLASS
 			</div>
 
-			<div id="joinRequestList"></div>
+			<div id="joinClassList"> 
+				@foreach ($class_list as $c)
+					<div class="joinRequest" id="{{$c->class_id}}">
+						<div class="requestClass">{{$c->subject}}</div>
+						<button class="but" onclick="location.href='/notification/create_join_request/{{$c->class_id}}';">JOIN CLASS</button>
+					</div>
+				@endforeach
+			</div>
 
 		</div>
 
@@ -103,7 +110,7 @@
 	    </div>
 
 	    <div id="eventList-container">
-	    	<button id="createNewEventButton" class="but">+</button>
+	    	<!-- <button id="createNewEventButton" class="but">+</button> -->
 	    	<div id="eventList-innercontainer">
 		    	<div id="eventList-header">EVENTS TODAY 
 		    	</div>
@@ -141,26 +148,6 @@
 	<button id="confirmYes" class="but">YES</button><button id="confirmNo"class="but">NO</button>
 </div>
 
-<!----------------------CREATE NEW EVENT---------------------->
-	<div id="newEvent-container">
-	    <button id='closeNewEvent'  class="closeButton"></button>
-	    <form id="createEventForm" method="POST" action="/event">
-	    	<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-	        <div id="defaultEvent" class="modalHeader">NEW EVENT TODAY </div>
-	        <div id="miniAlert1" class="miniAlert"></div>
-	        <input id="newEventTitle" type="text" placeholder="TITTLE" maxlength="25" name="event_title"></input>
-	        <input id="newEventTime" type="time" name="event_time"></input>
-	        <br>
-
-	        <div id="newEventClassContainer">
-				<select id="newEventClassPicker" name="class_id">
-				  <option value="0">Select Class</option>
-				</select>
-			</div>
-
-	        <button id="addEventButton" class="but" type="submit">ADD EVENT</button>
-	    </form>
-	</div>
 
 
 <!----------------------SETTINGS---------------------->
@@ -194,55 +181,6 @@
 				<button id="submitNewPassword" class="but">CHANGE</button>
 			</form>
 			</div>
-	</div>
-
-
-<!----------------------MAKE NEW ANNOUNCEMENT---------------------->
-		<div id="newNotice-container">
-			<button id="closeNewNotice" class="closeButton"></button>
-			<form id="newAnnouncementForm">
-				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-				<div id="newNotice" class="modalHeader">NEW ANNOUCEMENT</div>
-
-				<div id="miniAlert4" class="miniAlert"></div>
-
-				<div id="announcement-container">
-					<div class="title">WRITE YOUR MESSAGE</div>
-					<textarea id="announcement" type="text" cols="50" rows="7" name="announcement"></textarea>
-				</div>
-
-				<div id="newNoticeClassContainer">
-					<div class="title">CHOOSE CLASS</div>
-					<select id="newNoticeClassPicker" name="class_id">
-					  <option value="0">Select Class</option>
-					</select>
-				</div>
-
-				<button id="submitNewNotice" class="but" type="submit">POST</button>
-		</form>
-		</div>
-
-
-
-
-<!----------------------CREATE NEW CLASS---------------------->
-	<div id="createNewClass-container">
-		<button id="closeCreateNewClass" class="closeButton"></button>
-		<form method="POST" action="/class">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div id="createNewClassHeader" class="modalHeader">CREATE NEW CLASS</div>
-			<div id="miniAlert3" class="miniAlert"></div>
-			<div id="chooseClassName-container">
-				<div class="title">CHOOSE CLASS NAME</div>
-				CLASS NAME: <input id="newClassName" type="text" name="subject"></input><br>
-			</div>
-			<div id="chooseClassYear-container">
-				<div class="title">CHOOSE YEAR</div>
-				CLASS YEAR: <input id="newClassYear" type="text" name="year"></input><br>
-			</div>
-			<button id="submitNewClass" class="but" type="submit">CREATE</button>
-		</form>
 	</div>
 
 

@@ -72,6 +72,7 @@ Route::resource('profile', 'ProfileController');
 Route::get('notification/create_join_request/{id}', 'NotificationController@createJoinClassRequest');
 Route::get('notification/join_class_requests', 'NotificationController@getJoinClassRequests');
 Route::get('notification/accept_join_class_request/{id}', 'NotificationController@acceptJoinClassRequest');
+Route::get('notification/decline_join_class_request/{id}', 'NotificationController@declineJoinClassRequest');
 Route::get('notification/accepted_join_class_requests', 'NotificationController@getAcceptedJoinClassRequest');
 Route::delete('notification/delete_accepted_join_class_request/{id}', 'NotificationController@deleteAcceptedJoinClassRequest');
 

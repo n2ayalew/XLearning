@@ -23,9 +23,10 @@ class HomeController extends Controller
     public function index()
     {
         // Get All classes that user is apart of
-        $classes = new ClasseController();
-        $classes = $classes->index();
-
+        $classCon = new ClasseController();
+        $classes = $classCon->index();
+        $cl = $classCon->show();
+        
         // Get All announcements for current user
        
         $announ = new AnnouncementController();
@@ -41,11 +42,36 @@ class HomeController extends Controller
         $first_name = \Auth::user()->first_name;
 
         //Return view with data
-        return view('Home/homepage')->with([
-            'first_name' => $first_name,
-            'announcements' => $announs,
-            'classes' => $classes
-        ]);
+        if (\Auth::user()->is_teacher){
+            
+            return view('Home/homepage')->with([
+                'first_name' => $first_name,
+                'announcements' => $announs,
+                'classes' => $classes,
+                'is_teacher' => true
+            ]);
+        } else {
+            $class_list = array();
+            $len = count($cl);
+            for( $i = 0; $i < $len; $i = 1 + $i) {
+                $add = true;
+                for( $j = 0; $j < count($classes); $j = 1 + $j) {
+                    if ($classes[$j]['class_id'] == $cl[$i]['class_id']){
+                        $add = false;
+                    }
+                }
+                if ($add) {
+                    array_push($class_list, $cl[$i]);
+                }
+            }
+            return view('Home/homepage_student')->with([
+                'first_name' => $first_name,
+                'announcements' => $announs,
+                'classes' => $classes,
+                'is_teacher' => false,
+                'class_list' =>$class_list
+            ]);
+        }
     }
 
     /**
