@@ -20,12 +20,19 @@ class AssignmentsController extends Controller
     {
         $class = \App\Classe::find($classId);
         $documents = $class->documents->toArray();
-
-        return view('Assignments/index')->with([
-            'classId' => $classId,
-            'class' => $class,
-            'documents' => $documents
-        ]);
+        if (\Auth::user()->is_teacher) {
+            return view('Assignments/index')->with([
+                'classId' => $classId,
+                'class' => $class,
+                'documents' => $documents
+            ]);
+        } else {
+            return view('Assignments/index_student')->with([
+                'classId' => $classId,
+                'class' => $class,
+                'documents' => $documents
+            ]);
+        }
     }
 
     public function update($classId, $id)
