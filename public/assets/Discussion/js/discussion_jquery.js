@@ -10,6 +10,7 @@
 //==============================GLOBAL VARIABLES===================================//
 var currentDiscIndex = 0;
 var emptyDisc = true;
+var is_teacher = false;
 
 /*
 TODO: 
@@ -157,11 +158,13 @@ function createDiscDOM(newDiscussion, index) {
     e.setAttribute('class', 'discElement');
     e.setAttribute('onclick', 'openDisc('+index+')');
 
-    var deleteButton = document.createElement('button');
-    deleteButton.setAttribute('onclick', 'deleteDisc('+index+','+newDiscussion.discussionID+')');
-    deleteButton.setAttribute('class', 'deleteButton');
+    if (is_teacher) {
+        var deleteButton = document.createElement('button');
+        deleteButton.setAttribute('onclick', 'deleteDisc('+index+','+newDiscussion.discussionID+')');
+        deleteButton.setAttribute('class', 'deleteButton');
 
-    e.appendChild(deleteButton);
+        e.appendChild(deleteButton);
+    }
 
     var date = document.createElement('div');
     date.setAttribute('class', 'discDate');
@@ -285,12 +288,14 @@ function createCommDOM(newComment, index) {
     e.setAttribute('class', 'commElement');
     e.setAttribute('id', 'comm-'+index);
 
-    var deleteButton = document.createElement('div');
-    deleteButton.setAttribute('class', 'deleteButton');
-    deleteButton.setAttribute('onclick', 'deleteComm('+currentDiscIndex+','+index+','+newComment.commentID+')');
+    if (is_teacher) {
 
-    e.appendChild(deleteButton);
+        var deleteButton = document.createElement('div');
+        deleteButton.setAttribute('class', 'deleteButton');
+        deleteButton.setAttribute('onclick', 'deleteComm('+currentDiscIndex+','+index+','+newComment.commentID+')');
 
+        e.appendChild(deleteButton);
+    }
     var date = document.createElement('div');
     date.setAttribute('class', 'commDate');
     date.innerHTML = newComment.dateCreated; 
@@ -432,6 +437,7 @@ function deleteComm(iDisc, iComm, commentID) {
 
 //===========================================SETTING DISCUSSION LIST===================================//
 $(document).ready( function() {
+    is_teacher = parseInt($('meta[name="is_teacher"]').attr('content'));
     refreshDiscList(true);
     $('#createDiscButton').click( function() {
         $('.overlay').css('visibility', 'visible').hide().fadeIn('fast');
@@ -451,7 +457,7 @@ $(document).ready( function() {
 
 //======================================SETTING NEW DISCUSSION MODAL===================================//
 $(document).ready( function() {
-    
+    is_teacher = parseInt($('meta[name="is_teacher"]').attr('content'));
     $('#closeNewDiscussion').click( function(event) {
         event.preventDefault();
         $('.overlay').fadeOut('fast');

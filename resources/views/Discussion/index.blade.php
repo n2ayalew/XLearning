@@ -1,6 +1,6 @@
 <!------------------------------------------------------------>
 <!------------------------------------------------------------>
-<!----------------------------TEACHER-------------------------->
+<!----------------------------TEACHER / STUDENT-------------------------->
 <!------------------------------------------------------------>
 <!------------------------------------------------------------>
 
@@ -14,6 +14,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    <meta name="csrf-token" type="hidden" content="{{ csrf_token() }}">
+	    <meta name="is_teacher" content="{{$is_teacher}}">
 		<link href="/assets/Discussion/css/bootstrap.css" rel="stylesheet">
 		<link href="/assets/Discussion/css/animate.css" rel="stylesheet" > 
 	    <link href="/assets/Discussion/css/discussion_style.css" rel="stylesheet">

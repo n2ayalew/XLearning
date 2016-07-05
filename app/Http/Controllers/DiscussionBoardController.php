@@ -18,7 +18,7 @@ class DiscussionBoardController extends Controller
         if (!\Auth::user()){
             return redirect('/');
         }
-        return view('Discussion/index')->with(['classId' => $classId]);
+        return view('Discussion/index')->with(['classId' => $classId, 'is_teacher' => \Auth::user()->is_teacher]);
     }
     /**
      * 
@@ -99,6 +99,9 @@ class DiscussionBoardController extends Controller
     }
 
     public function deleteComment($classId,$disscusionId,$commentId) {
+        if (!\Auth::user()->is_teacher) {
+            return Response::make('Forbidden', 403);
+        }
         $comment = \App\comment::find($commentId);
         $comment->delete();
     }
@@ -154,6 +157,10 @@ class DiscussionBoardController extends Controller
      */
     public function destroy($classId,$id)
     {
+        if (!\Auth::user()->is_teacher) {
+            return Response::make('Forbidden', 403);
+        }
+        
         $discussion = \App\discussion::find($id);
         $discussion->delete();
     }
