@@ -60,9 +60,18 @@ class GradesController extends Controller
             ]);
         }
         else {
-            return view('Grades/index')->with([
+            $class = \App\Classe::find($classId);
+            $gs = \Auth::user()->grades;
+            $grades = array();
+            foreach ($gs as $g) {
+                if ($g->class_id == $classId) {
+                    array_push($grades, $g);
+                }
+            }
+            return view('Grades/index_student')->with([
+                'class' => $class,
                 'classId' => $classId,
-                'grades' => \Auth::user()->grades(),
+                'grades' => $grades,
                 'user' => \Auth::user()
             ]);
         }
